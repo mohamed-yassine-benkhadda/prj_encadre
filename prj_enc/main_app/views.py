@@ -5,4 +5,4 @@ import os
 
 def home(request):
     print(os.listdir("main_app"))
-    return render(request,'main_app/templates/home.html')
+    return render(request,'home.html')
