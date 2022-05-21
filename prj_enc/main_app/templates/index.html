@@ -5,9 +5,9 @@
     <title>Fauna Website</title>
 
     {% load static%}
-    <link href='/prj_enc/main_app/static/css/styles.css' rel='stylesheet' />
-    <link href='/prj_enc/main_app/static/css/styles_bis.css' rel='stylesheet' />
-    <link href='/prj_enc/main_app/static/css/styles_bis_bis.css' rel='stylesheet' />
+    <link href='{% static 'css/styles.css'%}' rel='stylesheet' />
+    <link href='{% static 'css/styles_bis.css'%}' rel='stylesheet' />
+    <link href='{% static 'css/styles_bis_bis.css'%}' rel='stylesheet' />
 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -27,7 +27,7 @@
             <div class="row align-items-center">
 
                 <div class="col-11 col-xl-2">
-                    <img src="/prj_enc/main_app/static/images/logo.png" style="width: 100px; position: relative; left: -90px;" alt="" srcset="">
+                    <img src="{% static 'images/logo.png'%}" style="width: 100px; position: relative; left: -90px;" alt="" srcset="">
                 </div>
                 <div class="col-12 col-md-10 d-none d-xl-block">
                     <nav class="site-navigation position-relative text-right" role="navigation">
@@ -57,7 +57,7 @@
         <h6>Discover your city's green spaces and embrace Mother Nature like never before by particpating in numerous activities to help your local environemment.</h6>
 
         <section class="u-align-center u-clearfix u-valign-top-xl u-section-2" id="sec-60f3" style="top: 40px;">
-            <img class="u-expanded-width u-image u-image-1" src="/prj_enc/main_app/static/images/park.jpg">
+            <img class="u-expanded-width u-image u-image-1" src="{% static 'images/park.jpg'%}">
             <div class="u-list u-list-1">
                 <div class="u-repeater u-repeater-1">
                     <div class="u-container-style u-custom-item u-list-item u-palette-2-base u-repeater-item u-list-item-1">
@@ -241,7 +241,7 @@
                     <div class="col-md-3 col-sm-12 ">
                         <div class="footer-widget ">
                             <div class="widget-about ">
-                                <img src="/prj_enc/main_app/static/images/logo.png " alt="logo " class="img-fluid ">
+                                <img src="{% static 'images/logo.png'%}" alt="logo " class="img-fluid ">
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo iste esse placeat iusto quia, atque vero? Architecto assumenda sit quo hic. Cumque ipsa officiis, sunt eaque saepe deserunt commodi ullam?</p>
                                 <ul class="contact-details ">
                                     <li>
