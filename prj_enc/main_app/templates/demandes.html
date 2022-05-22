@@ -3,15 +3,10 @@
 
 <head>
 
-<<<<<<< HEAD:prj_enc/main_app/templates/irrigation.html
-    {% load static%}
-    <link href='{% static 'css/styles.css'%}' rel='stylesheet' />
-=======
-    <title>Green Spaces Irrigation System</title>
+    <title>Demands Management</title>
 
     {% load static %}
     <link href='{% static "/css/styles.css" %}' rel='stylesheet' />
->>>>>>> 0461fbdcf10010290630b3eaf034367822bc7503:prj_enc/main_app/templates/pages/irrigation.html
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -26,20 +21,16 @@
 
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-<<<<<<< HEAD:prj_enc/main_app/templates/irrigation.html
-        <img class="navbar-brand" src="{% static 'images/logo.png'%}" style="height: 70px;"></img>
-=======
         <img class="navbar-brand" src='{% static "/images/logo.png" %}' style="height: 70px;"></img>
->>>>>>> 0461fbdcf10010290630b3eaf034367822bc7503:prj_enc/main_app/templates/pages/irrigation.html
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'irrigation' %}">Green Spaces Irrigation System<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="{% url 'demands' %}">Demands Management<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
@@ -57,25 +48,40 @@
 </head>
 
 <body>
-    <div id="map" class="map" style="
-    position: absolute; top : 100px; margin-left: 11px; margin-bottom: 10px; width: 98%; height: 87%; ">
-        <script>
-            mapboxgl.accessToken = 'pk.eyJ1IjoiZGZnZGZzZmdkaDc1NyIsImEiOiJjbDJ5c3dpNWgwMHBnM2xxdXJkeW11cGV1In0.4otSMnYmdyGSoH9-T-7m9A';
-            mapboxgl.setRTLTextPlugin(
-                'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
-                null,
-                true // Lazy load the plugin
-            );
-            const map = new mapboxgl.Map({
-                container: 'map', // container ID
-                style: 'mapbox://styles/dfgdfsfgdh757/cl2nxfvd8004414qxer8hjign', // style URL 
-                center: [-6.8498129, 33.9715904], // starting position [lng, lat]
-                zoom: 10, // starting zoom
-                attributionControl: false
-            });
 
-            // Add zoom and rotation controls to the map.
-            map.addControl(new mapboxgl.NavigationControl());
-        </script>
-    </div>
+    <div class="container mt-4">
+        <h1>
+            Demands Management :
+        </h1>
+
+
+        <table class="table table-striped" style="position: relative; top : 40px">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Citizen</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Demand1</td>
+                    <td>Park</td>
+                    <td>Client1</td>
+                    <td>Pending</td>
+                    <td>
+                        <a href="" class="btn btn-secondary">Approve</a>
+                        <form method="POST" action="" , style="display : inline-block" onsubmit=" return confirm('Êtes vous vraiment sûr?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="">
+                            <button class="btn btn-danger">
+									Delete
+								</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 </body>

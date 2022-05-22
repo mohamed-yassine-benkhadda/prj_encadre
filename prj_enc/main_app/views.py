@@ -1,6 +1,10 @@
 from django.shortcuts import render,redirect
+<<<<<<< HEAD
 from django.contrib.auth import get_user_model,login,authenticate,logout
 from .models import *
+=======
+from django.http import HttpResponse
+>>>>>>> 0461fbdcf10010290630b3eaf034367822bc7503
 import os
 
 # Create your views here.
@@ -24,6 +28,7 @@ def home(request):
     zones = Zone.objects.raw(raws[0])
     return render(request,'index.html')
 
+<<<<<<< HEAD
 def login_view(request):
     if request.method == "POST":
         username = request.POST.get("email")
@@ -41,3 +46,25 @@ def irrigation(request):
 
 def register(request):
     return render(request,'register.html')
+=======
+def about(request):    
+    return HttpResponse('<h1>Not yet available</h1>') 
+
+def login(request):    
+    return render(request, 'pages/login.html')
+
+def register(request):    
+    return render(request, 'pages/register.html') 
+
+def employee(request):    
+    return render(request, 'pages/employee.html') 
+
+def irrigation(request):    
+    return render(request, 'pages/irrigation.html') 
+
+def demands(request):    
+    return render(request, 'pages/demandes.html') 
+
+def green_spaces(request):    
+    return render(request, 'pages/green-spaces.html') 
+>>>>>>> 0461fbdcf10010290630b3eaf034367822bc7503
