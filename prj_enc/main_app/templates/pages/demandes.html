@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Green Spaces Irrigation System</title>
+    <title>Demands Management</title>
 
     {% load static %}
     <link href='{% static "/css/styles.css" %}' rel='stylesheet' />
@@ -27,10 +27,10 @@
   </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'irrigation' %}">Green Spaces Irrigation System<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="{% url 'demands' %}">Demands Management<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
@@ -48,25 +48,40 @@
 </head>
 
 <body>
-    <div id="map" class="map" style="
-    position: absolute; top : 100px; margin-left: 11px; margin-bottom: 10px; width: 98%; height: 87%; ">
-        <script>
-            mapboxgl.accessToken = 'pk.eyJ1IjoiZGZnZGZzZmdkaDc1NyIsImEiOiJjbDJ5c3dpNWgwMHBnM2xxdXJkeW11cGV1In0.4otSMnYmdyGSoH9-T-7m9A';
-            mapboxgl.setRTLTextPlugin(
-                'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
-                null,
-                true // Lazy load the plugin
-            );
-            const map = new mapboxgl.Map({
-                container: 'map', // container ID
-                style: 'mapbox://styles/dfgdfsfgdh757/cl2nxfvd8004414qxer8hjign', // style URL 
-                center: [-6.8498129, 33.9715904], // starting position [lng, lat]
-                zoom: 10, // starting zoom
-                attributionControl: false
-            });
 
-            // Add zoom and rotation controls to the map.
-            map.addControl(new mapboxgl.NavigationControl());
-        </script>
-    </div>
+    <div class="container mt-4">
+        <h1>
+            Demands Management :
+        </h1>
+
+
+        <table class="table table-striped" style="position: relative; top : 40px">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Citizen</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Demand1</td>
+                    <td>Park</td>
+                    <td>Client1</td>
+                    <td>Pending</td>
+                    <td>
+                        <a href="" class="btn btn-secondary">Approve</a>
+                        <form method="POST" action="" , style="display : inline-block" onsubmit=" return confirm('Êtes vous vraiment sûr?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="">
+                            <button class="btn btn-danger">
+									Delete
+								</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 </body>
