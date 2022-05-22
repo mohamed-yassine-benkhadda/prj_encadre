@@ -7,6 +7,11 @@ choix_demande = (
     ('Planter','Planter')
 )
 
+choix_public = (
+    ('Public','Public'),
+    ('Prive','Prive')
+)
+
 class Utilisateur(models.Model):
     nom = models.CharField(max_length=40)
     prenom = models.CharField(max_length=40)
@@ -49,12 +54,19 @@ class Zone(models.Model):
     nom = models.CharField(max_length=40)
     adresse = models.CharField(max_length=200)
     superficie = models.IntegerField()
-    public = models.BooleanField()
-    prix = models.BooleanField()
-    id_utilisateur = models.IntegerField()
+    public = models.CharField(choices=choix_public,max_length=50)
+    prix = models.IntegerField(blank=True,null=True)
+    id_utilisateur = models.IntegerField(blank=True,null=True)
     picnic = models.BooleanField()
     camping = models.BooleanField()
-    image = models.ImageField()
+    manger = models.BooleanField(default=False)
+    lat = models.FloatField(blank=True,null=True)
+    lon = models.FloatField(blank=True,null=True)
+    description = models.TextField(blank=True,null=True)
+    image = models.ImageField(upload_to='Zone')
+
+    def __str__(self):
+        return self.nom
 
     class Meta:
         db_table = "Zone"

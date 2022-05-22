@@ -33,9 +33,9 @@
                     <nav class="site-navigation position-relative text-right" role="navigation">
 
                         <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-                            <li class="active"><a href="index.html"><span>Home</span></a></li>
+                            <li class="active"><a href="{% url 'accueil' %}"><span>Home</span></a></li>
                             <li><a href="/prj_enc/main_app/templates/about.html"><span>About</span></a></li>
-                            <li><a href="/prj_enc/main_app/templates/pages/login.html"><span>Login</span></a></li>
+                            <li><a href="{% url 'login' %}"><span>Login</span></a></li>
                         </ul>
                     </nav>
                 </div>
@@ -174,7 +174,7 @@
             </div>
         </form>
     </div>
-    <script src="/prj_enc/main_app/static/js/extention/choices.js"></script>
+    <script src="{% static 'js/extention/choices.js'%}"></script>
     <script>
         const customSelects = document.querySelectorAll("select");
         const deleteBtn = document.getElementById('delete')
