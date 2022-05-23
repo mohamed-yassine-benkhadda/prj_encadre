@@ -6,13 +6,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.home, name="home"),
-    path('about/', views.about, name='about'),
-    path('login/', views.login, name='login'),
-    path('register/', views.register, name='register'),
-    path('irrigation/', views.irrigation, name='irrigation'),
-    path('demands/', views.demands, name='demands'),
-    path('employee/', views.employee, name='employee'),
-    path('green-spaces/', views.green_spaces, name='green_spaces'),
+    # path('about', views.about, name='about'),
+    path('login', views.login, name='login'),
+    path('register', views.register, name='register'),
+    path('irrigation', views.irrigation, name='irrigation'),
+    # path('demands', views.demands, name='demands'),
+    # path('employee', views.employee, name='employee'),
+    # path('green-spaces', views.green_spaces, name='green_spaces'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
