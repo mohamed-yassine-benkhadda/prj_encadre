@@ -21,7 +21,8 @@
 
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <img class="navbar-brand" src='{% static "/images/logo.png" %}' style="height: 70px;"></img>
+        <a href="{% url 'home' %}"><img class="navbar-brand" src='{% static "/images/logo.png" %}' style="height: 70px;"></img>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -58,21 +59,25 @@
         <table class="table table-striped" style="position: relative; top : 40px">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Admin</th>
                     <th>Type</th>
-                    <th>Citizen</th>
-                    <th>Status</th>
+                    <th>Description</th>
+                    <th>Day</th>
+                    <th>Address</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Demand1</td>
-                    <td>Park</td>
-                    <td>Client1</td>
-                    <td>Pending</td>
+                    <td>Demand@gmail.com</td>
+                    <td>Admin1</td>
+                    <td>Irrigation</td>
+                    <td style="max-width: 300px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas omnis iure unde corrupti rem mollitia quam obcaecati, magni est consequatur adipisci quisquam distinctio possimus assumenda a deleniti? Dicta, ipsum unde.</td>
+                    <td>23/05/2022</td>
+                    <td>Address1</td>
                     <td>
-                        <a href="" class="btn btn-secondary">Approve</a>
+                        <a href="" class="btn btn-secondary" style="margin: 2px;">Approve</a>
                         <form method="POST" action="" , style="display : inline-block" onsubmit=" return confirm('Êtes vous vraiment sûr?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="">

@@ -21,7 +21,8 @@
 
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <img class="navbar-brand" src='{% static "/images/logo.png" %}' style="height: 70px;"></img>
+        <a href="{% url 'home' %}"><img class="navbar-brand" src='{% static "/images/logo.png" %}' style="height: 70px;"></img>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -100,22 +101,34 @@
             <thead>
                 <tr>
                     <th>Name
-                        <th>Lat & Long
-                            <th>Description
-                                <th>Plants
-                                    <th>Status
-                                        <th>Actions
+                        <th>Address
+                            <th>Lat&Long
+                                <th>Size
+                                    <th>Price
+                                        <th>Public
+                                            <th>Picnic
+                                                <th>Camping
+                                                    <th>Eating
+                                                        <th>Description
+                                                            <th>Image
+                                                                <th>Actions
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>nom</td>
+                    <td>address</td>
                     <td>(45.78, 7.87)</td>
-                    <td style="max-width: 400px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam minus, quisquam aut beatae porro nesciunt asperiores modi iure provident totam expedita quibusdam voluptatem, nisi tenetur rem, culpa facilis libero quaerat.</td>
-                    <td>plant1, plant2</td>
-                    <td>Not Yet Irrigated</td>
+                    <td>45 m²</td>
+                    <td>45 $</td>
+                    <td>False</td>
+                    <td>True</td>
+                    <td>True</td>
+                    <td>True</td>
+                    <td style="max-width: 120px;">Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                    <td>image</td>
                     <td>
-                        <a href="" class="btn btn-secondary">Edit</a>
+                        <a href="" class="btn btn-secondary" style="margin:2px ;">Edit</a>
                         <form method="POST" action="" , style="display : inline-block" onsubmit=" return confirm('Are you sure? ')">
                             <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-danger"> Delete </button>

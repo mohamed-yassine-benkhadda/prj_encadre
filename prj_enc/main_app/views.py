@@ -1,10 +1,7 @@
 from django.shortcuts import render,redirect
-<<<<<<< HEAD
+from django.http import HttpResponse
 from django.contrib.auth import get_user_model,login,authenticate,logout
 from .models import *
-=======
-from django.http import HttpResponse
->>>>>>> 0461fbdcf10010290630b3eaf034367822bc7503
 import os
 
 # Create your views here.
@@ -28,7 +25,9 @@ def home(request):
     zones = Zone.objects.raw(raws[0])
     return render(request,'index.html')
 
-<<<<<<< HEAD
+def about(request):    
+    return HttpResponse('<h1>Not yet available</h1>') 
+
 def login_view(request):
     if request.method == "POST":
         username = request.POST.get("email")
@@ -38,33 +37,26 @@ def login_view(request):
         if user is not None:
             login(request, user)
             print(f"\n\n\n{user.username}\t{user.password}\n\n\n")
+            
+            # return based on class :
+            # if admin return irrigation
+            # if technicien return employee
+            # if admin return citizen (doing)
+            
             return redirect('accueil')
     return render(request,'login.html')
 
-def irrigation(request):
-    return render(request,'irrigation.html')
-
-def register(request):
-    return render(request,'register.html')
-=======
-def about(request):    
-    return HttpResponse('<h1>Not yet available</h1>') 
-
-def login(request):    
-    return render(request, 'pages/login.html')
-
 def register(request):    
-    return render(request, 'pages/register.html') 
+    return render(request, 'register.html') 
 
 def employee(request):    
-    return render(request, 'pages/employee.html') 
+    return render(request, 'employee.html') 
 
 def irrigation(request):    
-    return render(request, 'pages/irrigation.html') 
+    return render(request, 'irrigation.html') 
 
 def demands(request):    
-    return render(request, 'pages/demandes.html') 
+    return render(request, 'demandes.html') 
 
 def green_spaces(request):    
-    return render(request, 'pages/green-spaces.html') 
->>>>>>> 0461fbdcf10010290630b3eaf034367822bc7503
+    return render(request, 'green-spaces.html') 

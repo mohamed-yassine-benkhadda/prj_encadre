@@ -21,7 +21,8 @@
 
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <img class="navbar-brand" src='{% static "/images/logo.png" %}' style="height: 70px;"></img>
+        <a href="{% url 'home' %}"><img class="navbar-brand" src='{% static "/images/logo.png" %}' style="height: 70px;"></img>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -45,26 +46,26 @@
 
     <div class="container mt-4">
         <h1>
-            Tasks :
+            Tasks
         </h1>
 
 
         <table class="table table-striped" style="position: relative; top : 40px">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Location</th>
+                    <th>Admin</th>
+                    <th>Address</th>
+                    <th>Description</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Task1</td>
-                    <td>Park</td>
-                    <td>(45.78, 7.87)</td>
-                    <td>Pending</td>
+                    <td>Admin1</td>
+                    <td>Address1</td>
+                    <td style="max-width: 120px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis numquam quia ullam beatae officia nam voluptas nemo, dolorum id dolores pariatur perspiciatis, exercitationem tempora quidem, mollitia quis nostrum placeat temporibus.</td>
+                    <td>True</td>
                     <td>
                         <a href="" class="btn btn-danger">Finish</a>
                     </td>
