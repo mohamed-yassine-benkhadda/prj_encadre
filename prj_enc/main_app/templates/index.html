@@ -85,7 +85,8 @@
     </div>
 
     <div class="s007">
-        <form>
+        <form action="" method="POST">
+            {% csrf_token %}
             <div class="inner-form">
                 <div class="basic-search">
                     <div class="input-field">
@@ -95,123 +96,46 @@
         6.483c0.099 0.108 0.233 0.162 0.369 0.162 0.121 0 0.242-0.043 0.338-0.131 0.204-0.187 0.217-0.503 0.031-0.706zM1 7.5c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5-2.916 6.5-6.5 6.5-6.5-2.916-6.5-6.5z "></path>
         </svg>
                         </div>
-                        <input id="search" type="text" placeholder="Search..." />
+                        <input name="search" id="search" type="text" placeholder="Search..." />
                         <div class="result-count">
                             <span>0 </span>results</div>
                     </div>
                 </div>
                 <div class="advance-search">
                     <span class="desc">Advanced Search</span>
-                    <div class="row">
-                        <div class="input-field">
-                            <div class="input-select">
-                                <select data-trigger="" name="choices-single-defaul">
-        <option placeholder="" value="">ACCESSORIES</option>
-        <option>ACCESSORIES</option>
-        <option>SUBJECT B</option>
-        <option>SUBJECT C</option>
-        </select>
-                            </div>
+                    <div style="margin-bottom: 30px;">
+                        <div class="form-check form-check-inline" style="margin-right: 40px;">
+                            <input class="form-check-input" name="public" id="public" type="checkbox" value="true">
+                            <label class="form-check-label" for="public">Public</label>
                         </div>
-                        <div class="input-field">
-                            <div class="input-select">
-                                <select data-trigger="" name="choices-single-defaul">
-        <option placeholder="" value="">COLOR</option>
-        <option>GREEN</option>
-        <option>SUBJECT B</option>
-        <option>SUBJECT C</option>
-        </select>
-                            </div>
+                        <div class="form-check form-check-inline" style="margin-right: 40px;">
+                            <input class="form-check-input" name="eat" id="eat" type="checkbox" value="true">
+                            <label class="form-check-label" for="eat">Eating</label>
                         </div>
-                        <div class="input-field">
-                            <div class="input-select">
-                                <select data-trigger="" name="choices-single-defaul">
-        <option placeholder="" value=" ">SIZE</option>
-        <option>SIZE</option>
-        <option>SUBJECT B</option>
-        <option>SUBJECT C</option>
-        </select>
-                            </div>
+                        <div class="form-check form-check-inline" style="margin-right: 40px;">
+                            <input class="form-check-input" name="picnic" id="picnic" type="checkbox" value="true">
+                            <label class="form-check-label" for="picnic">Picnic</label>
                         </div>
-                    </div>
-                    <div class="row second">
-                        <div class="input-field">
-                            <div class="input-select">
-                                <select data-trigger=" " name="choices-single-defaul">
-        <option placeholder="" value=" ">SALE</option>
-        <option>SALE</option>
-        <option>SUBJECT B</option>
-        <option>SUBJECT C</option>
-        </select>
-                            </div>
-                        </div>
-                        <div class="input-field">
-                            <div class="input-select">
-                                <select data-trigger="" name="choices-single-defaul">
-        <option placeholder="" value="">TIME</option>
-        <option>THIS WEEK</option>
-        <option>SUBJECT B</option>
-        <option>SUBJECT C</option>
-        </select>
-                            </div>
-                        </div>
-                        <div class="input-field">
-                            <div class="input-select">
-                                <select data-trigger="" name="choices-single-defaul">
-        <option placeholder="" value="">TYPE</option>
-        <option>TYPE</option>
-        <option>SUBJECT B</option>
-        <option>SUBJECT C</option>
-        </select>
-                            </div>
+                        <div class="form-check form-check-inline" style="margin-right: 40px;">
+                            <input class="form-check-input" name="camping" id="camping" type="checkbox" value="true">
+                            <label class="form-check-label" for="camping">Camping</label>
                         </div>
                     </div>
                     <div class="row third">
                         <div class="input-field">
-                            <button class="btn-search" id="select">Search</button>
-                            <button class="btn-delete" id="delete ">Delete</button>
+                            <button type="submit" value="submit" class="btn-search" id="submit">Search</button>
+                            <button type="reset" value="reset" class="btn-delete" id="delete">Delete</button>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-    <script src="/prj_enc/main_app/static/js/extention/choices.js "></script>
-    <script>
-        const customSelects = document.querySelectorAll("select");
-        const deleteBtn = document.getElementById("delete")
-        const choices = new Choices("select", {
-            searchEnabled: false,
-            removeItemButton: true,
-            itemSelectText: '',
-        });
-        for (let i = 0; i < customSelects.length; i++) {
-            customSelects[i].addEventListener('addItem', function(event) {
-                if (event.detail.value) {
-                    let parent = this.parentNode.parentNode
-                    parent.classList.add('valid')
-                    parent.classList.remove('invalid')
-                } else {
-                    let parent = this.parentNode.parentNode
-                    parent.classList.add('invalid')
-                    parent.classList.remove('valid')
-                }
-            }, false);
-        }
-        deleteBtn.addEventListener("click ", function(e) {
-            e.preventDefault()
-            const deleteAll = document.querySelectorAll('.choices__button')
-            for (let i = 0; i < deleteAll.length; i++) {
-                deleteAll[i].click();
-            }
-        });
-    </script>
-
 </body>
 
 
 
-<div id="map" class="map" style=" position: absolute; top: 1700px; margin-left: 11px; margin-bottom: 100px; width: 98%; height: 40%; ">
+<div id="map" class="map" style=" position: absolute; top: 1610px; margin-left: 11px; margin-bottom: 100px; width: 98%; height: 50%; ">
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiZGZnZGZzZmdkaDc1NyIsImEiOiJjbDJ5c3dpNWgwMHBnM2xxdXJkeW11cGV1In0.4otSMnYmdyGSoH9-T-7m9A';
         mapboxgl.setRTLTextPlugin(

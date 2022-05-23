@@ -7,8 +7,8 @@ import os
 # Create your views here.
 
 def home(request):
-    parameters = request.GET
-    search = parameters.get('search')
+    parameters = request.POST
+    search = parameters.get("search")
     eat = parameters.get('eat')
     public = parameters.get('public')
     picnic = parameters.get('picnic')
@@ -22,6 +22,7 @@ def home(request):
     raws=[
         "select * from zone where 1"
     ]
+    print("request : " + str(parameters)) # debugging
     zones = Zone.objects.raw(raws[0])
     return render(request,'index.html')
 
@@ -41,7 +42,7 @@ def login_view(request):
             # return based on class :
             # if admin return irrigation
             # if technicien return employee
-            # if admin return citizen (doing)
+            # if admin return citizen page (doing)
             
             return redirect('accueil')
     return render(request,'login.html')
