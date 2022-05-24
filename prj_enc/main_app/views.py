@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import get_user_model,login,authenticate,logout
+import http.client, urllib.parse
 from .models import *
+import json
 import os
 
 # Create your views here.
@@ -18,7 +20,7 @@ def extract_lat_lng(c):
     db = json.load(res)
     lat = db['data'][0]['latitude']
     lng = db['data'][0]['longitude']   
-    return [lng,lat]
+    return [lat,lng]
 
 def home(request):
     print(request.GET)
@@ -62,11 +64,30 @@ def home(request):
     raws=[
         "select * from zone where 1 " + s
     ]
-    print(f"\n\n\n{raws[0]}\n\n\n")
     zones = Zone.objects.raw(raws[0])
+    zone_list = []
+    zone_cord = []
+    zone_img = []
+    for zone in zones:
+        if zone.lat == None:
+            zone.lat = extract_lat_lng(zone.nom)[1]
+            zone.save()
+        if zone.lon == None:
+            zone.lon = extract_lat_lng(zone.nom)[0]
+            zone.save()
+        nom = zone.nom
+        cords = [zone.lon,zone.lat]
+        print(cords)
+        image = zone.image
+        zone_list.append(nom)
+        zone_cord.append(cords)
+        zone_img.append(image)
     
     return render(request,'index.html',{
         "zones" : zones,
+       "zone_list" : zone_list,
+       "zone_img" : zone_img,
+       "zone_cord" : zone_cord,
     })
 
 def login_view(request):
@@ -77,7 +98,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('accueil')
+            return redirect('home')
     return render(request,'login.html')
 
 def irrigation(request):

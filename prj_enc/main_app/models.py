@@ -65,9 +65,6 @@ class Zone(models.Model):
     description = models.TextField(blank=True,null=True)
     image = models.ImageField(upload_to='Zone')
 
-    def __str__(self):
-        return self.nom
-
     class Meta:
         db_table = "Zone"
 

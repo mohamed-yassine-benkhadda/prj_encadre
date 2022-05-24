@@ -142,6 +142,8 @@
             null,
             true // Lazy load the plugin
         );
+        var data = {{ zone_cord }};
+        console.log(data);
         const map = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/dfgdfsfgdh757/cl2nxfvd8004414qxer8hjign', // style URL 
@@ -152,6 +154,11 @@
 
         // Add zoom and rotation controls to the map.
         map.addControl(new mapboxgl.NavigationControl());
+        data.forEach(e => {
+            var marker = new mapboxgl.Marker()
+            .setLngLat(e)
+            .addTo(map);
+        })
     </script>
 </div>
 
