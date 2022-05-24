@@ -85,3 +85,15 @@ def irrigation(request):
 
 def register(request):
     return render(request,'register.html')
+
+def about(request):
+    return render(request,'about.html')
+
+def employee(request):
+    return render(request,'employee.html')
+
+def demands(request):
+    return render(request,'demandes.html')
+
+def green_spaces(request):
+    return render(request,'green-spaces.html')
