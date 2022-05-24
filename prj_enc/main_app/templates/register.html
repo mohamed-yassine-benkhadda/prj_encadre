@@ -37,7 +37,8 @@
                 <div class="login100-pic js-tilt" data-tilt>
                     <img src='{% static "/images/img-01.png" %}' alt="IMG">
                 </div>
-                <form class="login100-form validate-form">
+                <form class="login100-form validate-form" method="POST">
+                    {% csrf_token %}
                     <span class="login100-form-title">
 Member Register
 </span>

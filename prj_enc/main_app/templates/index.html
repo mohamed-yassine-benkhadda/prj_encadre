@@ -130,9 +130,7 @@
             </div>
         </form>
     </div>
-</body>
-
-
+</body>        
 
 <div id="map" class="map" style=" position: absolute; top: 1610px; margin-left: 11px; margin-bottom: 100px; width: 98%; height: 50%; ">
     <script>
@@ -143,7 +141,6 @@
             true // Lazy load the plugin
         );
         var data = {{ zone_cord }};
-        console.log(data);
         const map = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/dfgdfsfgdh757/cl2nxfvd8004414qxer8hjign', // style URL 
@@ -152,6 +149,10 @@
             attributionControl: false
         });
 
+        {%for zone in zones%}
+            console.log("{{zone.image}}")
+        {%endfor%}
+        
         map.on('load', () => {
             // Add an image to use as a custom marker
             map.loadImage(
@@ -164,20 +165,24 @@
                         'type': 'geojson',
                         'data': {
                             'type': 'FeatureCollection',
-                            'features': [{
+                            'features': [
+                            {%for zone in zones%} 
+                            {
                                 'type': 'Feature',
                                 'geometry': {
                                     'type': 'Point',
-                                    'coordinates': [-6.845324, 34.005557]
+                                    'coordinates': [{{zone.lon}}, {{zone.lat}}]
                                 },
                                 'properties': {
-                                    'title': 'Maroc Telecom Stadium',
-                                    'description': '<img style="position:relative;max-width: 400px" src="{% static "/images/2022-02-06.jpg" %}"><p><b>Address :</b> Stade de Maroc Telecom, Rue Oqbah, Rabat</p><hr><p><b>Public :</b> No<br><b>Picnic :</b> No<br><b>Camping :</b> No<br><b>Eating :</b> No</p><hr><p><b>Description :</b> lorem ipsum</p>',
+                                    'title': "{{zone.nom}}",
+                                    'description': '<img style="position:relative;max-width: 400px" src="{% static "{{zone.image}}"%}"><p><b>Address :</b> {{zone.image}}</p><hr><p><b>Public :</b> No<br><b>Picnic :</b> No<br><b>Camping :</b> No<br><b>Eating :</b> No</p><hr><p><b>Description :</b> lorem ipsum</p>',
                                 }
-                            }]
+                            },
+                            {%endfor%}
+                            ]
                         }
                     });
-
+                    
                     // Add a symbol layer
                     map.addLayer({
                         'id': 'points',
@@ -233,13 +238,12 @@
                 }
             );
         });
-
+        
         // Add zoom and rotation controls to the map.
         map.addControl(new mapboxgl.NavigationControl());
         data.forEach(e => {
             var marker = new mapboxgl.Marker()
             .setLngLat(e)
-            .addTo(map);
         })
     </script>
 </div>

@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import get_user_model,login,authenticate,logout
+from django.contrib.auth.models import User
 import http.client, urllib.parse
 from .models import *
 import json
@@ -85,16 +86,13 @@ def home(request):
     
     return render(request,'index.html',{
         "zones" : zones,
-       "zone_list" : zone_list,
-       "zone_img" : zone_img,
-       "zone_cord" : zone_cord,
+        "zone_cord" : zone_cord
     })
 
 def login_view(request):
     if request.method == "POST":
         username = request.POST.get("email")
         password = request.POST.get("pass")
-
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -105,6 +103,18 @@ def irrigation(request):
     return render(request,'irrigation.html')
 
 def register(request):
+    if request.method == "POST":
+        username = request.POST.get("email")
+        password = request.POST.get("pass")
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else :
+            user = User.objects.create_user(username, username, password)
+            user.is_staff = True
+            user.save()
+            return redirect('home')
     return render(request,'register.html')
 
 def about(request):

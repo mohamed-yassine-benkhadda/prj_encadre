@@ -63,7 +63,7 @@ class Zone(models.Model):
     lat = models.FloatField(blank=True,null=True)
     lon = models.FloatField(blank=True,null=True)
     description = models.TextField(blank=True,null=True)
-    image = models.ImageField(upload_to='Zone')
+    image = models.ImageField(upload_to='prj_enc/main_app/static/images')
 
     class Meta:
         db_table = "Zone"
