@@ -97,3 +97,12 @@ def demands(request):
 
 def green_spaces(request):
     return render(request,'green-spaces.html')
+
+def citizen_green_spaces(request):
+    return render(request,'citizen-green-spaces.html')
+
+def citizen_private_form(request):
+    return render(request,'citizen-private-form.html')
+
+def citizen_plants_form(request):
+    return render(request,'citizen-plants-form.html')

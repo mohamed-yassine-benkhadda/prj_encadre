@@ -13,6 +13,9 @@ urlpatterns = [
     path('demands', views.demands, name='demands'),
     path('employee', views.employee, name='employee'),
     path('green-spaces', views.green_spaces, name='green_spaces'),
+    path('citizen-green-spaces', views.citizen_green_spaces, name='citizen_green_spaces'),
+    path('citizen-private-form', views.citizen_private_form, name='citizen_private_form'),
+    path('citizen-plants-form', views.citizen_plants_form, name='citizen_plants_form'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
