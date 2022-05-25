@@ -56,36 +56,26 @@
         </h1>
 
 
-        <form style="position: relative; top:50px">
+        <form action="" method="GET" style="position: relative; top:50px; margin: auto;">
             <div class="form-group">
-                <label for="exampleFormControlInput1">Email address</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                <label for="exampleFormControlInput1">Name</label>
+                <input name="name" type="text" class="form-control" id="name" placeholder="Plant">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlSelect1">Example select</label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
+                <label for="exampleFormControlInput1">Water needs</label>
+                <input name="water" type="number" class="form-control" id="water" placeholder="0 L">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlSelect2">Example multiple select</label>
-                <select multiple class="form-control" id="exampleFormControlSelect2">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Example textarea</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="bazr">Description</label>
+                <textarea name="description" class="form-control" placeholder="Describe your plant" id="description" rows="3"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <label for="bazr">Image</label>
+            <div class="custom-file" style="margin-top: 10px;margin-bottom: 30px;">
+                <label class="custom-file-label" for="customFileLang">Choose an Image</label>
+                <input name="image" type="file" class="custom-file-input" id="image">
+            </div>
+
+            <button type="submit" value="submit" class="btn btn-primary">Submit</button>
         </form>
 </body>

@@ -129,6 +129,12 @@ def demands(request):
 def green_spaces(request):
     return render(request,'green-spaces.html')
 
+def green_spaces_add(request):
+    return render(request,'green-spaces-add.html')
+
+def green_spaces_edit(request):
+    return render(request,'green-spaces-edit.html')
+
 def citizen_green_spaces(request):
     return render(request,'citizen-green-spaces.html')
 

@@ -54,7 +54,7 @@
         <h1> Green Spaces Management </h1>
 
         <div class="text-right">
-            <a href="" class="btn btn-primary" style="position: relative; left: -30px; display : inline-block">Add</a>
+            <a href="{% url 'green_spaces_add' %}" class="btn btn-primary" style="position: relative; left: -30px; display : inline-block">Add</a>
             <div class="input-group" style="position: relative; top :-38px; left: 740px; width: fit-content;">
                 <div class="form-outline">
                     <input id="search-focus" type="search" id="form1" class="form-control" />
@@ -128,7 +128,7 @@
                     <td style="max-width: 120px;">Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
                     <td style="max-width: 120px;"><img src='{% static "/images/2022-02-06.jpg" %}'></td>
                     <td style="max-width: 50px;">
-                        <a href="" class="btn btn-secondary" style="margin:2px ;">Edit</a>
+                        <a href="{% url 'green_spaces_edit' %}" class="btn btn-secondary" style="margin:2px ;">Edit</a>
                         <form method="POST" action="" , style="display : inline-block" onsubmit=" return confirm('Are you sure? ')">
                             <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-danger"> Delete </button>

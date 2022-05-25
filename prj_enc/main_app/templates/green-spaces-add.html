@@ -3,10 +3,10 @@
 
 <head>
 
-    <title>Green Space form</title>
+    <title>Green Spaces Management</title>
 
     {% load static %}
-    <link href='{% static "/css/styles.css" %}' rel='stylesheet' />
+    <link href='{% static "/css/styles.css" %}' rel='stylesheet ' />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -16,8 +16,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js '></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css ' rel='stylesheet ' />
 
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
@@ -29,13 +29,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'citizen_green_spaces' %}">Green Spaces<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'citizen_private_form' %}">Private Green Spaces Form<span class="sr-only"></span></a>
+                    <a class="nav-link" href="{% url 'irrigation' %}">Green Spaces Irrigation System<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'citizen_plants_form' %}">Planting Plants Form<span class="sr-only"></span></a>
+                    <a class="nav-link" href="{% url 'demands' %}">Demands Management<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'green_spaces' %}">Green Spaces Management<span class="sr-only"></span></a>
                 </li>
             </ul>
 
@@ -48,11 +48,14 @@
     </nav>
 </head>
 
+
+
+
 <body>
 
     <div class="container mt-4 mb-4">
         <h1>
-            Add Your Green Space :
+            Add a Green Space :
         </h1>
 
 
