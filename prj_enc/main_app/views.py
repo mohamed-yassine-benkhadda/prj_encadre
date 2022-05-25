@@ -78,11 +78,12 @@ def home(request):
             zone.save()
         nom = zone.nom
         cords = [zone.lon,zone.lat]
-        print(cords)
+        #print(cords)
         image = zone.image
         zone_list.append(nom)
         zone_cord.append(cords)
         zone_img.append(image)
+        print(zone)
     
     return render(request,'index.html',{
         "zones" : zones,
