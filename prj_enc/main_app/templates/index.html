@@ -156,18 +156,14 @@
             null,
             true // Lazy load the plugin
         );
-        var data = {{ zone_cord }};
+        var data = [];
         const map = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/dfgdfsfgdh757/cl2nxfvd8004414qxer8hjign', // style URL 
-            center: [-6.843511, 34.007914], // starting position [lng, lat]
+            center: [{{zone0.lon}}, {{zone0.lat}}], // starting position [lng, lat]
             zoom: 16, // starting zoom
             attributionControl: false
         });
-
-        {%for zone in zones%}
-            console.log("{{zone.image}}")
-        {%endfor%}
         
         map.on('load', () => {
             // Add an image to use as a custom marker

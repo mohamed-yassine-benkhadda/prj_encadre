@@ -52,26 +52,113 @@
     <div id="map" class="map" style="margin-left: 11px; margin-top: 10px;margin-bottom: 10px; width: 98%; height: 87%; ">
         <script>
             mapboxgl.accessToken = 'pk.eyJ1IjoiZGZnZGZzZmdkaDc1NyIsImEiOiJjbDJ5c3dpNWgwMHBnM2xxdXJkeW11cGV1In0.4otSMnYmdyGSoH9-T-7m9A';
-            mapboxgl.setRTLTextPlugin(
-                'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
-                null,
-                true // Lazy load the plugin
+        mapboxgl.setRTLTextPlugin(
+            'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+            null,
+            true // Lazy load the plugin
+        );
+        var data = [];
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/dfgdfsfgdh757/cl2nxfvd8004414qxer8hjign', // style URL 
+            center: [{{zone0.lon}}, {{zone0.lat}}], // starting position [lng, lat]
+            zoom: 16, // starting zoom
+            attributionControl: false
+        });
+        
+        map.on('load', () => {
+            // Add an image to use as a custom marker
+            map.loadImage(
+                "{% static 'images/park.png'%}",
+                (error, image) => {
+                    if (error) throw error;
+                    map.addImage('custom-marker', image);
+                    // Add a GeoJSON source with 2 points
+                    map.addSource('points', {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': [
+                            {%for zone in zones%} 
+                            {
+                                'type': 'Feature',
+                                'geometry': {
+                                    'type': 'Point',
+                            'coordinates': [{{zone.lon}}, {{zone.lat}}]
+                                },
+                                'properties': {
+                                    'title': "{{zone.nom}}",
+                                    'description': '<img style="position:relative;max-width: 400px" src="{% static "{{zone.image}}"%}"><p><b>Address :</b> {{zone.image}}</p><hr><p><b>Public :</b> No<br><b>Picnic :</b> No<br><b>Camping :</b> No<br><b>Eating :</b> No</p><hr><p><b>Description :</b> lorem ipsum</p>',
+                                }
+                            },
+                            {%endfor%}
+                            ]
+                        }
+                    });
+
+        // Add a symbol layer
+        map.addLayer({
+            'id': 'points',
+            'type': 'symbol',
+            'source': 'points',
+            'layout': {
+                'icon-image': 'custom-marker',
+                'icon-size': 0.10,
+                // get the title name from the source's "title" property
+                'text-field': ['get', 'title'],
+                'text-font': [
+                    'Open Sans Semibold',
+                    'Arial Unicode MS Bold'
+                ],
+                'text-offset': [0, 1.7],
+                'text-anchor': 'top'
+            }
+        });
+
+                    // When a click event occurs on a feature in the places layer, open a popup at the
+                    // location of the feature, with description HTML from its properties.
+                    map.on('click', 'points', (e) => {
+                        // Copy coordinates array.
+                        const coordinates = e.features[0].geometry.coordinates.slice();
+                        const description = e.features[0].properties.description;
+
+                        // Ensure that if the map is zoomed out such that multiple
+                        // copies of the feature are visible, the popup appears
+                        // over the copy being pointed to.
+                        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                        }
+
+                        new mapboxgl.Popup({
+                                closeButton: false
+                            })
+                            .addClassName("mapboxgl-popup")
+                            .setMaxWidth('400')
+                            .setLngLat(coordinates)
+                            .setHTML(description)
+                            .addTo(map);
+                    });
+
+        // Change the cursor to a pointer when the mouse is over the places layer.
+        map.on('mouseenter', 'points', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on('mouseleave', 'points', () => {
+            map.getCanvas().style.cursor = '';
+        });
+                }
             );
-            const map = new mapboxgl.Map({
-                container: 'map', // container ID
-                style: 'mapbox://styles/dfgdfsfgdh757/cl2nxfvd8004414qxer8hjign', // style URL 
-                center: [-6.8498129, 33.9715904], // starting position [lng, lat]
-                zoom: 10, // starting zoom
-                attributionControl: false
-            });
+        });
 
-            // Add zoom and rotation controls to the map.
-            map.addControl(new mapboxgl.NavigationControl());
+        // Add zoom and rotation controls to the map.
+        map.addControl(new mapboxgl.NavigationControl());
 
-            // Add GPS
-            map.addControl( new mapboxgl.GeolocateControl({
-                positionOptions: {
-                enableHighAccuracy: true
+        // Add GPS
+        map.addControl( new mapboxgl.GeolocateControl({
+            positionOptions: {
+            enableHighAccuracy: true
             },
             // When active the map will receive updates to the device's location as it changes.
             trackUserLocation: true,
@@ -79,6 +166,12 @@
             showUserHeading: true
         })
         );
+
+
+        data.forEach(e => {
+            var marker = new mapboxgl.Marker()
+                .setLngLat(e)
+        })
         </script>
     </div>
 </body>

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 import http.client, urllib.parse
 from .models import *
 import json
+import requests
 import os
 
 # Create your views here.
@@ -66,9 +67,6 @@ def home(request):
         "select * from zone where 1 " + s
     ]
     zones = Zone.objects.raw(raws[0])
-    zone_list = []
-    zone_cord = []
-    zone_img = []
     for zone in zones:
         if zone.lat == None:
             zone.lat = extract_lat_lng(zone.nom)[1]
@@ -76,18 +74,10 @@ def home(request):
         if zone.lon == None:
             zone.lon = extract_lat_lng(zone.nom)[0]
             zone.save()
-        nom = zone.nom
-        cords = [zone.lon,zone.lat]
-        #print(cords)
-        image = zone.image
-        zone_list.append(nom)
-        zone_cord.append(cords)
-        zone_img.append(image)
-        print(zone)
     
     return render(request,'index.html',{
         "zones" : zones,
-        "zone_cord" : zone_cord
+        "zone0" : zones[0]
     })
 
 def login_view(request):
@@ -101,7 +91,25 @@ def login_view(request):
     return render(request,'login.html')
 
 def irrigation(request):
-    return render(request,'irrigation.html')
+    x = requests.get('https://api.openweathermap.org/data/2.5/weather?q=Rabat&appid=dc3354e8258d3f877c9a8ed8b0ed962b')
+    data = x.json()
+    temperature = data["main"]["feels_like"]-273.15
+    raws=[
+        "select * from zone where 1 "
+    ]
+    zones = Zone.objects.raw(raws[0])
+    for zone in zones:
+        if zone.lat == None:
+            zone.lat = extract_lat_lng(zone.nom)[1]
+            zone.save()
+        if zone.lon == None:
+            zone.lon = extract_lat_lng(zone.nom)[0]
+            zone.save()
+    return render(request,'irrigation.html',{
+        'zones':zones,
+        "zone0" : zones[0],
+        "temperature" : round(temperature),
+    })
 
 def register(request):
     if request.method == "POST":
