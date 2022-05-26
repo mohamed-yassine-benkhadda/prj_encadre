@@ -5,9 +5,25 @@ import http.client, urllib.parse
 from .models import *
 import json
 import requests
-import os
 
 # Create your views here.
+
+def update_user():
+    sql_admin = "select * from auth_user where is_superuser = 1"
+    admin_user = User.objects.raw(sql_admin)
+    for user in admin_user:
+        sql = "select * from admin where id_utilisateur = " + str(user.id)
+        if len(Admin.objects.raw(sql)) == 0:
+            admin = Admin(id_utilisateur= user.id, mail= user.username, tel="")
+            admin.save()
+    sql_tech = "select * from auth_user where is_staff = 1 and is_superuser = 0"
+    tech_user = User.objects.raw(sql_tech)
+    for user in tech_user:
+        sql = "select * from admin where id_utilisateur = " + str(user.id)
+        if len(Admin.objects.raw(sql)) == 0:
+            admin = Technicien(id_utilisateur= user.id, mail= user.username, tel="")
+            admin.save()
+
 
 def extract_lat_lng(c):
     conn = http.client.HTTPConnection('api.positionstack.com')
@@ -25,7 +41,6 @@ def extract_lat_lng(c):
     return [lat,lng]
 
 def home(request):
-    print(request.GET)
     parameters = request.GET
     search = parameters.get('search')
     eat = parameters.get('eat')
@@ -81,6 +96,7 @@ def home(request):
     })
 
 def login_view(request):
+    update_user()
     if request.method == "POST":
         username = request.POST.get("email")
         password = request.POST.get("pass")
@@ -94,6 +110,8 @@ def irrigation(request):
     x = requests.get('https://api.openweathermap.org/data/2.5/weather?q=Rabat&appid=dc3354e8258d3f877c9a8ed8b0ed962b')
     data = x.json()
     temperature = data["main"]["feels_like"]-273.15
+    wind = data["wind"]["speed"]
+    rain = data["rain"]["1h"]
     raws=[
         "select * from zone where 1 "
     ]
@@ -109,6 +127,8 @@ def irrigation(request):
         'zones':zones,
         "zone0" : zones[0],
         "temperature" : round(temperature),
+        "wind" : round(wind),
+        "rain" : round(rain),
     })
 
 def register(request):
@@ -121,8 +141,12 @@ def register(request):
             return redirect('home')
         else :
             user = User.objects.create_user(username, username, password)
-            user.is_staff = True
             user.save()
+            user_1 = Utilisateur(id_utilisateur= user.id, mail= user.username, tel="")
+            user_1.save()
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
             return redirect('home')
     return render(request,'register.html')
 
@@ -133,7 +157,18 @@ def employee(request):
     return render(request,'employee.html')
 
 def demands(request):
-    return render(request,'demandes.html')
+    id_user = request.user.id
+    if id_user == None:
+        return redirect('login')
+    raws=[
+        "select * from admin a join auth_user au where au.id = a.id_utilisateur and a.id = " + str(id_user),
+        "select * from demande d join auth_user u where u.id = d.id_utilisateur"
+    ]
+    users = Admin.objects.raw(raws[0])
+    if len(users) == 0:
+        return redirect('login')
+    demandes = Demande.objects.raw(raws[1])
+    return render(request,'demandes.html',{'demandes':demandes})
 
 def green_spaces(request):
     return render(request,'green-spaces.html')

@@ -11,6 +11,7 @@ urlpatterns = [
     path('register', views.register, name='register'),
     path('irrigation', views.irrigation, name='irrigation'),
     path('demands', views.demands, name='demands'),
+    path('demands/?id=<int:id>', views.demands, name='demands'),
     path('employee', views.employee, name='employee'),
     path('green-spaces', views.green_spaces, name='green_spaces'),
     path('green-spaces-add', views.green_spaces_add, name='green_spaces_add'),

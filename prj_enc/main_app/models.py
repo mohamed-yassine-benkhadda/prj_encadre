@@ -13,8 +13,7 @@ choix_public = (
 )
 
 class Utilisateur(models.Model):
-    nom = models.CharField(max_length=40)
-    prenom = models.CharField(max_length=40)
+    id_utilisateur = models.IntegerField(blank=True, null=True)
     tel = models.CharField(max_length=10)
     mail = models.CharField(max_length=100)
 
@@ -22,18 +21,16 @@ class Utilisateur(models.Model):
         db_table = "Utilisateur"
 
 class Technicien(models.Model):
-    nom = models.CharField(max_length=40)
-    prenom = models.CharField(max_length=40)
+    id_utilisateur = models.IntegerField(blank=True, null=True)
     tel = models.CharField(max_length=10)
     mail = models.CharField(max_length=100)
-    department = models.CharField(max_length=40)
+    department = models.CharField(max_length=40,blank=True,null=True)
 
     class Meta:
         db_table = "Technicien"
 
 class Admin(models.Model):
-    nom = models.CharField(max_length=40)
-    prenom = models.CharField(max_length=40)
+    id_utilisateur = models.IntegerField(blank=True, null=True)
     tel = models.CharField(max_length=10)
     mail = models.CharField(max_length=100)
 
@@ -101,6 +98,7 @@ class Demande(models.Model):
     description = models.TextField()
     jour = models.DateTimeField()
     adresse = models.CharField(max_length=200)
+    status = models.IntegerField()
 
     class Meta:
         db_table = "Demande"
