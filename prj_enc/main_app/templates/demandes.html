@@ -49,7 +49,10 @@
 </head>
 
 <body>
-
+    <form method="get" style="display: None;">
+        <input type="text" name="id" id="">
+        <input type="text" name="op" id="">
+    </form>
     <div class="container mt-4">
         <h1>
             Demands Management :
@@ -71,9 +74,9 @@
             <tbody>
                 {%for demande in demandes%}
                 <tr>
-                    <td id="status" style="background-color: #c3e628; width: 2px; padding: 0;"></td>
+                    <td id="status{{demande.id}}" style="background-color: #c3e628; width: 2px; padding: 0;"></td>
                     <script>
-                        var elem = document.getElementById('status');
+                        var elem = document.getElementById('status{{demande.id}}');
                         if ({{demande.status}} == 2){
                             elem.style.backgroundColor = "#EFB700";
                         }
@@ -90,8 +93,8 @@
                     <td>{{demande.jour}}</td>
                     <td>{{demande.adresse}}</td>
                     <td>
-                        <a class="btn btn-success" style="color: #fff;font: size 1.2em;">Approver</a>
-                        <a class="btn btn-danger" style="color: #fff;font: size 1.2em;">Supprimer</a>
+                        <a class="btn btn-success" style="color: #fff;font: size 1.2em;" href="{% url 'demands' %}?id={{demande.id}}&op=1">Approver</a>
+                        <a class="btn btn-danger" style="color: #fff;font: size 1.2em;" href="{% url 'demands' %}?id={{demande.id}}&op=0">Supprimer</a>
                     </td>
                 </tr>
                 {%endfor%}

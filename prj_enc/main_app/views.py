@@ -106,10 +106,20 @@ def home(request):
         zone.manger = switch.get(zone.manger)
         zone.picnic = switch.get(zone.picnic)
         
-        
-    
+    if len(zones) == 0:
+        z = {
+            "lon" : -6.843613,
+            "lat" : 34.007054
+        }
+    else :
+        z = {
+            "lon" : zones[0].lon,
+            "lat" : zones[0].lat
+        }
     return render(request,'index.html',{
         "zones" : zones,
+        "z_lon" : z["lon"],
+        "z_lat" : z["lat"],
     })
 
 def login_view(request):
@@ -137,9 +147,7 @@ def irrigation(request):
     humidity = data["main"]["humidity"]
     clouds = data["clouds"]["all"]
     icon_url = "http://openweathermap.org/img/wn/" + icon + ".png"
-    
-    print(data)
-        
+
     # if (data["rain"] != None) :
     #     rain_pct = data["rain"]["1h"]
     
@@ -195,6 +203,19 @@ def employee(request):
     return render(request,'employee.html')
 
 def demands(request):
+    parameters = request.GET
+    id_demande = parameters.get('id')
+    op = parameters.get('op')
+    if op == "0":
+        sql = "delete from demande where id = "+ str(id_demande)
+        Demande.objects.raw(sql)[0]
+        return redirect('demands')
+    elif op == "1":
+        sql = "select * from demande where id = "+ str(id_demande)
+        d = Demande.objects.raw(sql)[0]
+        d.status = 1
+        d.save()
+        return redirect('demands')
     id_user = request.user.id
     if id_user == None:
         return redirect('login')
