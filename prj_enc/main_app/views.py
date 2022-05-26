@@ -109,9 +109,23 @@ def login_view(request):
 def irrigation(request):
     x = requests.get('https://api.openweathermap.org/data/2.5/weather?q=Rabat&appid=dc3354e8258d3f877c9a8ed8b0ed962b')
     data = x.json()
-    temperature = data["main"]["feels_like"]-273.15
-    wind = data["wind"]["speed"]
-    rain = data["rain"]["1h"]
+    temperature = data["main"]["feels_like"] - 273.15
+    temperature_min = data["main"]["temp_min"] - 273.15
+    temperature_max = data["main"]["temp_max"] - 273.15
+    wind_speed = data["wind"]["speed"]
+    wind_dir = data["wind"]["deg"]
+    descr = data["weather"][0]["description"]
+    icon = data["weather"][0]["icon"]
+    pressure = data["main"]["pressure"]
+    humidity = data["main"]["humidity"]
+    clouds = data["clouds"]["all"]
+    icon_url = "http://openweathermap.org/img/wn/" + icon + ".png"
+    
+    print(data)
+        
+    # if (data["rain"] != None) :
+    #     rain_pct = data["rain"]["1h"]
+    
     raws=[
         "select * from zone where 1 "
     ]
@@ -126,10 +140,17 @@ def irrigation(request):
     return render(request,'irrigation.html',{
         'zones':zones,
         "zone0" : zones[0],
-        "temperature" : round(temperature),
-        "wind" : round(wind),
-        "rain" : round(rain),
-    })
+        "temperature" : "{:.2f}".format(temperature),
+        "temperature_min" : "{:.2f}".format(temperature_min),
+        "temperature_max" : "{:.2f}".format(temperature_max),
+        "wind_speed" : "{:.2f}".format(wind_speed),
+        "wind_dir" : wind_dir,
+        "icon_url" : icon_url,
+        "descr" : descr,
+        "pressure" : pressure,
+        "humidity" : humidity,
+        "clouds" : clouds,
+        })
 
 def register(request):
     if request.method == "POST":

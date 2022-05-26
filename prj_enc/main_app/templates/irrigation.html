@@ -73,13 +73,12 @@
                 (error, image) => {
                     if (error) throw error;
                     map.addImage('custom-marker', image);
-                    // Add a GeoJSON source with 2 points
                     map.addSource('points', {
                         'type': 'geojson',
                         'data': {
                             'type': 'FeatureCollection',
                             'features': [
-                            {%for zone in zones%} 
+                            {%for zone in zones%}
                             {
                                 'type': 'Feature',
                                 'geometry': {
@@ -88,7 +87,7 @@
                                 },
                                 'properties': {
                                     'title': "{{zone.nom}}",
-                                    'description': '<img style="position:relative;max-width: 400px" src="{% static "{{zone.image}}"%}"><p><b>Address :</b> {{zone.image}}</p><hr><p><b>Public :</b> No<br><b>Picnic :</b> No<br><b>Camping :</b> No<br><b>Eating :</b> No</p><hr><p><b>Description :</b> lorem ipsum</p>',
+                                    'description': '<img src="{{icon_url}}" style="position:relative; width: 75px"><span style="position: relative; font-size: 19px">{{descr}}</span><p></p><hr><p><img src="https://img.icons8.com/color/48/000000/temperature--v1.png"/> {{temperature}}°C ({{temperature_min}}°C - {{temperature_max}}°C)<br><img src="https://img.icons8.com/fluency/48/000000/wet.png"/> {{humidity}} % <img style="position: relative; left: 20px" src="https://img.icons8.com/color/48/000000/pressure.png"/><span style="position: relative; left: 20px">{{pressure}} hPa</span><br><img src="https://img.icons8.com/color/48/000000/wind.png"/><span style="position: relative; left: 15px">{{wind_speed}} km/h ({{wind_dir}}°)</span><br><img src="https://img.icons8.com/fluency/48/000000/cloud.png"/><span style="position: relative; left: 10px"> {{clouds}} % Cloudiness</span><hr><button style="margin-left : 50px; margin-bottom: 10px;" value="assign" id="assign" onclick="" class="btn btn-primary">Assign Technician</button>',
                                 }
                             },
                             {%endfor%}
