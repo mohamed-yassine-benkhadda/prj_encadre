@@ -82,6 +82,10 @@ def home(request):
         "select * from zone where 1 " + s
     ]
     zones = Zone.objects.raw(raws[0])
+    
+    switch = {1 : "Yes", 0: "No"}
+    
+    
     for zone in zones:
         if zone.lat == None:
             zone.lat = extract_lat_lng(zone.nom)[1]
@@ -89,6 +93,18 @@ def home(request):
         if zone.lon == None:
             zone.lon = extract_lat_lng(zone.nom)[0]
             zone.save()
+        
+        if zone.image != None :
+            zone.image = 'images/' + (str(zone.image)).split("/")[1]
+        
+        if zone.public == "Prive" :
+            zone.public = "Private"
+            
+        zone.camping = switch.get(zone.camping)
+        zone.manger = switch.get(zone.manger)
+        zone.picnic = switch.get(zone.picnic)
+        
+        
     
     return render(request,'index.html',{
         "zones" : zones,

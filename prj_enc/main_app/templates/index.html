@@ -136,7 +136,7 @@
                         </div>
                     </div>
                     <div class="row third">
-                        <div class="input-field">
+                        <div class="input-field" style="margin-left: 20px;">
                             <button type="submit" value="submit" class="btn-search" id="submit">Search</button>
                             <button type="reset" value="reset" class="btn-delete" id="delete">Delete</button>
                         </div>
@@ -187,7 +187,7 @@
                                 },
                                 'properties': {
                                     'title': "{{zone.nom}}",
-                                    'description': '<img style="position:relative;max-width: 400px" src="{% static "{{zone.image}}"%}"><p><b>Address :</b> {{zone.image}}</p><hr><p><b>Public :</b> No<br><b>Picnic :</b> No<br><b>Camping :</b> No<br><b>Eating :</b> No</p><hr><p><b>Description :</b> lorem ipsum</p>',
+                                    'description': '<img style="position:relative;width: 300px" src="{% static zone.image %}"><p style="width : 300px"><b>Address :</b> {{zone.adresse}}</p><hr><p><img src="https://img.icons8.com/officel/36/000000/public.png"/> {{zone.public}}<span style="position : absolute; left:140px;"><img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/40/000000/external-picnic-summer-travel-flaticons-lineal-color-flat-icons-5.png"/> {{zone.picnic}}</span><br><img src="https://img.icons8.com/external-justicon-flat-justicon/40/000000/external-eating-thanksgiving-justicon-flat-justicon.png"/> {{zone.manger}}<img style="margin-left:64px" src="https://img.icons8.com/office/40/000000/mobile-home.png"/> {{zone.camping}}</p><hr><p style="width : 300px"><b>Description :</b> {{zone.description}}</p>',
                                 }
                             },
                             {%endfor%}
