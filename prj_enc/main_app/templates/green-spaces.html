@@ -102,7 +102,6 @@
                 <tr>
                     <th>Name
                         <th>Address
-                            <th>Lat&Long
                                 <th>Size
                                     <th>Price
                                         <th>Public
@@ -115,26 +114,26 @@
                 </tr>
             </thead>
             <tbody>
+                {%for zone in zones%}
                 <tr>
-                    <td>nom</td>
-                    <td>address</td>
-                    <td>(45.78, 7.87)</td>
-                    <td>45 m²</td>
-                    <td>45 $</td>
-                    <td>False</td>
-                    <td>True</td>
-                    <td>True</td>
-                    <td>True</td>
-                    <td style="max-width: 120px;">Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                    <td style="max-width: 120px;"><img src='{% static "/images/2022-02-06.jpg" %}'></td>
+                    <td>{{zone.nom}}</td>
+                    <td>{{zone.adresse}}</td>
+                    <td>{{zone.superficie}} m²</td>
+                    <td>{{zone.prix}} MAD</td>
+                    <td>{{zone.public}}</td>
+                    <td>{{zone.picnic}}</td>
+                    <td>{{zone.camping}}</td>
+                    <td>{{zone.eat}}</td>
+                    <td style="max-width: 120px;">{{zone.description}}</td>
+                    <td style="max-width: 120px;"><img src='{% static zone.image %}'></td>
                     <td style="max-width: 50px;">
-                        <a href="{% url 'green_spaces_edit' %}" class="btn btn-secondary" style="margin:2px ;">Edit</a>
-                        <form method="POST" action="" , style="display : inline-block" onsubmit=" return confirm('Are you sure? ')">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button class="btn btn-danger"> Delete </button>
-                        </form>
+                        <td>
+                            <a class="btn btn-secondary" style="color: #fff;font: size 1.2em;" href="{% url "green_spaces_edit" %}?id={{zone.id}}">Modifier</a>
+                            <a class="btn btn-danger" style="color: #fff;font: size 1.2em;" href="{% url "green_spaces_edit" %}?id={{zone.id}}">Supprimer</a>
+                        </td>
                     </td>
                 </tr>
+                {%endfor%}
             </tbody>
         </table>
 </body>

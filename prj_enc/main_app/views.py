@@ -230,13 +230,72 @@ def demands(request):
     return render(request,'demandes.html',{'demandes':demandes})
 
 def green_spaces(request):
-    return render(request,'green-spaces.html')
+    raws=[
+        "select * from zone where 1 "
+    ]
+    zones = Zone.objects.raw(raws[0])
+    for zone in zones:
+        if zone.lat == None:
+            zone.lat = extract_lat_lng(zone.nom)[1]
+            zone.save()
+        if zone.lon == None:
+            zone.lon = extract_lat_lng(zone.nom)[0]
+            zone.save()
+    if zone.image != None :
+            zone.image = 'images/' + (str(zone.image)).split("/")[1]
+    return render(request,'green-spaces.html',{"zones" : zones})
 
 def green_spaces_add(request):
+    id_utilisateur = request.user.id
+    sql1 = "select * from admin a join auth_user au where au.id = a.id_utilisateur and a.id = " + str(id_utilisateur)
+    users = Admin.objects.raw(sql1)
+    if len(users) == 0:
+        return redirect('login')
+    if request.method == "POST":
+        id_zone = request.POST.get("id")
+    if request.method == "POST":
+        name = request.POST.get("name")
+        address = request.POST.get("address")
+        size = request.POST.get("size")
+        public = request.POST.get("public")
+        price = request.POST.get("price")
+        picnic = request.POST.get("picnic")
+        camping = request.POST.get("camping")
+        eating = request.POST.get("eating")
+        description = request.POST.get("description")
+        image = request.POST.get("image")
+        sql = f"insert zone set nom = \"{name}\", adresse=\"{address}\",superficie={size} ,public={public}, prix={price}, picnic={picnic}, camping={camping}, image=\"{image}\", manger={eating}, description=\"{description}\",id_utilisateur = {id_utilisateur} where id = {id_zone}"
+        Zone.objects.raw(sql)
+        return redirect('green-spaces')
     return render(request,'green-spaces-add.html')
 
 def green_spaces_edit(request):
-    return render(request,'green-spaces-edit.html')
+    id_utilisateur = request.user.id
+    sql1 = "select * from admin a join auth_user au where au.id = a.id_utilisateur and a.id = " + str(id_utilisateur)
+    users = Admin.objects.raw(sql1)
+    if len(users) == 0:
+        return redirect('login')
+    if request.method == "GET":
+        id_zone = request.GET.get("id")
+    else :
+        return redirect('green-spaces')
+    sql2 = "select * from zone where 1 and id = "+str(id_zone)
+    zones = Zone.objects.raw(sql2)[0]
+    if request.method == "POST":
+        name = request.POST.get("name")
+        address = request.POST.get("address")
+        size = request.POST.get("size")
+        public = request.POST.get("public")
+        price = request.POST.get("price")
+        picnic = request.POST.get("picnic")
+        camping = request.POST.get("camping")
+        eating = request.POST.get("eating")
+        description = request.POST.get("description")
+        image = request.POST.get("image")
+        sql = f"update zone set nom = \"{name}\", adresse=\"{address}\",superficie={size} ,public={public}, prix={price}, picnic={picnic}, camping={camping}, image=\"{image}\", manger={eating}, description=\"{description}\",id_utilisateur = {id_utilisateur} where id = {id_zone}"
+        Zone.objects.raw(sql)
+        return redirect('green-spaces')
+    return render(request,'green-spaces-edit.html',{"zones" : zones})
 
 def citizen_green_spaces(request):
     return render(request,'citizen-green-spaces.html')

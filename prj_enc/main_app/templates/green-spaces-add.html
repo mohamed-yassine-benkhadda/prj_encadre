@@ -52,14 +52,17 @@
 
 
 <body>
-
+    <form method="get" style="display: None;">
+        <input type="text" name="id" id="">
+    </form>
     <div class="container mt-4 mb-4">
         <h1>
             Add a Green Space :
         </h1>
 
 
-        <form action="" method="GET" style="position: relative; top:50px; margin-bottom: 30px;">
+        <form action="" method="POST" style="position: relative; top:50px; margin-bottom: 30px;">
+            {%csrf_token%}
             <div class="form-group">
                 <label for="exampleFormControlInput1">Name</label>
                 <input name="name" type="text" class="form-control" id="name" placeholder="Farm">

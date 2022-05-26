@@ -52,36 +52,39 @@
 
 
 <body>
+    <form method="GET" style="display: None;">
+        <input type="text" name="id" id="">
+    </form>
 
     <div class="container mt-4 mb-4">
         <h1>
             Edit a Green Space :
         </h1>
 
-
-        <form action="" method="GET" style="position: relative; top:50px; margin-bottom: 30px;">
+        <form action="" method="POST" style="position: relative; top:50px; margin-bottom: 30px;">
+            {%csrf_token%}
             <div class="form-group">
                 <label for="exampleFormControlInput1">Name</label>
-                <input name="name" type="text" class="form-control" id="name" placeholder="Farm">
+                <input name="name" type="text" class="form-control" id="name" value="{{zones.nom}}">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Address</label>
-                <input name="address" type="text" class="form-control" id="address" placeholder="Address">
+                <input name="address" type="text" class="form-control" id="address" value="{{zones.adresse}}">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Size</label>
-                <input name="size" type="number" class="form-control" id="size" placeholder="0 m²">
+                <input name="size" type="number" class="form-control" id="size" value="{{zones.superficie}}">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Example select</label>
-                <select name="public" class="form-control" id="public">
+                <select name="public" class="form-control" id="public" value="{{zone.public}}">
                 <option>Public</option>
                 <option>Private</option>
               </select>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Price</label>
-                <input name="price" type="number" class="form-control" id="price" placeholder="0 $">
+                <input name="price" type="number" class="form-control" id="price" value="{{zone.prix}}">
             </div>
             <div style="margin-top: 30px;margin-bottom: 30px;">
                 <div class="form-check">
@@ -105,7 +108,7 @@
             </div>
             <div class="form-group">
                 <label for="bazr">Description</label>
-                <textarea name="description" class="form-control" placeholder="Describe your green space" id="description" rows="3"></textarea>
+                <textarea name="description" class="form-control" value="{{zones.description}}" id="description" rows="3"></textarea>
             </div>
 
             <label for="bazr">Image</label>
