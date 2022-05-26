@@ -62,9 +62,9 @@ def home(request):
 
     if public != None:
         if public == '':
-            s+= " and public = prive"
+            s+= " and public = 'Prive'"
         else :
-            s+= " and public = Public"
+            s+= " and public = 'Public'"
 
     if picnic != None:
         if picnic == '':
@@ -82,6 +82,8 @@ def home(request):
         "select * from zone where 1 " + s
     ]
     zones = Zone.objects.raw(raws[0])
+    
+    print(raws)
     
     switch = {1 : "Yes", 0: "No"}
     
@@ -108,7 +110,6 @@ def home(request):
     
     return render(request,'index.html',{
         "zones" : zones,
-        "zone0" : zones[0]
     })
 
 def login_view(request):
