@@ -145,6 +145,7 @@ def irrigation(request):
     humidity = data["main"]["humidity"]
     clouds = data["clouds"]["all"]
     icon_url = "http://openweathermap.org/img/wn/" + icon + ".png"
+    descr = descr.capitalize()
 
     # if (data["rain"] != None) :
     #     rain_pct = data["rain"]["1h"]
