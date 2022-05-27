@@ -242,6 +242,9 @@ def green_spaces(request):
             
     return render(request,'green-spaces.html',{"zones" : zones})
 
+def green_spaces_plants(request) :
+    return render(request,'green-spaces-plants.html')
+
 def green_spaces_add(request):
     id_utilisateur = request.user.id
     sql1 = "select * from admin a join auth_user au where au.id = a.id_utilisateur and au.id = " + str(id_utilisateur)

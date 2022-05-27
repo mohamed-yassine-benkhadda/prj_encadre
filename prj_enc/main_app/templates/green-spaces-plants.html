@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <title>Plants List</title>
+
+    {% load static %}
+    <link href='{% static "/css/styles.css" %}' rel='stylesheet ' />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js '></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css ' rel='stylesheet ' />
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <a href="{% url 'home' %}"><img class="navbar-brand" src='{% static "/images/logo.png" %}' style="height: 70px;"></img>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'irrigation' %}">Green Spaces Irrigation System<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'demands' %}">Demands Management<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'green_spaces' %}">Green Spaces Management<span class="sr-only"></span></a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="" class="nav-link"> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</head>
+
+<body>
+
+    <div class="container mt-4">
+        <h1> {{zone.name }}'s Plants List </h1>
+
+        <div class="text-right">
+            <a href="{% url 'green_spaces_add' %}" class="btn btn-primary" style="position: relative; left: -30px; display : inline-block">Add</a>
+            <div class="input-group" style="position: relative; top :-38px; left: 740px; width: fit-content;">
+                <div class="form-outline">
+                    <input id="search-focus" type="search" id="form1" class="form-control" />
+                </div>
+                <button type="button" class="btn btn-primary" style=" position : relative; left: 10px;">
+                  <i class="fa fa-search"></i>
+                </button>
+                <script>
+                    const searchFocus = document.getElementById('search-focus ');
+                    const keys = [{
+                        keyCode: 'AltLeft ',
+                        isTriggered: false
+                    }, {
+                        keyCode: 'ControlLeft ',
+                        isTriggered: false
+                    }, ];
+
+                    window.addEventListener('keydown ', (e) => {
+                        keys.forEach((obj) => {
+                            if (obj.keyCode === e.code) {
+                                obj.isTriggered = true;
+                            }
+                        });
+
+                        const shortcutTriggered = keys.filter((obj) => obj.isTriggered).length === keys.length;
+
+                        if (shortcutTriggered) {
+                            searchFocus.focus();
+                        }
+                    });
+
+                    window.addEventListener('keyup ', (e) => {
+                        keys.forEach((obj) => {
+                            if (obj.keyCode === e.code) {
+                                obj.isTriggered = false;
+                            }
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name
+                        <th>Water needed
+                            <th>Description
+                                <th>Image
+                                    <th>Actions
+                </tr>
+            </thead>
+            <tbody>
+                {%for zone in zones%}
+                <tr>
+                    <td>{{zone.nom}}</td>
+                    <td>{{zone.besoin_eau}} l</td>
+                    <td style="width: 300px;">{{zone.description}}</td>
+                    <td>{{zone.image}}</td>
+                    <td style="width: 100px;">
+                        <a class="btn btn-danger" href="delete">Delete</a>
+                    </td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+</body>
