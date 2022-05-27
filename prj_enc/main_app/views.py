@@ -96,9 +96,6 @@ def home(request):
             zone.lon = extract_lat_lng(zone.nom)[0]
             zone.save()
         
-        if zone.image != None :
-            zone.image = 'images/' + (str(zone.image)).split("/")[1]
-        
         if zone.public == "Prive" :
             zone.public = "Private"
             
@@ -241,8 +238,7 @@ def green_spaces(request):
         if zone.lon == None:
             zone.lon = extract_lat_lng(zone.nom)[0]
             zone.save()
-    if zone.image != None :
-            zone.image = 'images/' + (str(zone.image)).split("/")[1]
+            
     return render(request,'green-spaces.html',{"zones" : zones})
 
 def green_spaces_add(request):

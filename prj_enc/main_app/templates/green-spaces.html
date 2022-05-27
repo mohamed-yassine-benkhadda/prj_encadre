@@ -109,7 +109,6 @@
                                                 <th>Camping
                                                     <th>Eating
                                                         <th>Description
-                                                            <th>Image
                                                                 <th>Actions
                 </tr>
             </thead>
@@ -118,19 +117,16 @@
                 <tr>
                     <td>{{zone.nom}}</td>
                     <td>{{zone.adresse}}</td>
-                    <td>{{zone.superficie}} m²</td>
-                    <td>{{zone.prix}} MAD</td>
+                    <td style="width: 80px;">{{zone.superficie}} m²</td>
+                    <td style="width: 90px;">{{zone.prix}} MAD</td>
                     <td>{{zone.public}}</td>
                     <td>{{zone.picnic}}</td>
                     <td>{{zone.camping}}</td>
-                    <td>{{zone.eat}}</td>
-                    <td style="max-width: 120px;">{{zone.description}}</td>
-                    <td style="max-width: 120px;"><img src='{% static zone.image %}'></td>
-                    <td style="max-width: 50px;">
-                        <td>
-                            <a class="btn btn-secondary" style="color: #fff;font: size 1.2em;" href="{% url "green_spaces_edit" %}?id={{zone.id}}">Modifier</a>
-                            <a class="btn btn-danger" style="color: #fff;font: size 1.2em;" href="{% url "green_spaces_edit" %}?id={{zone.id}}">Supprimer</a>
-                        </td>
+                    <td>{{zone.manger}}</td>
+                    <td style="width: 300px;">{{zone.description}}</td>
+                    <td style="width: 100px;">
+                        <a class="btn btn-secondary" style="margin-bottom: 5px;" href="{% url "green_spaces_edit" %}?id={{zone.id}}">Edit</a>
+                        <a class="btn btn-danger"  href="{% url "green_spaces_edit" %}?id={{zone.id}}">Delete</a>
                     </td>
                 </tr>
                 {%endfor%}
