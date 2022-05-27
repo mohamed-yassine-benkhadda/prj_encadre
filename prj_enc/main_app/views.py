@@ -244,7 +244,7 @@ def green_spaces(request):
 
 def green_spaces_add(request):
     id_utilisateur = request.user.id
-    sql1 = "select * from admin a join auth_user au where au.id = a.id_utilisateur and a.id = " + str(id_utilisateur)
+    sql1 = "select * from admin a join auth_user au where au.id = a.id_utilisateur and au.id = " + str(id_utilisateur)
     users = Admin.objects.raw(sql1)
     if len(users) == 0:
         return redirect('login')
@@ -268,7 +268,7 @@ def green_spaces_add(request):
 
 def green_spaces_edit(request):
     id_utilisateur = request.user.id
-    sql1 = "select * from admin a join auth_user au where au.id = a.id_utilisateur and a.id = " + str(id_utilisateur)
+    sql1 = "select * from admin a join auth_user au where au.id = a.id_utilisateur and au.id = " + str(id_utilisateur)
     users = Admin.objects.raw(sql1)
     if len(users) == 0:
         return redirect('login')
@@ -276,7 +276,7 @@ def green_spaces_edit(request):
         id_zone = request.GET.get("id")
     else :
         return redirect('green-spaces')
-    sql2 = "select * from zone where 1 and id = "+str(id_zone)
+    sql2 = "select * from zone where 1 and id = " + str(id_zone)
     zones = Zone.objects.raw(sql2)[0]
     if request.method == "POST":
         name = request.POST.get("name")
