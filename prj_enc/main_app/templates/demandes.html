@@ -93,8 +93,8 @@
                     <td>{{demande.jour}}</td>
                     <td>{{demande.adresse}}</td>
                     <td>
-                        <a class="btn btn-success" style="color: #fff;font: size 1.2em;" href="{% url 'demands' %}?id={{demande.id}}&op=1">Approver</a>
-                        <a class="btn btn-danger" style="color: #fff;font: size 1.2em;" href="{% url 'demands' %}?id={{demande.id}}&op=0">Supprimer</a>
+                        <a class="btn btn-success" style="color: #fff;font: size 1.2em;" href="{% url 'demands' %}?id={{demande.id}}&op=1">Approve</a>
+                        <a class="btn btn-danger" style="color: #fff;font: size 1.2em;" href="{% url 'demands' %}?id={{demande.id}}&op=0">Delete</a>
                     </td>
                 </tr>
                 {%endfor%}

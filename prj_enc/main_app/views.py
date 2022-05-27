@@ -218,7 +218,7 @@ def demands(request):
     if id_user == None:
         return redirect('login')
     raws=[
-        "select * from admin a join auth_user au where au.id = a.id_utilisateur and a.id = " + str(id_user),
+        "select * from admin a join auth_user au where au.id = a.id_utilisateur and au.id = " + str(id_user),
         "select * from demande d join auth_user u where u.id = d.id_utilisateur"
     ]
     users = Admin.objects.raw(raws[0])
