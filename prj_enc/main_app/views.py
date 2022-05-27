@@ -83,7 +83,7 @@ def home(request):
     ]
     zones = Zone.objects.raw(raws[0])
     
-    print(raws)
+    #print(raws)
     
     switch = {1 : "Yes", 0: "No"}
     
@@ -117,6 +117,7 @@ def home(request):
         "zones" : zones,
         "z_lon" : z["lon"],
         "z_lat" : z["lat"],
+        "results_size" : len(zones)
     })
 
 def login_view(request):
