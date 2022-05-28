@@ -90,7 +90,7 @@
                                 },
                                 'properties': {
                                     'title': "{{zone.nom}}",
-                                    'description': '<img src="{{icon_url}}" style="position:relative; width: 75px"><span style="position: relative; margin-left : 20px; font-size: 19px">{{descr}}</span><br> <img style="position: relative; margin-left : 95px;" src="https://img.icons8.com/fluency/38/000000/plant-under-rain.png"/><span class="badge badge-success" style="position: relative; margin-left: 20px; font-size: 12px;">Test ⚠️ ✅</span><p></p><hr><p><img src="https://img.icons8.com/color/48/000000/temperature--v1.png"/> {{temperature}}°C ({{temperature_min}}°C - {{temperature_max}}°C)<br><img src="https://img.icons8.com/fluency/48/000000/wet.png"/> {{humidity}} % <img style="position: relative; left: 20px" src="https://img.icons8.com/color/48/000000/pressure.png"/><span style="position: relative; left: 20px">{{pressure}} hPa</span><br><img src="https://img.icons8.com/color/48/000000/wind.png"/><span style="position: relative; left: 15px">{{wind_speed}} km/h ({{wind_dir}}°)</span><br><img src="https://img.icons8.com/fluency/48/000000/cloud.png"/><span style="position: relative; left: 10px"> {{clouds}} % Cloudiness</span><hr><button style="margin-left : 50px; margin-bottom: 10px;" value="assign" id="assign" onclick="" class="btn btn-primary">Assign Technician</button>',
+                                    'description': '<img src="{{icon_url}}" style="position:relative; width: 75px"><span style="position: relative; margin-left : 20px; font-size: 19px">{{descr}}</span><br> <img style="position: relative; margin-left : 95px;" src="https://img.icons8.com/fluency/38/000000/plant-under-rain.png"/><span class="badge badge-success" style="position: relative; margin-left: 20px; font-size: 12px;">Test ⚠️ ✅</span><p></p><hr><p><img src="https://img.icons8.com/color/48/000000/temperature--v1.png"/><span id="temp">{{temperature}}°C ({{temperature_min}}°C - {{temperature_max}}°C)</span><br><img src="https://img.icons8.com/fluency/48/000000/wet.png"/><span id="hum"> {{humidity}} % </span><img style="position: relative; left: 20px" src="https://img.icons8.com/color/48/000000/pressure.png"/><span style="position: relative; left: 20px">{{pressure}} hPa</span><br><img src="https://img.icons8.com/color/48/000000/wind.png"/><span style="position: relative; left: 15px"><span id="wind_speed">{{wind_speed}} km/h ({{wind_dir}}°)</span><br><img src="https://img.icons8.com/fluency/48/000000/cloud.png"/><span style="position: relative; left: 10px"> {{clouds}} % Cloudiness</span><hr><button style="margin-left : 50px; margin-bottom: 10px;" value="assign" id="assign" onclick="" class="btn btn-primary">Assign Technician</button>',
                                 }
                             },
                             {%endfor%}
@@ -139,7 +139,31 @@
                             .setLngLat(coordinates)
                             .setHTML(description)
                             .addTo(map);
-                    });
+                        
+                        var temp = document.getElementById('temp').textContent.split("°C");
+                        var temp_min = temp[1].split('(')[1];
+                        var temp_max = temp[2].split('- ')[1];
+
+                        var hum = document.getElementById('hum').textContent.split("%")[0];
+                        var wind_speed = document.getElementById('wind_speed').textContent.split(" km/h")[0];
+
+                        if (parseFloat(temp_max) > 30){
+                            document.getElementById('temp').style.color = "red";
+                            document.getElementById('temp').style.fontWeight = "bold";
+                        }
+                        if (parseFloat(temp_min) < 5){
+                            document.getElementById('temp').style.color = "#547dd6";
+                            document.getElementById('temp').style.fontWeight = "bold";
+                        }
+                        if (parseFloat(hum) < 20){
+                            document.getElementById('hum').style.color = "red";
+                            document.getElementById('hum').style.fontWeight = "bold";
+                        }
+                        if (parseFloat(wind_speed) > 30){
+                            document.getElementById('wind_speed').style.color = "#547dd6";
+                            document.getElementById('wind_speed').style.fontWeight = "bold";
+                        }
+                    });                  
 
         // Change the cursor to a pointer when the mouse is over the places layer.
         map.on('mouseenter', 'points', () => {
