@@ -139,6 +139,8 @@
                             .setLngLat(coordinates)
                             .setHTML(description)
                             .addTo(map);
+
+                        var state = 0;
                         
                         var temp = document.getElementById('temp').textContent.split("°C");
                         var temp_min = temp[1].split('(')[1];
@@ -150,32 +152,35 @@
                         if (parseFloat(temp_max) > 30){
                             document.getElementById('temp').style.color = "red";
                             document.getElementById('temp').style.fontWeight = "bold";
+                            state += 1
                         }
                         if (parseFloat(temp_min) < 5){
                             document.getElementById('temp').style.color = "#547dd6";
                             document.getElementById('temp').style.fontWeight = "bold";
+                            state += 1
                         }
                         if (parseFloat(hum) < 20){
                             document.getElementById('hum').style.color = "red";
                             document.getElementById('hum').style.fontWeight = "bold";
+                            state += 1
                         }
-                        if (parseFloat(wind_speed) > 30){
+                        if (parseFloat(wind_speed) > 20){
                             document.getElementById('wind_speed').style.color = "#547dd6";
                             document.getElementById('wind_speed').style.fontWeight = "bold";
+                            state += 1
                         }
 
 
                         var status = document.getElementById('status');;
-                        result = 0;
 
-                        if (result > 0){
-                            status.style.backgroundColor = "#07AF0D";
-                            status.textContent = " OK  ✅";
+                        if (state > 1){
+                            status.style.backgroundColor = "#B90909";
+                            status.textContent = " Danger  ⚠️";
                         }
                         else{
-                            if (result < 0){
-                                status.style.backgroundColor = "#B90909";
-                                status.textContent = " Danger  ⚠️";
+                            if (state < 1){
+                                status.style.backgroundColor = "#07AF0D";
+                                status.textContent = " OK  ✅"; 
                             }
                             else {
                                 status.style.backgroundColor = "#DA9F14";
