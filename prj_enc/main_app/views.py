@@ -97,7 +97,7 @@ def home(request):
             zone.save()
         
         if zone.image != None :
-            zone.image = 'images/' + (str(zone.image)).split("/")[1]
+            zone.image = 'Zone/' + (str(zone.image)).split("/")[1]
         
         if zone.public == "Prive" :
             zone.public = "Private"
@@ -116,10 +116,45 @@ def home(request):
             "lon" : zones[0].lon,
             "lat" : zones[0].lat
         }
-    return render(request,'index.html',{
+    return render(request,'carte.html',{
         "zones" : zones,
         "z_lon" : z["lon"],
         "z_lat" : z["lat"],
+        "l_zone" : len(zones),
+    })
+
+def accueil(request):
+    parameters = request.POST
+    raws=[
+        "select * from zone where 1 limit 3 "
+    ]
+    zones = Zone.objects.raw(raws[0])
+    
+    print(raws)
+    
+    switch = {1 : "Yes", 0: "No"}
+    
+    
+    for zone in zones:
+        if zone.lat == None:
+            zone.lat = extract_lat_lng(zone.nom)[1]
+            zone.save()
+        if zone.lon == None:
+            zone.lon = extract_lat_lng(zone.nom)[0]
+            zone.save()
+        
+        if zone.image != None :
+            zone.image = 'Zone/' + (str(zone.image)).split("/")[1]
+        
+        if zone.public == "Prive" :
+            zone.public = "Private"
+            
+        zone.camping = switch.get(zone.camping)
+        zone.manger = switch.get(zone.manger)
+        zone.picnic = switch.get(zone.picnic)
+    
+    return render(request,'accueil.html',{
+        "zones" : zones,
     })
 
 def login_view(request):
@@ -252,8 +287,6 @@ def green_spaces_add(request):
     if len(users) == 0:
         return redirect('login')
     if request.method == "POST":
-        id_zone = request.POST.get("id")
-    if request.method == "POST":
         name = request.POST.get("name")
         address = request.POST.get("address")
         size = request.POST.get("size")
@@ -264,7 +297,7 @@ def green_spaces_add(request):
         eating = request.POST.get("eating")
         description = request.POST.get("description")
         image = request.POST.get("image")
-        sql = f"insert zone set nom = \"{name}\", adresse=\"{address}\",superficie={size} ,public={public}, prix={price}, picnic={picnic}, camping={camping}, image=\"{image}\", manger={eating}, description=\"{description}\",id_utilisateur = {id_utilisateur} where id = {id_zone}"
+        sql = f"INSERT INTO `zone`(`nom`, `adresse`, `superficie`, `public`, `prix`, `id_utilisateur`, `picnic`, `camping`, `image`, `description`, `manger`) VALUES ({name},{address},{size},{public},{price},{id_utilisateur},{picnic},{camping},{image},{description},{eating})"
         Zone.objects.raw(sql)
         return redirect('green-spaces')
     return render(request,'green-spaces-add.html')
@@ -298,6 +331,7 @@ def green_spaces_edit(request):
     return render(request,'green-spaces-edit.html',{"zones" : zones})
 
 def citizen_green_spaces(request):
+    
     return render(request,'citizen-green-spaces.html')
 
 def citizen_private_form(request):

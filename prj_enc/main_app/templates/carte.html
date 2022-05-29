@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static%}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='{% static "css/style.css"  %} ' rel='stylesheet' />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href='{% static "css/styles.css"  %} ' rel='stylesheet' />
+    <link href='{% static "css/styles_bis.css" %}' rel='stylesheet' />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+    <title>Carte</title>
+</head>
+<body>
+    <div class="header">
+        <div class="logo_emp">
+            <img src="{% static 'images/logo.png'%}" class="logo">
+        </div>
+        <div class="nav_list_emp">
+            <ul class="nav_list">
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Accueil
+                    </h2>
+                </li>
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Presentation
+                    </h2>
+                </li>
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Carte
+                    </h2>
+                </li>
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Qui sommes nous?
+                    </h2>
+                </li>
+            </ul>
+        </div>
+        <div class="login_emp">
+            
+                <div class="nav_list_item login_btn">
+                    <h2 class="nav_text">
+                        Se connecter
+                    </h2>
+                </div>
+        </div>
+    </div>
+    <div class="map_content">
+        <div class="s007">
+            <form action="" method="GET">
+                <div class="inner-form">
+                    <div class="basic-search">
+                        <div class="input-field">
+                            <div class="icon-wrap">
+                                <svg version="1.1 " xmlns="http://www.w3.org/2000/svg "
+                                    xmlns:xlink="http://www.w3.org/1999/xlink " width="20 " height="20 "
+                                    viewBox="0 0 20 20 ">
+                                    <path
+                                        d="M18.869 19.162l-5.943-6.484c1.339-1.401 2.075-3.233 2.075-5.178 0-2.003-0.78-3.887-2.197-5.303s-3.3-2.197-5.303-2.197-3.887 0.78-5.303 2.197-2.197 3.3-2.197 5.303 0.78 3.887 2.197 5.303 3.3 2.197 5.303 2.197c1.726 0 3.362-0.579 4.688-1.645l5.943
+            6.483c0.099 0.108 0.233 0.162 0.369 0.162 0.121 0 0.242-0.043 0.338-0.131 0.204-0.187 0.217-0.503 0.031-0.706zM1 7.5c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5-2.916 6.5-6.5 6.5-6.5-2.916-6.5-6.5z ">
+                                    </path>
+                                </svg>
+                            </div>
+                            <input name="search" id="search" type="text" placeholder="Search..." />
+                            <div class="result-count">
+                                <span>{{l_zone}}</span>results
+                            </div>
+                        </div>
+                    </div>
+                    <div class="advance-search">
+                        <span class="desc">Advanced Search</span>
+                        <div class="center">
+                        <div style="margin-bottom: 30px;display:flex;justify-content:space-between;align-items:center;width:70%;">
+                            <div class="form-check form-check-inline" style="margin-right: 40px;">
+                                <input class="form-check-input" name="public" id="public" type="checkbox" value="true">
+                                <label class="form-check-label" for="public">Public</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-right: 40px;">
+                                <input class="form-check-input" name="eat" id="eat" type="checkbox" value="true">
+                                <label class="form-check-label" for="eat">Eating</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-right: 40px;">
+                                <input class="form-check-input" name="picnic" id="picnic" type="checkbox" value="true">
+                                <label class="form-check-label" for="picnic">Picnic</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-right: 40px;">
+                                <input class="form-check-input" name="camping" id="camping" type="checkbox" value="true">
+                                <label class="form-check-label" for="camping">Camping</label>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row third">
+                            <div class="input-field" style="margin-left: 20px;">
+                                <button type="submit" value="submit" class="btn-search" id="submit">Search</button>
+                                <button type="reset" value="reset" class="btn-delete" id="delete">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+    <script>
+    {%for zone in zones%}
+        console.log("{{zone.nom}}");
+    {%endfor%}
+    </script>
+    <div class="center">
+    <div id="map" class="map"
+    style=" width: 98%; height: 100vh; ">
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGZnZGZzZmdkaDc1NyIsImEiOiJjbDJ5c3dpNWgwMHBnM2xxdXJkeW11cGV1In0.4otSMnYmdyGSoH9-T-7m9A';
+        mapboxgl.setRTLTextPlugin(
+            'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+            null,
+            true // Lazy load the plugin
+        );
+        var data = [];
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/dfgdfsfgdh757/cl2nxfvd8004414qxer8hjign', // style URL 
+            center: [{{z_lon}},{{z_lat}}], // starting position [lng, lat]  NB : Removed because error when empty query
+            zoom: 13, // starting zoom
+            attributionControl: false
+        });
+        
+        map.on('load', () => {
+            // Add an image to use as a custom marker
+            map.loadImage(
+                "{% static 'images/park.png'%}",
+                (error, image) => {
+                    if (error) throw error;
+                    map.addImage('custom-marker', image);
+                    // Add a GeoJSON source with 2 points
+                    map.addSource('points', {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': [
+                            {%for zone in zones%} 
+                            {
+                                'type': 'Feature',
+                                'geometry': {
+                                    'type': 'Point',
+                            'coordinates': [{{zone.lon}}, {{zone.lat}}]
+                                },
+                                'properties': {
+                                    'title': "{{zone.nom}}",
+                                }
+                            },
+                            {%endfor%}
+                            ]
+                        }
+                    });
+
+        // Add a symbol layer
+        map.addLayer({
+            'id': 'points',
+            'type': 'symbol',
+            'source': 'points',
+            'layout': {
+                'icon-image': 'custom-marker',
+                'icon-size': 0.10,
+                // get the title name from the source's "title" property
+                'text-field': ['get', 'title'],
+                'text-font': [
+                    'Open Sans Semibold',
+                    'Arial Unicode MS Bold'
+                ],
+                'text-offset': [0, 1.7],
+                'text-anchor': 'top'
+            }
+        });
+
+                    // When a click event occurs on a feature in the places layer, open a popup at the
+                    // location of the feature, with description HTML from its properties.
+                    map.on('click', 'points', (e) => {
+                        // Copy coordinates array.
+                        const coordinates = e.features[0].geometry.coordinates.slice();
+                        const description = e.features[0].properties.description;
+
+                        // Ensure that if the map is zoomed out such that multiple
+                        // copies of the feature are visible, the popup appears
+                        // over the copy being pointed to.
+                        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                        }
+
+                        new mapboxgl.Popup({
+                                closeButton: false
+                            })
+                            .addClassName("mapboxgl-popup")
+                            .setMaxWidth('400')
+                            .setLngLat(coordinates)
+                            .setHTML(description)
+                            .addTo(map);
+                    });
+
+        // Change the cursor to a pointer when the mouse is over the places layer.
+        map.on('mouseenter', 'points', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on('mouseleave', 'points', () => {
+            map.getCanvas().style.cursor = '';
+        });
+                }
+            );
+        });
+
+        // Add zoom and rotation controls to the map.
+        map.addControl(new mapboxgl.NavigationControl());
+
+        // Add GPS
+        map.addControl( new mapboxgl.GeolocateControl({
+            positionOptions: {
+            enableHighAccuracy: true
+            },
+            // When active the map will receive updates to the device's location as it changes.
+            trackUserLocation: true,
+            // Draw an arrow next to the location dot to indicate which direction the device is heading.
+            showUserHeading: true
+        })
+        );
+
+
+        data.forEach(e => {
+            var marker = new mapboxgl.Marker()
+                .setLngLat(e)
+        })
+    </script>
+
+
+
+    
+    </div>
+    
+    </div>
+    <div class="center">
+    <div class="cards_zone" id="cards_zone">
+        <div class="center">
+            <h2 class="main_view_title">
+                Resultats
+            </h2>
+        </div>
+        <ul class="main_view3_list">
+            {%for zone in zones %}
+            <li class="main_view3_list_item">
+                <h2 class="main_view3_list_item_title">
+                    {{zone.nom}}
+                </h2>
+                <script>
+                    console.log({{zone.image}})
+                </script>
+                <img src="{% static zone.image %}" alt="" srcset="" class="main_view3_list_item_image">
+                <p class="main_view3_list_item_text">
+                    {{zone.description}}
+                </p>
+                <script>
+                    console.log("{{zone.picnic}}")
+                </script>
+                <ul class="main_view3_list_item_feautures">
+                    {% if zone.public == "Public" %}
+                    <li class="feauture_item">
+                        <img src="{% static 'images/crowd.png'%}" alt="" srcset="" class="feature_icon">
+                    </li>
+                    {% endif %}
+                    {% if zone.public == "Private" %}
+                    <li class="feauture_item">
+                        <img src="{% static 'images/user (1).png'%}" alt="" srcset="" class="feature_icon">
+                    </li>
+                    {% endif %}
+                    {% if zone.picnic == "Yes" %}
+                    <li class="feauture_item">
+                        <img src="{% static 'images/picnic-basket.png'%}" alt="" srcset="" class="feature_icon">
+                    </li>
+                    {% endif %}
+                    {% if zone.manger == 'Yes' %}
+                    <li class="feauture_item">
+                        <img src="{% static 'images/restaurant.png'%}" alt="" srcset="" class="feature_icon">
+                    </li>
+                    {% endif %}
+                    {% if zone.camping == 'Yes' %}
+                    <li class="feauture_item">
+                        <img src="{% static 'images/tent.png'%}" alt="" srcset="" class="feature_icon">
+                    </li>
+                    {% endif %}
+                </ul>
+            </li>
+            {%endfor%}
+        </ul>
+    </div>
+    <script>
+        var elem = document.getElementById('cards_zone');
+            if ({{l_zone}} == 0){
+                elem.style.display = "None";
+            }
+            else{
+                elem.style.display = "flex";
+            }
+    </script>
+</div>
+    </div>
+</body>
+</html>

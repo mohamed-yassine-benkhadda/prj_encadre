@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static%}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Accueil</title>
+</head>
+<body>
+    <div class="header">
+        <div class="logo_emp">
+            <img src="{% static 'images/logo.png'%}" class="logo">
+        </div>
+        <div class="nav_list_emp">
+            <ul class="nav_list">
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Accueil
+                    </h2>
+                </li>
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Presentation
+                    </h2>
+                </li>
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Carte
+                    </h2>
+                </li>
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Qui sommes nous?
+                    </h2>
+                </li>
+            </ul>
+        </div>
+        <div class="login_emp">
+            
+                <div class="nav_list_item login_btn">
+                    <h2 class="nav_text">
+                        Se connecter
+                    </h2>
+                </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="main_view1">
+            <div class="main_view1_left1">
+                
+            </div>
+            <div class="main_view1_left">
+                <h1 class="main_view1_title">
+                    <span class="main_vizw1_title_green">Fauna</span> defender
+                </h1>
+                <p class="main_view1_text">
+                    Defenseurs de la faune, venez decouvir les espaces verts dans votre entourage et participer aux actions de defence des zones vortes au Maroc. On vous propose un contenu riche en energie et positivité
+                </p>
+            </div>
+            <div class="main_view1_right">
+                
+            </div>
+        </div>
+        <div class="main_view2">
+            <div class="center">
+                <h2 class="main_view_title">
+                    Nos actions
+                </h2>
+            </div>
+            <div class="center">
+            <ul class="main_view2_list">
+                <li class="main_view2_list_item">
+                    <img src="{% static 'images/Group-2.svg'%}" alt="" srcset="" class="nav_btn">
+                    <h2 class="main_view2_list_item_text">
+                        Explorer
+                    </h2>
+                </li>
+                <li class="main_view2_list_item">
+                    <img src="{% static 'images/Group-1.svg'%}" alt="" srcset="" class="nav_btn">
+                    <h2 class="main_view2_list_item_text">
+                        Ajouter
+                    </h2>
+                </li>
+                <li class="main_view2_list_item">
+                    <img src="{% static 'images/Group.svg'%}" alt="" srcset="" class="nav_btn">
+                    <h2 class="main_view2_list_item_text">
+                        Participer
+                    </h2>
+                </li>
+            </ul>
+            </div>
+        </div>
+        <div class="main_view3">
+            <div class="center">
+                <h2 class="main_view_title">
+                    Nos suggestions
+                </h2>
+            </div>
+            <div class="center">
+            <ul class="main_view3_list">
+                {%for zone in zones %}
+                <li class="main_view3_list_item">
+                    <h2 class="main_view3_list_item_title">
+                        {{zone.nom}}
+                    </h2>
+                    <script>
+                        console.log({{zone.image}})
+                    </script>
+                    <img src="{% static zone.image %}" alt="" srcset="" class="main_view3_list_item_image">
+                    <p class="main_view3_list_item_text">
+                        {{zone.description}}
+                    </p>
+                    <ul class="main_view3_list_item_feautures">
+                        <li class="feauture_item">
+                            <img src="{% static 'images/crowd.png'%}" alt="" srcset="" class="feature_icon">
+                        </li>
+                        <li class="feauture_item">
+                            <img src="{% static 'images/picnic-basket.png'%}" alt="" srcset="" class="feature_icon">
+                        </li>
+                        <li class="feauture_item">
+                            <img src="{% static 'images/restaurant.png'%}" alt="" srcset="" class="feature_icon">
+                        </li>
+                    </ul>
+                </li>
+                {%endfor%}
+            </ul>
+        </div>
+        </div>
+        <div class="main_view4">
+            <div class="center">
+                <h2 class="main_view_title">
+                    Nous contacter
+                </h2>
+            </div>
+            <div class="main_view_content">
+                <div class="main_view4_left">
+                    <h2 class="main_view4_left_quote">
+                        L'existence continue de la faune et de la nature sauvage est importante pour la qualité de vie des humains.
+                    </h2>
+                    <div class="end">
+                        <h2 class="main_view4_left_writer">
+                            Jim Fowler
+                        </h2>
+                    </div>
+                </div>
+                <div class="main_view4_right">
+                    <form method="post" action="" class="form">
+                        <div class="row_form">
+                            <h2 class="label">Nom</h2>
+                            <input type="text" name="last_name"class="input_text" placeholder="Doe">
+                        </div>
+                        <div class="row_form">
+                            <h2 class="label">Prenom</h2>
+                            <input type="text" name="first_name"class="input_text" placeholder="Jane">
+                        </div>
+                        <div class="row_form">
+                            <h2 class="label">Titre</h2>
+                            <input type="text" name="title"class="input_text" placeholder="Titre">
+                        </div>
+                        <div class="row_form">
+                            <h2 class="label">email</h2>
+                            <textarea name="mail" cols="40" rows="5" class="input_text"></textarea>
+                        </div>
+                        
+                        <div class="center">
+                            <button type="submit" class="btn-primary">Envoyer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="center">
+            <h2 class="footer_text">
+                © 2022 INSEA. All rights reserved. Created by Team
+            </h2>
+        </div>
+    </div>
+</body>
+</html>

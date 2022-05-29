@@ -1,0 +1,357 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.header{
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    background-color: #8fd3f420;
+}
+
+.logo_emp{
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav_list_emp{
+    height: 100%;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_emp{
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo{
+    height: 100%;
+    width: auto;
+}
+
+.nav_list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    list-style: none;
+    padding: 0 1rem;
+}
+
+.nav_text{
+    font-weight: 600;
+    font-size: .9rem;
+}
+
+.main_view1{
+    margin-top: .5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: linear-gradient(120deg, #84fab020 0%, #8fd3f420 100%);
+    background-image: url("../images/pexels-tom-fisk-1595108.jpg");
+    background-size: 100% auto;
+    background-position: center;
+    height: 80vh;
+}
+
+.main_view1_left1{
+    width: 3%;
+}
+
+.main_view1_left{
+    width: 40%;
+    background-image: linear-gradient(to top, #cfd9df92 0%, #e2ebf092 100%);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.main_view1_right{
+    width: 57%;
+    height: 100%;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.img_main_view1{
+    height: auto;
+    width: 90%;
+}
+
+.main_view1_title{
+    padding: 0 2rem;
+    font-weight: 500;
+    font-size: 3rem;
+}
+
+.main_vizw1_title_green{
+    color: #105652;
+}
+
+.main_view1_text{
+    padding: 0 2rem;
+    font-weight: 400;
+    font-size: 1.2rem;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.end{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.main_view2{
+    margin: 1 20rem;
+    margin-top: .5rem;
+}
+
+.main_view2_list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    list-style: none;
+}
+
+.main_view3{
+    margin: 1rem 0rem;
+}
+
+.main_view_list_item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main_view2_list_item{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.nav_btn{
+    width: 4rem;
+    margin-bottom: .5rem;
+    height: auto;
+}
+
+.main_view_title{
+    margin-top: .5rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.main_view2_list_item_text{
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+.main_view3_list_item{
+    width: 27%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: #CCF3EE60;
+    border-radius: 20px;
+}
+
+.main_view3_list_item_image{
+    width: 100%;
+    height: auto;
+}
+
+.main_view3_list{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 90%;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.main_view3_list_item_title{
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.main_view3_list_item_text{
+    font-weight: 400;
+    font-size: .8rem;
+    margin-bottom: 1rem;
+}
+
+.main_view3_list_item_feautures{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    list-style: none;
+}
+
+.feauture_item{
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.feature_icon{
+    width: 1.5rem;
+    height: auto;
+}
+
+.main_view4{
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.main_view_content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 1rem;
+}
+
+.row_form{
+    margin: .5rem 7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.label{
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+.main_view4_left{
+    width: 50%;
+}
+
+.main_view4_left_quote{
+    margin-left: 7rem;
+    padding-right: 3rem;
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+.main_view4_left_writer{
+    padding-right: 5rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.main_view4_right{
+    width: 50%;
+}
+
+input{
+    height: 1rem;
+    border: 0;
+    border-bottom:1px solid #3a4c5a;
+    padding: 7px 0;
+}
+
+.input_text{
+    margin-top: .5rem;
+    width: 60%;
+}
+
+.form{
+    border-left: 1px solid #3a4c5a;
+}
+
+.container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+}
+
+.btn-primary{
+    font-weight: 500;
+    font-size:  1.2rem;
+    color:white;
+    margin-top: 1rem;
+    padding: .25rem 2rem;
+    border: 1px solid white;
+    border-radius:1rem;
+    width:fit-content;
+    color: white;
+    background-color: #3a4c5a;
+    border: none;
+    transition-duration: 0.4s;
+    overflow: hidden;
+}
+
+.btn-primary:hover {
+    background: #fff;
+    color: #3a4c5a;
+}
+
+.btn-primary:after {
+    content: "";
+    background: #3a4c5a;
+    display: block;
+    position: absolute;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+.footer{
+    margin-top: 2rem;
+    background-color: #CCF3EE;
+    height: 7vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer_text{
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.cards_zone{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+}
