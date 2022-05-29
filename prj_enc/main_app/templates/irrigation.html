@@ -15,6 +15,9 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
@@ -87,7 +90,7 @@
                                 },
                                 'properties': {
                                     'title': "{{zone.nom}}",
-                                    'description': '<img src="{{icon_url}}" style="position:relative; width: 75px"><span style="position: relative; font-size: 19px">{{descr}}</span><p></p><hr><p><img src="https://img.icons8.com/color/48/000000/temperature--v1.png"/> {{temperature}}°C ({{temperature_min}}°C - {{temperature_max}}°C)<br><img src="https://img.icons8.com/fluency/48/000000/wet.png"/> {{humidity}} % <img style="position: relative; left: 20px" src="https://img.icons8.com/color/48/000000/pressure.png"/><span style="position: relative; left: 20px">{{pressure}} hPa</span><br><img src="https://img.icons8.com/color/48/000000/wind.png"/><span style="position: relative; left: 15px">{{wind_speed}} km/h ({{wind_dir}}°)</span><br><img src="https://img.icons8.com/fluency/48/000000/cloud.png"/><span style="position: relative; left: 10px"> {{clouds}} % Cloudiness</span><hr><button style="margin-left : 50px; margin-bottom: 10px;" value="assign" id="assign" onclick="" class="btn btn-primary">Assign Technician</button>',
+                                    'description': '<img src="{{icon_url}}" style="position:relative; width: 75px"><span style="position: relative; margin-left : 20px; font-size: 19px">{{descr}}</span><br> <img style="position: relative; margin-left : 95px;" src="https://img.icons8.com/fluency/38/000000/plant-under-rain.png"/><span id="status" class="badge badge-success" style="position: relative; margin-left: 20px; font-size: 12px;"></span><p></p><hr><p><img src="https://img.icons8.com/color/48/000000/temperature--v1.png"/><span id="temp">{{temperature}}°C ({{temperature_min}}°C - {{temperature_max}}°C)</span><br><img src="https://img.icons8.com/fluency/48/000000/wet.png"/><span id="hum"> {{humidity}} % </span><img style="position: relative; left: 20px" src="https://img.icons8.com/color/48/000000/pressure.png"/><span style="position: relative; left: 20px">{{pressure}} hPa</span><br><img src="https://img.icons8.com/color/48/000000/wind.png"/><span style="position: relative; left: 15px"><span id="wind_speed">{{wind_speed}} km/h ({{wind_dir}}°)</span><br><img src="https://img.icons8.com/fluency/48/000000/cloud.png"/><span style="position: relative; left: 10px"> {{clouds}} % Cloudiness</span><hr><button style="margin-left : 50px; margin-bottom: 10px;" value="assign" id="assign" onclick="" class="btn btn-primary">Assign Technician</button>',
                                 }
                             },
                             {%endfor%}
@@ -136,7 +139,57 @@
                             .setLngLat(coordinates)
                             .setHTML(description)
                             .addTo(map);
-                    });
+
+                        var state = 0;
+                        
+                        var temp = document.getElementById('temp').textContent.split("°C");
+                        var temp_min = temp[1].split('(')[1];
+                        var temp_max = temp[2].split('- ')[1];
+
+                        var hum = document.getElementById('hum').textContent.split("%")[0];
+                        var wind_speed = document.getElementById('wind_speed').textContent.split(" km/h")[0];
+
+                        if (parseFloat(temp_max) > 30){
+                            document.getElementById('temp').style.color = "red";
+                            document.getElementById('temp').style.fontWeight = "bold";
+                            state += 1
+                        }
+                        if (parseFloat(temp_min) < 5){
+                            document.getElementById('temp').style.color = "#547dd6";
+                            document.getElementById('temp').style.fontWeight = "bold";
+                            state += 1
+                        }
+                        if (parseFloat(hum) < 20){
+                            document.getElementById('hum').style.color = "red";
+                            document.getElementById('hum').style.fontWeight = "bold";
+                            state += 1
+                        }
+                        if (parseFloat(wind_speed) > 20){
+                            document.getElementById('wind_speed').style.color = "#547dd6";
+                            document.getElementById('wind_speed').style.fontWeight = "bold";
+                            state += 1
+                        }
+
+
+                        var status = document.getElementById('status');;
+
+                        if (state > 1){
+                            status.style.backgroundColor = "#B90909";
+                            status.textContent = " Danger  ⚠️";
+                        }
+                        else{
+                            if (state < 1){
+                                status.style.backgroundColor = "#07AF0D";
+                                status.textContent = " OK  ✅"; 
+                            }
+                            else {
+                                status.style.backgroundColor = "#DA9F14";
+                                status.textContent = " OK  ⚠️";
+                            }
+                        }
+
+
+                    });                  
 
         // Change the cursor to a pointer when the mouse is over the places layer.
         map.on('mouseenter', 'points', () => {

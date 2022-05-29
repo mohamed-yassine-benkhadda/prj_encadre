@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Green Spaces Management</title>
+    <title>Plants List</title>
 
     {% load static %}
     <link href='{% static "/css/styles.css" %}' rel='stylesheet ' />
@@ -51,7 +51,7 @@
 <body>
 
     <div class="container mt-4">
-        <h1> Green Spaces Management </h1>
+        <h1> {{zone.name }}'s Plants List </h1>
 
         <div class="text-right">
             <a href="{% url 'green_spaces_add' %}" class="btn btn-primary" style="position: relative; left: -30px; display : inline-block">Add</a>
@@ -101,32 +101,21 @@
             <thead>
                 <tr>
                     <th>Name
-                        <th>Address
-                                <th>Size
-                                    <th>Price
-                                        <th>Public
-                                            <th>Picnic
-                                                <th>Camping
-                                                    <th>Eating
-                                                        <th>Description
-                                                                <th>Actions
+                        <th>Water needed
+                            <th>Description
+                                <th>Image
+                                    <th>Actions
                 </tr>
             </thead>
             <tbody>
                 {%for zone in zones%}
                 <tr>
                     <td>{{zone.nom}}</td>
-                    <td style="width: 180px;">{{zone.adresse}}</td>
-                    <td style="width: 80px;">{{zone.superficie}} m²</td>
-                    <td style="width: 90px;">{{zone.prix}} MAD</td>
-                    <td>{{zone.public}}</td>
-                    <td>{{zone.picnic}}</td>
-                    <td>{{zone.camping}}</td>
-                    <td>{{zone.manger}}</td>
+                    <td>{{zone.besoin_eau}} l</td>
                     <td style="width: 300px;">{{zone.description}}</td>
+                    <td>{{zone.image}}</td>
                     <td style="width: 100px;">
-                        <a class="btn btn-secondary" style="margin-bottom: 5px;" href="{% url "green_spaces_edit" %}?id={{zone.id}}">Edit</a>
-                        <a class="btn btn-danger"  href="{% url "green_spaces_edit" %}?id={{zone.id}}">Delete</a>
+                        <a class="btn btn-danger" href="delete">Delete</a>
                     </td>
                 </tr>
                 {%endfor%}

@@ -14,6 +14,7 @@ urlpatterns = [
     path('demands', views.demands, name='demands'),
     path('employee', views.employee, name='employee'),
     path('green-spaces', views.green_spaces, name='green_spaces'),
+    path('green-spaces-plants', views.green_spaces_plants, name='green_spaces_plants'),
     path('green-spaces-add', views.green_spaces_add, name='green_spaces_add'),
     path('green-spaces-edit', views.green_spaces_edit, name='green_spaces_edit'),
     path('citizen-green-spaces', views.citizen_green_spaces, name='citizen_green_spaces'),
