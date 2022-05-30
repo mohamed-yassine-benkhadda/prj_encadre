@@ -68,7 +68,6 @@ class Zone(models.Model):
 class Plante(models.Model):
     nom = models.CharField(max_length=40)
     description = models.TextField()
-    besoin_eau = models.IntegerField()
     image = models.ImageField()
 
     class Meta:

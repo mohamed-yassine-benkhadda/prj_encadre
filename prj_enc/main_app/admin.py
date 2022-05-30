@@ -5,3 +5,5 @@ from .models import *
 
 admin.site.register(Zone)
 admin.site.register(Demande)
+admin.site.register(Plante)
+admin.site.register(PlanteZone)

@@ -6,224 +6,284 @@
     <title>Green Spaces Irrigation System</title>
 
     {% load static %}
-    <link href='{% static "/css/styles.css" %}' rel='stylesheet' />
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href='{% static "/css/style.css" %}' rel='stylesheet' />
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
 
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <a href="{% url 'home' %}"><img class="navbar-brand" src='{% static "/images/logo.png" %}' style="height: 70px;"></img>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'irrigation' %}">Green Spaces Irrigation System<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'demands' %}">Demands Management<span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'green_spaces' %}">Green Spaces Management<span class="sr-only"></span></a>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="" class="nav-link"> Logout</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    
 </head>
 
 <body>
-    <div id="map" class="map" style="margin-left: 11px; margin-top: 10px;margin-bottom: 10px; width: 98%; height: 87%; ">
-        <script>
-            mapboxgl.accessToken = 'pk.eyJ1IjoiZGZnZGZzZmdkaDc1NyIsImEiOiJjbDJ5c3dpNWgwMHBnM2xxdXJkeW11cGV1In0.4otSMnYmdyGSoH9-T-7m9A';
-        mapboxgl.setRTLTextPlugin(
-            'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
-            null,
-            true // Lazy load the plugin
-        );
-        var data = [];
-        const map = new mapboxgl.Map({
-            container: 'map', // container ID
-            style: 'mapbox://styles/dfgdfsfgdh757/cl2nxfvd8004414qxer8hjign', // style URL 
-            center: [{{zone0.lon}}, {{zone0.lat}}], // starting position [lng, lat]
-            zoom: 16, // starting zoom
-            attributionControl: false
-        });
-        
-        map.on('load', () => {
-            // Add an image to use as a custom marker
-            map.loadImage(
-                "{% static 'images/park.png'%}",
-                (error, image) => {
-                    if (error) throw error;
-                    map.addImage('custom-marker', image);
-                    map.addSource('points', {
-                        'type': 'geojson',
-                        'data': {
-                            'type': 'FeatureCollection',
-                            'features': [
-                            {%for zone in zones%}
-                            {
-                                'type': 'Feature',
-                                'geometry': {
-                                    'type': 'Point',
-                            'coordinates': [{{zone.lon}}, {{zone.lat}}]
-                                },
-                                'properties': {
-                                    'title': "{{zone.nom}}",
-                                    'description': '<img src="{{icon_url}}" style="position:relative; width: 75px"><span style="position: relative; margin-left : 20px; font-size: 19px">{{descr}}</span><br> <img style="position: relative; margin-left : 95px;" src="https://img.icons8.com/fluency/38/000000/plant-under-rain.png"/><span id="status" class="badge badge-success" style="position: relative; margin-left: 20px; font-size: 12px;"></span><p></p><hr><p><img src="https://img.icons8.com/color/48/000000/temperature--v1.png"/><span id="temp">{{temperature}}°C ({{temperature_min}}°C - {{temperature_max}}°C)</span><br><img src="https://img.icons8.com/fluency/48/000000/wet.png"/><span id="hum"> {{humidity}} % </span><img style="position: relative; left: 20px" src="https://img.icons8.com/color/48/000000/pressure.png"/><span style="position: relative; left: 20px">{{pressure}} hPa</span><br><img src="https://img.icons8.com/color/48/000000/wind.png"/><span style="position: relative; left: 15px"><span id="wind_speed">{{wind_speed}} km/h ({{wind_dir}}°)</span><br><img src="https://img.icons8.com/fluency/48/000000/cloud.png"/><span style="position: relative; left: 10px"> {{clouds}} % Cloudiness</span><hr><button style="margin-left : 50px; margin-bottom: 10px;" value="assign" id="assign" onclick="" class="btn btn-primary">Assign Technician</button>',
+    <div class="header">
+        <div class="logo_emp">
+            <img src="{% static 'images/logo.png'%}" class="logo">
+        </div>
+        <div class="nav_list_emp">
+            <ul class="nav_list">
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Accueil
+                    </h2>
+                </li>
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Presentation
+                    </h2>
+                </li>
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Carte
+                    </h2>
+                </li>
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Qui sommes nous?
+                    </h2>
+                </li>
+            </ul>
+        </div>
+        <div class="login_emp">
+            
+                <div class="nav_list_item login_btn">
+                    <h2 class="nav_text">
+                        Se connecter
+                    </h2>
+                </div>
+        </div>
+    </div>
+    <form method="GET" style="display: none">
+        <input type="text" name="id">
+    </form>
+    <div class="main_view">
+        <div class="main_view_left">
+            <h2 class="main_view_title" style="margin: 2rem 2rem 0 2rem;">
+                Les Plantes
+            </h2>
+            <div class="center">
+                <table class="table fl-table">
+                    <thead>
+                        <tr class="table_header">
+                            <th style="width: .5%;"></th>
+                            <th style="width: 14.5%;"><h2 class="table_head_text">Nom</h2></th>
+                            <th style="width: 40%;"><h2 class="table_head_text">Description</h2></th>
+                            <th style="width: 15%;"><h2 class="table_head_text">Derniere irrigation</h2></th>
+                            <th style="width: 15%;"><h2 class="table_head_text">Prochaine irrigation</h2></th>
+                            <th style="width: 15%;"><h2 class="table_head_text">Actions</h2></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for zone in zones_list%}
+                        <tr>
+                            <td id="status{{demande.id}}" style="background-color: #c3e628; width: .5%;"></td>
+                            <script>
+                                var elem = document.getElementById('status{{demande.id}}');
+                                if ({{demande.status}} == 2){
+                                    elem.style.backgroundColor = "#EFB700";
                                 }
-                            },
-                            {%endfor%}
-                            ]
+                                if ({{demande.status}} == 0){
+                                    elem.style.backgroundColor = "#B81D13";
+                                }
+                                if ({{demande.status}} == 1){
+                                    elem.style.backgroundColor = "#008450";
+                                }
+                            </script>
+                            <td style="width: 14.5%;"><h2 class="table_row_text">{{zone.pnom}}</h2></td>
+                            <td style="width: 40%;"><h2 class="table_row_text">{{zone.description}}</h2></td>
+                            <td style="width: 15%;"><h2 class="table_row_text">{{zone.der}}</h2></td>
+                            <td style="width: 15%;"><h2 class="table_row_text">{{zone.pr}}</h2></td>
+                            <td style="width: 15%;"><h2 class="table_row_text"></h2></td>
+                                <div class="actions" style="width: 100%;display: flex;justify-content: center;align-items:center;">
+                                <a class="button-green" style="font: size 1.2em;" href="{% url 'demands' %}?id={{zone.id}}&op=1"><h2 class="table_row_text">Approve</h2></a>
+                                <a class="button-red" style="font: size 1.2em;" href="{% url 'demands' %}?id={{zone.id}}&op=0"><h2 class="table_row_text">Delete</h2></a>
+                                </div>
+                            </td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="main_view_right">
+            <div class="main_view_right_up" style="height: 80%;width:100%;">
+                <div id="map" class="map" style="margin-left: 11px; margin-top: 10px;margin-bottom: 10px; width: 98%; height: 100%; ">
+                    <script>
+                        mapboxgl.accessToken = 'pk.eyJ1IjoiZGZnZGZzZmdkaDc1NyIsImEiOiJjbDJ5c3dpNWgwMHBnM2xxdXJkeW11cGV1In0.4otSMnYmdyGSoH9-T-7m9A';
+                    mapboxgl.setRTLTextPlugin(
+                        'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+                        null,
+                        true // Lazy load the plugin
+                    );
+                    var data = [];
+                    const map = new mapboxgl.Map({
+                        container: 'map', // container ID
+                        style: 'mapbox://styles/dfgdfsfgdh757/cl2nxfvd8004414qxer8hjign', // style URL 
+                        center: [{{zone0.lon}}, {{zone0.lat}}], // starting position [lng, lat]
+                        zoom: 16, // starting zoom
+                        attributionControl: false
+                    });
+                    
+                    map.on('load', () => {
+                        // Add an image to use as a custom marker
+                        map.loadImage(
+                            "{% static 'images/park.png'%}",
+                            (error, image) => {
+                                if (error) throw error;
+                                map.addImage('custom-marker', image);
+                                map.addSource('points', {
+                                    'type': 'geojson',
+                                    'data': {
+                                        'type': 'FeatureCollection',
+                                        'features': [
+                                        {%for zone in zones%}
+                                        {
+                                            'type': 'Feature',
+                                            'geometry': {
+                                                'type': 'Point',
+                                        'coordinates': [{{zone.lon}}, {{zone.lat}}]
+                                            },
+                                            'properties': {
+                                                'title': "{{zone.nom}}",
+                                                'description': '<img src="{{icon_url}}" style="position:relative; width: 75px"><span style="position: relative; margin-left : 20px; font-size: 19px">{{descr}}</span><br> <img style="position: relative; margin-left : 95px;" src="https://img.icons8.com/fluency/38/000000/plant-under-rain.png"/><span id="status" class="badge badge-success" style="position: relative; margin-left: 20px; font-size: 12px;"></span><p></p><hr><p><img src="https://img.icons8.com/color/48/000000/temperature--v1.png"/><span id="temp">{{temperature}}°C ({{temperature_min}}°C - {{temperature_max}}°C)</span><br><img src="https://img.icons8.com/fluency/48/000000/wet.png"/><span id="hum"> {{humidity}} % </span><img style="position: relative; left: 20px" src="https://img.icons8.com/color/48/000000/pressure.png"/><span style="position: relative; left: 20px">{{pressure}} hPa</span><br><img src="https://img.icons8.com/color/48/000000/wind.png"/><span style="position: relative; left: 15px"><span id="wind_speed">{{wind_speed}} km/h ({{wind_dir}}°)</span><br><img src="https://img.icons8.com/fluency/48/000000/cloud.png"/><span style="position: relative; left: 10px"> {{clouds}} % Cloudiness</span><hr><div class="center"><button value="assign" id="assign" onclick="" class="btn btn-primary">Assign Technician</button></div>',
+                                            }
+                                        },
+                                        {%endfor%}
+                                        ]
+                                    }
+                                });
+            
+                    // Add a symbol layer
+                    map.addLayer({
+                        'id': 'points',
+                        'type': 'symbol',
+                        'source': 'points',
+                        'layout': {
+                            'icon-image': 'custom-marker',
+                            'icon-size': 0.10,
+                            // get the title name from the source's "title" property
+                            'text-field': ['get', 'title'],
+                            'text-font': [
+                                'Open Sans Semibold',
+                                'Arial Unicode MS Bold'
+                            ],
+                            'text-offset': [0, 1.7],
+                            'text-anchor': 'top'
                         }
                     });
-
-        // Add a symbol layer
-        map.addLayer({
-            'id': 'points',
-            'type': 'symbol',
-            'source': 'points',
-            'layout': {
-                'icon-image': 'custom-marker',
-                'icon-size': 0.10,
-                // get the title name from the source's "title" property
-                'text-field': ['get', 'title'],
-                'text-font': [
-                    'Open Sans Semibold',
-                    'Arial Unicode MS Bold'
-                ],
-                'text-offset': [0, 1.7],
-                'text-anchor': 'top'
-            }
-        });
-
-                    // When a click event occurs on a feature in the places layer, open a popup at the
-                    // location of the feature, with description HTML from its properties.
-                    map.on('click', 'points', (e) => {
-                        // Copy coordinates array.
-                        const coordinates = e.features[0].geometry.coordinates.slice();
-                        const description = e.features[0].properties.description;
-
-                        // Ensure that if the map is zoomed out such that multiple
-                        // copies of the feature are visible, the popup appears
-                        // over the copy being pointed to.
-                        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-                        }
-
-                        new mapboxgl.Popup({
-                                closeButton: false
-                            })
-                            .addClassName("mapboxgl-popup")
-                            .setMaxWidth('400')
-                            .setLngLat(coordinates)
-                            .setHTML(description)
-                            .addTo(map);
-
-                        var state = 0;
-                        
-                        var temp = document.getElementById('temp').textContent.split("°C");
-                        var temp_min = temp[1].split('(')[1];
-                        var temp_max = temp[2].split('- ')[1];
-
-                        var hum = document.getElementById('hum').textContent.split("%")[0];
-                        var wind_speed = document.getElementById('wind_speed').textContent.split(" km/h")[0];
-
-                        if (parseFloat(temp_max) > 30){
-                            document.getElementById('temp').style.color = "red";
-                            document.getElementById('temp').style.fontWeight = "bold";
-                            state += 1
-                        }
-                        if (parseFloat(temp_min) < 5){
-                            document.getElementById('temp').style.color = "#547dd6";
-                            document.getElementById('temp').style.fontWeight = "bold";
-                            state += 1
-                        }
-                        if (parseFloat(hum) < 20){
-                            document.getElementById('hum').style.color = "red";
-                            document.getElementById('hum').style.fontWeight = "bold";
-                            state += 1
-                        }
-                        if (parseFloat(wind_speed) > 20){
-                            document.getElementById('wind_speed').style.color = "#547dd6";
-                            document.getElementById('wind_speed').style.fontWeight = "bold";
-                            state += 1
-                        }
-
-
-                        var status = document.getElementById('status');;
-
-                        if (state > 1){
-                            status.style.backgroundColor = "#B90909";
-                            status.textContent = " Danger  ⚠️";
-                        }
-                        else{
-                            if (state < 1){
-                                status.style.backgroundColor = "#07AF0D";
-                                status.textContent = " OK  ✅"; 
+            
+                                // When a click event occurs on a feature in the places layer, open a popup at the
+                                // location of the feature, with description HTML from its properties.
+                                map.on('click', 'points', (e) => {
+                                    // Copy coordinates array.
+                                    const coordinates = e.features[0].geometry.coordinates.slice();
+                                    const description = e.features[0].properties.description;
+            
+                                    // Ensure that if the map is zoomed out such that multiple
+                                    // copies of the feature are visible, the popup appears
+                                    // over the copy being pointed to.
+                                    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                                        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                                    }
+            
+                                    new mapboxgl.Popup({
+                                            closeButton: false
+                                        })
+                                        .addClassName("mapboxgl-popup")
+                                        .setMaxWidth('400')
+                                        .setLngLat(coordinates)
+                                        .setHTML(description)
+                                        .addTo(map);
+            
+                                    var state = 0;
+                                    
+                                    var temp = document.getElementById('temp').textContent.split("°C");
+                                    var temp_min = temp[1].split('(')[1];
+                                    var temp_max = temp[2].split('- ')[1];
+            
+                                    var hum = document.getElementById('hum').textContent.split("%")[0];
+                                    var wind_speed = document.getElementById('wind_speed').textContent.split(" km/h")[0];
+            
+                                    if (parseFloat(temp_max) > 30){
+                                        document.getElementById('temp').style.color = "red";
+                                        document.getElementById('temp').style.fontWeight = "bold";
+                                        state += 1
+                                    }
+                                    if (parseFloat(temp_min) < 5){
+                                        document.getElementById('temp').style.color = "#547dd6";
+                                        document.getElementById('temp').style.fontWeight = "bold";
+                                        state += 1
+                                    }
+                                    if (parseFloat(hum) < 20){
+                                        document.getElementById('hum').style.color = "red";
+                                        document.getElementById('hum').style.fontWeight = "bold";
+                                        state += 1
+                                    }
+                                    if (parseFloat(wind_speed) > 20){
+                                        document.getElementById('wind_speed').style.color = "#547dd6";
+                                        document.getElementById('wind_speed').style.fontWeight = "bold";
+                                        state += 1
+                                    }
+            
+            
+                                    var status = document.getElementById('status');;
+            
+                                    if (state > 1){
+                                        status.style.backgroundColor = "#B90909";
+                                        status.textContent = " Danger  ⚠️";
+                                    }
+                                    else{
+                                        if (state < 1){
+                                            status.style.backgroundColor = "#07AF0D";
+                                            status.textContent = " OK  ✅"; 
+                                        }
+                                        else {
+                                            status.style.backgroundColor = "#DA9F14";
+                                            status.textContent = " OK  ⚠️";
+                                        }
+                                    }
+            
+            
+                                });                  
+            
+                    // Change the cursor to a pointer when the mouse is over the places layer.
+                    map.on('mouseenter', 'points', () => {
+                        map.getCanvas().style.cursor = 'pointer';
+                    });
+            
+                    // Change it back to a pointer when it leaves.
+                    map.on('mouseleave', 'points', () => {
+                        map.getCanvas().style.cursor = '';
+                    });
                             }
-                            else {
-                                status.style.backgroundColor = "#DA9F14";
-                                status.textContent = " OK  ⚠️";
-                            }
-                        }
+                        );
+                    });
+            
+                    // Add zoom and rotation controls to the map.
+                    map.addControl(new mapboxgl.NavigationControl());
+            
+                    // Add GPS
+                    map.addControl( new mapboxgl.GeolocateControl({
+                        positionOptions: {
+                        enableHighAccuracy: true
+                        },
+                        // When active the map will receive updates to the device's location as it changes.
+                        trackUserLocation: true,
+                        // Draw an arrow next to the location dot to indicate which direction the device is heading.
+                        showUserHeading: true
+                    })
+                    );
+            
+            
+                    data.forEach(e => {
+                        var marker = new mapboxgl.Marker()
+                            .setLngLat(e)
+                    })
+                    </script>
+                </div>
+            </div>
+            <div class="main_view_right_bottom">
 
-
-                    });                  
-
-        // Change the cursor to a pointer when the mouse is over the places layer.
-        map.on('mouseenter', 'points', () => {
-            map.getCanvas().style.cursor = 'pointer';
-        });
-
-        // Change it back to a pointer when it leaves.
-        map.on('mouseleave', 'points', () => {
-            map.getCanvas().style.cursor = '';
-        });
-                }
-            );
-        });
-
-        // Add zoom and rotation controls to the map.
-        map.addControl(new mapboxgl.NavigationControl());
-
-        // Add GPS
-        map.addControl( new mapboxgl.GeolocateControl({
-            positionOptions: {
-            enableHighAccuracy: true
-            },
-            // When active the map will receive updates to the device's location as it changes.
-            trackUserLocation: true,
-            // Draw an arrow next to the location dot to indicate which direction the device is heading.
-            showUserHeading: true
-        })
-        );
-
-
-        data.forEach(e => {
-            var marker = new mapboxgl.Marker()
-                .setLngLat(e)
-        })
-        </script>
+            </div>
+        </div>
     </div>
 </body>

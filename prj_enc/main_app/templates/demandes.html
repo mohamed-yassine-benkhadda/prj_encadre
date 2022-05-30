@@ -6,75 +6,78 @@
     <title>Demands Management</title>
 
     {% load static %}
-    <link href='{% static "/css/styles.css" %}' rel='stylesheet' />
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
-
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <a href="{% url 'home' %}"><img class="navbar-brand" src='{% static "/images/logo.png" %}' style="height: 70px;"></img>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'irrigation' %}">Green Spaces Irrigation System<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'demands' %}">Demands Management<span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'green_spaces' %}">Green Spaces Management<span class="sr-only"></span></a>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="" class="nav-link"> Logout</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <link href='{% static "/css/style.css" %}' rel='stylesheet' />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    
 </head>
 
 <body>
+    <div class="header">
+        <div class="logo_emp">
+            <img src="{% static 'images/logo.png'%}" class="logo">
+        </div>
+        <div class="nav_list_emp">
+            <ul class="nav_list">
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Accueil
+                    </h2>
+                </li>
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Presentation
+                    </h2>
+                </li>
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Carte
+                    </h2>
+                </li>
+                <li class="nav_list_item">
+                    <h2 class="nav_text">
+                        Qui sommes nous?
+                    </h2>
+                </li>
+            </ul>
+        </div>
+        <div class="login_emp">
+            
+                <div class="nav_list_item login_btn">
+                    <h2 class="nav_text">
+                        Se connecter
+                    </h2>
+                </div>
+        </div>
+    </div>
+
     <form method="get" style="display: None;">
         <input type="text" name="id" id="">
         <input type="text" name="op" id="">
     </form>
-    <div class="container mt-4">
-        <h1>
-            Demands Management :
-        </h1>
+    <div class="main_view_demands">
+        <h2 class="main_view_title" style="padding-left: 2rem;">
+            Demandes
+        </h2>
 
-
-        <table class="table table-striped" style="position: relative; top : 40px">
+        <div class="center">
+        <table class="table fl-table">
             <thead>
-                <tr style="width: 90%;">
-                    <th style="width: 2px; padding: 0;"></th>
-                    <th>Username</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                    <th>Day</th>
-                    <th>Address</th>
-                    <th>Actions</th>
+                <tr class="table_header">
+                    <th style="width: .5%;"></th>
+                    <th style="width: 15%;"><h2 class="table_head_text">Username</h2></th>
+                    <th style="width: 9.5%;"><h2 class="table_head_text">Type</h2></th>
+                    <th style="width: 30%;"><h2 class="table_head_text">Description</h2></th>
+                    <th style="width: 15%;"><h2 class="table_head_text">Jour</h2></th>
+                    <th style="width: 15%;"><h2 class="table_head_text">Adresse</h2></th>
+                    <th style="width: 15%;"><h2 class="table_head_text">Action</h2></th>
                 </tr>
             </thead>
             <tbody>
                 {%for demande in demandes%}
                 <tr>
-                    <td id="status{{demande.id}}" style="background-color: #c3e628; width: 2px; padding: 0;"></td>
+                    <td id="status{{demande.id}}" style="background-color: #c3e628; width: .5%;"></td>
                     <script>
                         var elem = document.getElementById('status{{demande.id}}');
                         if ({{demande.status}} == 2){
@@ -87,17 +90,21 @@
                             elem.style.backgroundColor = "#008450";
                         }
                     </script>
-                    <td>{{demande.username}}</td>
-                    <td>{{demande.type_demande}}</td>
-                    <td style="max-width: 300px;">{{demande.description}}</td>
-                    <td>{{demande.jour}}</td>
-                    <td>{{demande.adresse}}</td>
-                    <td>
-                        <a class="btn btn-success" style="color: #fff;font: size 1.2em;" href="{% url 'demands' %}?id={{demande.id}}&op=1">Approve</a>
-                        <a class="btn btn-danger" style="color: #fff;font: size 1.2em;" href="{% url 'demands' %}?id={{demande.id}}&op=0">Delete</a>
+                    <td style="width: 15%;"><h2 class="table_row_text">{{demande.username}}</h2></td>
+                    <td style="width: 9.5%;"><h2 class="table_row_text">{{demande.type_demande}}</h2></td>
+                    <td style="max-width: 300px; width: 30%;"><h2 class="table_row_text">{{demande.description}}</h2></td>
+                    <td style="width: 15%;"><h2 class="table_row_text">{{demande.jour}}</h2></td>
+                    <td style="width: 15%;"><h2 class="table_row_text">{{demande.adresse}}</h2></td>
+                    <td style="width: 15%;">
+                        <div class="actions" style="width: 100%;display: flex;justify-content: center;align-items:center;">
+                        <a class="button-green" style="font: size 1.2em;" href="{% url 'demands' %}?id={{demande.id}}&op=1"><h2 class="table_row_text">Approve</h2></a>
+                        <a class="button-red" style="font: size 1.2em;" href="{% url 'demands' %}?id={{demande.id}}&op=0"><h2 class="table_row_text">Delete</h2></a>
+                        </div>
                     </td>
                 </tr>
                 {%endfor%}
             </tbody>
         </table>
+    </div>
+    </div>
 </body>

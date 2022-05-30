@@ -40,7 +40,7 @@ def extract_lat_lng(c):
     lng = db['data'][0]['longitude']   
     return [lat,lng]
 
-def home(request):
+def carte(request):
     parameters = request.GET
     search = parameters.get('search')
     eat = parameters.get('eat')
@@ -82,11 +82,8 @@ def home(request):
         "select * from zone where 1 " + s
     ]
     zones = Zone.objects.raw(raws[0])
-    
-    #print(raws)
-    
+
     switch = {1 : "Yes", 0: "No"}
-    
     
     for zone in zones:
         if zone.lat == None:
@@ -96,7 +93,6 @@ def home(request):
             zone.lon = extract_lat_lng(zone.nom)[0]
             zone.save()
         
-
         if zone.image != None :
             zone.image = 'Zone/' + (str(zone.image)).split("/")[1]
 
@@ -170,7 +166,17 @@ def login_view(request):
     return render(request,'login.html')
 
 def irrigation(request):
-    x = requests.get('https://api.openweathermap.org/data/2.5/weather?q=Rabat&appid=dc3354e8258d3f877c9a8ed8b0ed962b')
+    parameters = request.GET
+    zone_id = parameters.get('id')
+    zones_list = []
+    
+    raws=[
+        "select pz.id,z.lat as lat,z.lon as lon,p.nom as pnom,p.description as pdescription,pz.dernier_arr as der,pz.prochain_arr as pr from zone z join plante p join plantezone pz on pz.id_zone = z.id and pz.id_plante = p.id where z.id = "+str(zone_id)
+    ]
+    zones = Zone.objects.raw(raws[0])
+    lat = zones[0].lat
+    lon = zones[0].lon
+    x = requests.get(f'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=dc3354e8258d3f877c9a8ed8b0ed962b')
     data = x.json()
     temperature = data["main"]["feels_like"] - 273.15
     temperature_min = data["main"]["temp_min"] - 273.15
@@ -183,35 +189,30 @@ def irrigation(request):
     humidity = data["main"]["humidity"]
     clouds = data["clouds"]["all"]
     icon_url = "http://openweathermap.org/img/wn/" + icon + ".png"
-    descr = descr.capitalize()
-
-    # if (data["rain"] != None) :
-    #     rain_pct = data["rain"]["1h"]
-    
-    raws=[
-        "select * from zone where 1 "
-    ]
-    zones = Zone.objects.raw(raws[0])
     for zone in zones:
-        if zone.lat == None:
-            zone.lat = extract_lat_lng(zone.nom)[1]
-            zone.save()
-        if zone.lon == None:
-            zone.lon = extract_lat_lng(zone.nom)[0]
-            zone.save()
+        zones_list.append(
+            {
+                "nom" : zone.pnom,
+                "description" : zone.pdescription,
+                "der" : zone.der,
+                "pr" : zone.pr,
+                "temperature" : "{:.2f}".format(temperature),
+                "temperature_min" : "{:.2f}".format(temperature_min),
+                "temperature_max" : "{:.2f}".format(temperature_max),
+                "wind_speed" : "{:.2f}".format(wind_speed),
+                "wind_dir" : wind_dir,
+                "icon_url" : icon_url,
+                "descr" : descr,
+                "pressure" : pressure,
+                "humidity" : humidity,
+                "clouds" : clouds,
+            }
+        )        
+    descr = descr.capitalize()
     return render(request,'irrigation.html',{
         'zones':zones,
+        "zones_list": zones_list,
         "zone0" : zones[0],
-        "temperature" : "{:.2f}".format(temperature),
-        "temperature_min" : "{:.2f}".format(temperature_min),
-        "temperature_max" : "{:.2f}".format(temperature_max),
-        "wind_speed" : "{:.2f}".format(wind_speed),
-        "wind_dir" : wind_dir,
-        "icon_url" : icon_url,
-        "descr" : descr,
-        "pressure" : pressure,
-        "humidity" : humidity,
-        "clouds" : clouds,
         })
 
 def register(request):
