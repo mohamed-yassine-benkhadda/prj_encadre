@@ -173,8 +173,15 @@ def irrigation(request):
     zone_id = parameters.get('id')
     try:
         pz = parameters.get('pz')
-        sql = f"update plantezone set dernier_arr = \"{datetime.datetime.now().isoformat()}\" where id = {str(pz)}"
-        PlanteZone.objects.raw(sql)
+        sql = f"select * from plantezone where id = {str(pz)}"
+        print(sql)
+        plantezone = PlanteZone.objects.raw(sql)
+        plantezone[0].dernier_arr = datetime.datetime.now().isoformat()
+        plantezone[0].status = 1
+        plantezone[0].save()
+        print(plantezone[0].status)
+        sql = "delete from tache where status = 1 id_pz = "+ str(pz)
+        Tache.objects.raw(sql)[0]
         sql = f"select id_zone as id from PlanteZone where id ="+str(pz)
         id_z=PlanteZone.objects.raw(sql)[0].id_zone
         return redirect('accueil')
@@ -224,6 +231,8 @@ def irrigation(request):
     clouds = data["clouds"]["all"]
     icon_url = "http://openweathermap.org/img/wn/" + icon + ".png"
     for zone in zones:
+        e_time = datetime.datetime.now() - zone.der
+        e_time = e_time.total_seconds()/3600
         zones_list.append(
             {
                 "id" : zone.id,
@@ -249,7 +258,7 @@ def irrigation(request):
         tech_id = parametersPost.get('techniciens')
         pz_id = parametersPost.get('plante')
         print(pz_id)
-        t = Tache(id_admin=request.user.id,id_tech=tech_id,id_pz=pz_id,description="Arroser la plante")
+        t = Tache(id_admin=request.user.id,id_tech=tech_id,id_pz=pz_id,description="Arroser la plante",status=0)
         t.save()
     descr = descr.capitalize()
     if admin:

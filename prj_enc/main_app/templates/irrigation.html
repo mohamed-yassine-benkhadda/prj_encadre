@@ -118,18 +118,15 @@
                             <td id="status{{zone.id}}" style="background-color: #c3e628; width: .5%;"></td>
                             <script>
                                 var elem = document.getElementById('status{{zone.id}}');
-                                if ({{zone.pr}}/{{zone.temps}} >= 0.7 ){
+                                if (({{zone.pr}}-{{zone.temps}})/{{zone.temps}} >= 0.7 ){
                                     elem.style.backgroundColor = "#008450";
                                 }
-                                if ({{zone.pr}}/{{zone.temps}} <0.7){
+                                if (({{zone.pr}}-{{zone.temps}})/{{zone.temps}} <0.7){
                                     elem.style.backgroundColor = "#EFB700";
                                 }
-                                if ({{zone.pr}}/{{zone.temps}} <= 0.1){
+                                if (({{zone.pr}}-{{zone.temps}})/{{zone.temps}} <= 0.1){
                                     elem.style.backgroundColor = "#B81D13";
                                 }
-                                console.log("quotient",{{zone.pr}}/{{zone.temps}});
-                                console.log("prochain",{{zone.pr}});
-                                console.log("temps",{{zone.temps}});
                             </script>
                             <td style="width: 39.5%;"><h2 class="table_row_text">{{zone.nom}}</h2></td>
                             <td style="width: 30%;"><h2 class="table_row_text">{{zone.der}}</h2></td>

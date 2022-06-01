@@ -42,6 +42,7 @@ class Tache(models.Model):
     id_tech = models.IntegerField()
     id_pz = models.IntegerField()
     description = models.TextField()
+    status = models.IntegerField()
 
     class Meta:
         db_table = "Tache"

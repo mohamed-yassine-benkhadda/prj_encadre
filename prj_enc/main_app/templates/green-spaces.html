@@ -6,130 +6,105 @@
     <title>Green Spaces Management</title>
 
     {% load static %}
-    <link href='{% static "/css/styles.css" %}' rel='stylesheet ' />
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js '></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css ' rel='stylesheet ' />
-
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <a href="{% url 'home' %}"><img class="navbar-brand" src='{% static "/images/logo.png" %}' style="height: 70px;"></img>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'irrigation' %}">Green Spaces Irrigation System<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'demands' %}">Demands Management<span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'green_spaces' %}">Green Spaces Management<span class="sr-only"></span></a>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="" class="nav-link"> Logout</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Espaces verts</title>    
 </head>
 
 <body>
-
-    <div class="container mt-4">
-        <h1> Green Spaces Management </h1>
-
-        <div class="text-right">
-            <a href="{% url 'green_spaces_add' %}" class="btn btn-primary" style="position: relative; left: -30px; display : inline-block">Add</a>
-            <div class="input-group" style="position: relative; top :-38px; left: 740px; width: fit-content;">
-                <div class="form-outline">
-                    <input id="search-focus" type="search" id="form1" class="form-control" />
-                </div>
-                <button type="button" class="btn btn-primary" style=" position : relative; left: 10px;">
-                  <i class="fa fa-search"></i>
-                </button>
-                <script>
-                    const searchFocus = document.getElementById('search-focus ');
-                    const keys = [{
-                        keyCode: 'AltLeft ',
-                        isTriggered: false
-                    }, {
-                        keyCode: 'ControlLeft ',
-                        isTriggered: false
-                    }, ];
-
-                    window.addEventListener('keydown ', (e) => {
-                        keys.forEach((obj) => {
-                            if (obj.keyCode === e.code) {
-                                obj.isTriggered = true;
-                            }
-                        });
-
-                        const shortcutTriggered = keys.filter((obj) => obj.isTriggered).length === keys.length;
-
-                        if (shortcutTriggered) {
-                            searchFocus.focus();
-                        }
-                    });
-
-                    window.addEventListener('keyup ', (e) => {
-                        keys.forEach((obj) => {
-                            if (obj.keyCode === e.code) {
-                                obj.isTriggered = false;
-                            }
-                        });
-                    });
-                </script>
-            </div>
+    <div class="header">
+        <div class="logo_emp">
+            <img src="{% static 'images/logo.png'%}" class="logo">
         </div>
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Name
-                        <th>Address
-                                <th>Size
-                                    <th>Price
-                                        <th>Public
-                                            <th>Picnic
-                                                <th>Camping
-                                                    <th>Eating
-                                                        <th>Description
-                                                                <th>Actions
-                </tr>
-            </thead>
-            <tbody>
-                {%for zone in zones%}
-                <tr>
-                    <td>{{zone.nom}}</td>
-                    <td style="width: 180px;">{{zone.adresse}}</td>
-                    <td style="width: 80px;">{{zone.superficie}} m²</td>
-                    <td style="width: 90px;">{{zone.prix}} MAD</td>
-                    <td>{{zone.public}}</td>
-                    <td>{{zone.picnic}}</td>
-                    <td>{{zone.camping}}</td>
-                    <td>{{zone.manger}}</td>
-                    <td style="width: 300px;">{{zone.description}}</td>
-                    <td style="width: 100px;">
-                        <a class="btn btn-secondary" style="margin-bottom: 5px;" href="{% url "green_spaces_edit" %}?id={{zone.id}}">Edit</a>
-                        <a class="btn btn-danger"  href="{% url "green_spaces_edit" %}?id={{zone.id}}">Delete</a>
-                    </td>
-                </tr>
-                {%endfor%}
-            </tbody>
-        </table>
+        <div class="nav_list_emp">
+            <ul class="nav_list">
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'home' %}">
+                        <h2 class="nav_text">
+                            Accueil
+                        </h2>
+                    </a>
+                </li>
+                <li class="nav_list_item">
+                    <a class="link" href="#">
+                        <h2 class="nav_text">
+                            Presentation
+                        </h2>
+                    </a>
+                </li>
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'carte' %}">
+                        <h2 class="nav_text">
+                            Carte
+                        </h2>
+                    </a>
+                </li>
+                <li class="nav_list_item">
+                    <a class="link" href="#">
+                        <h2 class="nav_text">
+                            Qui sommes nous?
+                        </h2>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="login_emp">
+            
+                <div class="nav_list_item login_btn">
+                    <a class="link" href="{% url 'login' %}">
+                        <h2 class="nav_text">
+                            Se connecter
+                        </h2>
+                    </a>
+                </div>
+        </div>
+    </div>
+    <div class="main_view2">
+        <h2 class="main_view_title" style="margin: 2rem 2rem 0 2rem;">
+            Les Plantes
+        </h2> 
+        <div class="center">
+            <table class="table fl-table">
+                <thead>
+                    <tr class="table_header">
+                        <th style="width: .5%;"></th>
+                        <th style="width: 39.5%;"><h2 class="table_head_text">Nom</h2></th>
+                        <th style="width: 30%;"><h2 class="table_head_text">Derniere irrigation</h2></th>
+                        <th style="width: 30%;"><h2 class="table_head_text">Actions</h2></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for zone in zones_list%}
+                    <tr>
+                        <td id="status{{zone.id}}" style="background-color: #c3e628; width: .5%;"></td>
+                        <script>
+                            var elem = document.getElementById('status{{zone.id}}');
+                            if (({{zone.pr}}-{{zone.temps}})/{{zone.temps}} >= 0.7 ){
+                                elem.style.backgroundColor = "#008450";
+                            }
+                            if (({{zone.pr}}-{{zone.temps}})/{{zone.temps}} <0.7){
+                                elem.style.backgroundColor = "#EFB700";
+                            }
+                            if (({{zone.pr}}-{{zone.temps}})/{{zone.temps}} <= 0.1){
+                                elem.style.backgroundColor = "#B81D13";
+                            }
+                        </script>
+                        <td style="width: 39.5%;"><h2 class="table_row_text">{{zone.nom}}</h2></td>
+                        <td style="width: 30%;"><h2 class="table_row_text">{{zone.der}}</h2></td>
+                        <td style="width: 30%;"><h2 class="table_row_text"></h2>
+                            <div class="actions" style="width: 100%;display: flex;justify-content: center;align-items:center;">
+                            <a class="button-green modalwin" style="font-size: 1.2em;" href="#"><h2 class="table_row_text">Envoyer une mission</h2></a>
+                            </div>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        </div>
 </body>
