@@ -403,12 +403,6 @@ input{
     font-size: .8rem;
 }
 
-.fl-table td{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
 .table_header{
     background-color: #CCF3EE80;
 }
@@ -449,4 +443,113 @@ input{
     width: 50%;
     height: 87vh;
     max-width: 50%;
+}
+
+.main_view_right_bottom{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.indicators{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.indicator{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.indicator_logo{
+    height: 30px;
+    width: auto;
+}
+
+.indicator_text{
+    font-weight: 500;
+    font-size: 1.4rem;
+}
+
+.stg_item{
+    width: 100%;
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.stg_choice{
+    padding-left: .3rem;
+    display: flex;
+    justify-content:space-around;
+    align-items:center;
+    width: 60%;
+    flex-wrap: wrap;
+}
+
+.choice{
+    padding:.3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    width: 100%;
+}
+
+.form_modal{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.settings_pan{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 40vh;
+    border-radius: 5px;
+    background-color: #fdfefe;
+    opacity: 0.8;
+    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #fdfefe 10px ), repeating-linear-gradient( #f4fafd70, #f4fafd );
+    z-index: 10;
+}
+
+.hidden{
+    display: none;
+}
+
+.center_form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.stg_txt{
+    margin-right: 1rem;
+}
+
+.link{
+    text-decoration: none;
+    color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }

@@ -97,8 +97,8 @@
                     <td style="width: 15%;"><h2 class="table_row_text">{{demande.adresse}}</h2></td>
                     <td style="width: 15%;">
                         <div class="actions" style="width: 100%;display: flex;justify-content: center;align-items:center;">
-                        <a class="button-green" style="font: size 1.2em;" href="{% url 'demands' %}?id={{demande.id}}&op=1"><h2 class="table_row_text">Approve</h2></a>
-                        <a class="button-red" style="font: size 1.2em;" href="{% url 'demands' %}?id={{demande.id}}&op=0"><h2 class="table_row_text">Delete</h2></a>
+                        <a class="button-green" style="font: size 1.2em;" href="{% url 'demands' %}?id={{demande.id}}&op=1"><h2 class="table_row_text">Accepter</h2></a>
+                        <a class="button-red" style="font: size 1.2em;" href="{% url 'demands' %}?id={{demande.id}}&op=0"><h2 class="table_row_text">Supprimer</h2></a>
                         </div>
                     </td>
                 </tr>

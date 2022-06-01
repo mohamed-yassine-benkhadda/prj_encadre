@@ -40,9 +40,8 @@ class Admin(models.Model):
 class Tache(models.Model):
     id_admin = models.IntegerField()
     id_tech = models.IntegerField()
-    adresse = models.CharField(max_length=200)
+    id_pz = models.IntegerField()
     description = models.TextField()
-    status = models.BooleanField()
 
     class Meta:
         db_table = "Tache"
@@ -77,7 +76,7 @@ class PlanteZone(models.Model):
     id_zone = models.IntegerField()
     id_plante = models.IntegerField()
     dernier_arr = models.DateTimeField()
-    prochain_arr = models.DateTimeField()
+    prochain_arr = models.IntegerField()
 
     class Meta:
         db_table = "PlanteZone"

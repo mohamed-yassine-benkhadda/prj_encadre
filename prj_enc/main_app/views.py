@@ -5,6 +5,7 @@ import http.client, urllib.parse
 from .models import *
 import json
 import requests
+import datetime
 
 # Create your views here.
 
@@ -123,11 +124,12 @@ def carte(request):
 def accueil(request):
     parameters = request.POST
     raws=[
-        "select * from zone where 1 limit 3 "
+        "select * from zone where 1 limit 3 ",
+        f"select * from auth_user where id = {request.user.id}"
     ]
     zones = Zone.objects.raw(raws[0])
     
-    print(raws)
+    admin = Admin.objects.raw(raws[1])[0].is_staff
     
     switch = {1 : "Yes", 0: "No"}
     
@@ -152,6 +154,7 @@ def accueil(request):
     
     return render(request,'accueil.html',{
         "zones" : zones,
+        "staff" : admin
     })
 
 def login_view(request):
@@ -168,16 +171,47 @@ def login_view(request):
 def irrigation(request):
     parameters = request.GET
     zone_id = parameters.get('id')
+    try:
+        pz = parameters.get('pz')
+        sql = f"update plantezone set dernier_arr = \"{datetime.datetime.now().isoformat()}\" where id = {str(pz)}"
+        PlanteZone.objects.raw(sql)
+        sql = f"select id_zone as id from PlanteZone where id ="+str(pz)
+        id_z=PlanteZone.objects.raw(sql)[0].id_zone
+        return redirect('accueil')
+    except:
+        pass
+    if zone_id == None or zone_id=="":
+        zone_id = id_z
     zones_list = []
+    id_user = request.user.id
+    if id_user == None:
+        return redirect('login')
+    raws=[
+        "select * from admin a join auth_user au join technicien t where au.id = t.id_utilisateur or au.id = a.id_utilisateur and au.id = " + str(id_user),
+        f"select * from auth_user u where u.id = {request.user.id}"
+    ]
+    users = Admin.objects.raw(raws[0])
+    if len(users) == 0:
+        return redirect('login')
+
+    admin = Admin.objects.raw(raws[1])[0].is_superuser
     
     raws=[
-        "select pz.id,z.lat as lat,z.lon as lon,p.nom as pnom,p.description as pdescription,pz.dernier_arr as der,pz.prochain_arr as pr from zone z join plante p join plantezone pz on pz.id_zone = z.id and pz.id_plante = p.id where z.id = "+str(zone_id)
+        "select z.id as zid,pz.id as id,z.lat as lat,z.lon as lon,p.nom as pnom,p.description as pdescription,pz.dernier_arr as der,pz.prochain_arr as pr,z.id as zoneid from zone z join plante p join plantezone pz on pz.id_zone = z.id and pz.id_plante = p.id where z.id = "+str(zone_id),
+        "SELECT * from technicien GROUP BY mail",
+        f"select z.id as zid,pz.id as id,z.lat as lat,z.lon as lon,p.nom as pnom,p.description as pdescription,pz.dernier_arr as der,pz.prochain_arr as pr,z.id as zoneid from zone z join plante p join plantezone pz join auth_user au join tache where tache.id_tech=au.id and tache.id_pz=pz.id and pz.id_zone = z.id and pz.id_plante = p.id and au.id = {request.user.id} and pz.id_zone = {str(zone_id)}"
     ]
+    zones_tech = PlanteZone.objects.raw(raws[2])
     zones = Zone.objects.raw(raws[0])
+    technicien = Technicien.objects.raw(raws[1])
     lat = zones[0].lat
+    id = zones[0].id
     lon = zones[0].lon
-    x = requests.get(f'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=dc3354e8258d3f877c9a8ed8b0ed962b')
+    s = f'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=dc3354e8258d3f877c9a8ed8b0ed962b'
+    x = requests.get(s)
     data = x.json()
+    e_time = datetime.datetime.now() - zones[0].der
+    e_time = e_time.total_seconds()/3600
     temperature = data["main"]["feels_like"] - 273.15
     temperature_min = data["main"]["temp_min"] - 273.15
     temperature_max = data["main"]["temp_max"] - 273.15
@@ -192,7 +226,9 @@ def irrigation(request):
     for zone in zones:
         zones_list.append(
             {
+                "id" : zone.id,
                 "nom" : zone.pnom,
+                "temps" : e_time,
                 "description" : zone.pdescription,
                 "der" : zone.der,
                 "pr" : zone.pr,
@@ -207,13 +243,33 @@ def irrigation(request):
                 "humidity" : humidity,
                 "clouds" : clouds,
             }
-        )        
+        )  
+    if request.method == "POST":
+        parametersPost = request.POST
+        tech_id = parametersPost.get('techniciens')
+        pz_id = parametersPost.get('plante')
+        print(pz_id)
+        t = Tache(id_admin=request.user.id,id_tech=tech_id,id_pz=pz_id,description="Arroser la plante")
+        t.save()
     descr = descr.capitalize()
-    return render(request,'irrigation.html',{
-        'zones':zones,
-        "zones_list": zones_list,
-        "zone0" : zones[0],
-        })
+    if admin:
+        return render(request,'irrigation.html',{
+            'zones':zones,
+            "zones_list": zones_list,
+            "zones_list0": zones_list[0],
+            "zone0" : zones[0],
+            "technicien" : technicien,
+            "zoneid" : zones[0].zoneid,
+            })
+    return render(request,'irrigation_tech.html',{
+            'zones':zones,
+            "zones_list": zones_list,
+            "zones_tech": zones_tech,
+            "zones_list0": zones_list[0],
+            "zone0" : zones[0],
+            "technicien" : technicien,
+            "zoneid" : zones[0].zoneid,
+            })
 
 def register(request):
     if request.method == "POST":

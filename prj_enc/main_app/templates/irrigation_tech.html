@@ -9,13 +9,6 @@
     <link href='{% static "/css/style.css" %}' rel='stylesheet' />
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style.css'%}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 
 
     
@@ -100,7 +93,7 @@
     <div class="main_view">
         <div class="main_view_left">
             <h2 class="main_view_title" style="margin: 2rem 2rem 0 2rem;">
-                Les Plantes
+                Les missions
             </h2>
             <div class="center">
                 <table class="table fl-table">
@@ -113,7 +106,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {%for zone in zones_list%}
+                        {%for zone in zones_tech%}
                         <tr>
                             <td id="status{{zone.id}}" style="background-color: #c3e628; width: .5%;"></td>
                             <script>
@@ -127,15 +120,13 @@
                                 if ({{zone.pr}}/{{zone.temps}} <= 0.1){
                                     elem.style.backgroundColor = "#B81D13";
                                 }
-                                console.log("quotient",{{zone.pr}}/{{zone.temps}});
-                                console.log("prochain",{{zone.pr}});
-                                console.log("temps",{{zone.temps}});
                             </script>
-                            <td style="width: 39.5%;"><h2 class="table_row_text">{{zone.nom}}</h2></td>
+                            <td style="width: 39.5%;"><h2 class="table_row_text">{{zone.pnom}}</h2></td>
                             <td style="width: 30%;"><h2 class="table_row_text">{{zone.der}}</h2></td>
                             <td style="width: 30%;"><h2 class="table_row_text"></h2>
+                                </div>
                                 <div class="actions" style="width: 100%;display: flex;justify-content: center;align-items:center;">
-                                <a class="button-green modalwin" style="font-size: 1.2em;" href="#"><h2 class="table_row_text">Envoyer une mission</h2></a>
+                                <a class="button-green" style="font: size 1.2em;" href="{% url 'irrigation' %}?id={{zone.zid}}&pz={{zone.id}}"><h2 class="table_row_text">Valider</h2></a>
                                 </div>
                             </td>
                         </tr>

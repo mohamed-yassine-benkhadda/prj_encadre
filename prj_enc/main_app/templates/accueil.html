@@ -19,33 +19,43 @@
         <div class="nav_list_emp">
             <ul class="nav_list">
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Accueil
-                    </h2>
+                    <a class="link" href="{% url 'home' %}">
+                        <h2 class="nav_text">
+                            Accueil
+                        </h2>
+                    </a>
                 </li>
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Presentation
-                    </h2>
+                    <a class="link" href="#">
+                        <h2 class="nav_text">
+                            Presentation
+                        </h2>
+                    </a>
                 </li>
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Carte
-                    </h2>
+                    <a class="link" href="{% url 'carte' %}">
+                        <h2 class="nav_text">
+                            Carte
+                        </h2>
+                    </a>
                 </li>
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Qui sommes nous?
-                    </h2>
+                    <a class="link" href="#">
+                        <h2 class="nav_text">
+                            Qui sommes nous?
+                        </h2>
+                    </a>
                 </li>
             </ul>
         </div>
         <div class="login_emp">
             
                 <div class="nav_list_item login_btn">
-                    <h2 class="nav_text">
-                        Se connecter
-                    </h2>
+                    <a class="link" href="{% url 'login' %}">
+                        <h2 class="nav_text">
+                            Se connecter
+                        </h2>
+                    </a>
                 </div>
         </div>
     </div>
@@ -75,22 +85,28 @@
             <div class="center">
             <ul class="main_view2_list">
                 <li class="main_view2_list_item">
+                    <a class="link" href="{% url 'carte' %}">
                     <img src="{% static 'images/Group-2.svg'%}" alt="" srcset="" class="nav_btn">
-                    <h2 class="main_view2_list_item_text">
-                        Explorer
-                    </h2>
+                        <h2 class="main_view2_list_item_text">
+                            Explorer
+                        </h2>
+                    </a>
                 </li>
                 <li class="main_view2_list_item">
-                    <img src="{% static 'images/Group-1.svg'%}" alt="" srcset="" class="nav_btn">
-                    <h2 class="main_view2_list_item_text">
-                        Ajouter
-                    </h2>
+                    <a class="link" href="{% url 'green_spaces_add' %}">
+                        <img src="{% static 'images/Group-1.svg'%}" alt="" srcset="" class="nav_btn">
+                            <h2 class="main_view2_list_item_text">
+                                Ajouter
+                            </h2>
+                        </a>
                 </li>
                 <li class="main_view2_list_item">
-                    <img src="{% static 'images/Group.svg'%}" alt="" srcset="" class="nav_btn">
+                    <a class="link" href="{% url 'citizen_plants_form' %}">
+                        <img src="{% static 'images/Group.svg'%}" alt="" srcset="" class="nav_btn">
                     <h2 class="main_view2_list_item_text">
                         Participer
                     </h2>
+                        </a>
                 </li>
             </ul>
             </div>
