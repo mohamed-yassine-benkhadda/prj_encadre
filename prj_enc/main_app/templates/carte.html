@@ -22,33 +22,48 @@
         <div class="nav_list_emp">
             <ul class="nav_list">
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Accueil
-                    </h2>
+                    <a class="link" href="{% url 'home' %}">
+                        <h2 class="nav_text">
+                            Accueil
+                        </h2>
+                    </a>
                 </li>
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Presentation
-                    </h2>
+                    <a class="link" href="{% url 'about' %}">
+                        <h2 class="nav_text">
+                            Presentation
+                        </h2>
+                    </a>
                 </li>
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Carte
-                    </h2>
+                    <a class="link" href="{% url 'carte' %}">
+                        <h2 class="nav_text">
+                            Carte
+                        </h2>
+                    </a>
                 </li>
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Qui sommes nous?
-                    </h2>
+                    <a class="link" href="{% url 'about' %}">
+                        <h2 class="nav_text">
+                            Qui sommes nous?
+                        </h2>
+                    </a>
                 </li>
             </ul>
         </div>
         <div class="login_emp">
             
                 <div class="nav_list_item login_btn">
-                    <h2 class="nav_text">
-                        Se connecter
-                    </h2>
+                    <a class="link" href="{% url 'login' %}">
+                        <h2 class="nav_text">
+                            {%if logged == None%}
+                            Se connecter
+                            {%endif%}
+                            {%if logged != None%}
+                            {{mail}}
+                            {%endif%}
+                        </h2>
+                    </a>
                 </div>
         </div>
     </div>
@@ -70,12 +85,12 @@
                             </div>
                             <input name="search" id="search" type="text" placeholder="Search..." />
                             <div class="result-count">
-                                <span>{{l_zone}}</span>results
+                                <span>{{l_zone}}</span>Résultats
                             </div>
                         </div>
                     </div>
                     <div class="advance-search">
-                        <span class="desc">Advanced Search</span>
+                        <span class="desc">Recherche avancée</span>
                         <div class="center">
                         <div style="margin-bottom: 30px;display:flex;justify-content:space-between;align-items:center;width:70%;">
                             <div class="form-check form-check-inline" style="margin-right: 40px;">
@@ -84,7 +99,7 @@
                             </div>
                             <div class="form-check form-check-inline" style="margin-right: 40px;">
                                 <input class="form-check-input" name="eat" id="eat" type="checkbox" value="true">
-                                <label class="form-check-label" for="eat">Eating</label>
+                                <label class="form-check-label" for="eat">Manger</label>
                             </div>
                             <div class="form-check form-check-inline" style="margin-right: 40px;">
                                 <input class="form-check-input" name="picnic" id="picnic" type="checkbox" value="true">
@@ -98,8 +113,7 @@
                         </div>
                         <div class="row third">
                             <div class="input-field" style="margin-left: 20px;">
-                                <button type="submit" value="submit" class="btn-search" id="submit">Search</button>
-                                <button type="reset" value="reset" class="btn-delete" id="delete">Delete</button>
+                                <button type="submit" value="submit" class="btn-search" id="submit">Rechercher</button>
                             </div>
                         </div>
                     </div>
@@ -108,9 +122,6 @@
         </div>
     </body>
     <script>
-    {%for zone in zones%}
-        console.log("{{zone.nom}}");
-    {%endfor%}
     </script>
     <div class="center">
     <div id="map" class="map"
@@ -254,9 +265,11 @@
         <ul class="main_view3_list">
             {%for zone in zones %}
             <li class="main_view3_list_item">
-                <h2 class="main_view3_list_item_title">
-                    {{zone.nom}}
-                </h2>
+                <a href="{% url 'zone' %}?id={{zone.id}}" class="link">
+                    <h2 class="main_view3_list_item_title">
+                        {{zone.nom}}
+                    </h2>
+                </a>
                 <script>
                     console.log({{zone.image}})
                 </script>

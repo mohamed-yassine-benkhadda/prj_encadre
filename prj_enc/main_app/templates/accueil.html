@@ -26,7 +26,7 @@
                     </a>
                 </li>
                 <li class="nav_list_item">
-                    <a class="link" href="#">
+                    <a class="link" href="{% url 'about' %}">
                         <h2 class="nav_text">
                             Presentation
                         </h2>
@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li class="nav_list_item">
-                    <a class="link" href="#">
+                    <a class="link" href="{% url 'about' %}">
                         <h2 class="nav_text">
                             Qui sommes nous?
                         </h2>
@@ -53,7 +53,12 @@
                 <div class="nav_list_item login_btn">
                     <a class="link" href="{% url 'login' %}">
                         <h2 class="nav_text">
+                            {%if logged == None%}
                             Se connecter
+                            {%endif%}
+                            {%if logged != None%}
+                            {{mail}}
+                            {%endif%}
                         </h2>
                     </a>
                 </div>
@@ -108,6 +113,26 @@
                     </h2>
                         </a>
                 </li>
+                {%if staff == 1%}
+                <li class="main_view2_list_item">
+                    <a class="link" href="{% url 'green_spaces' %}">
+                        <img src="{% static 'images/Group-3.svg'%}" alt="" srcset="" class="nav_btn">
+                    <h2 class="main_view2_list_item_text">
+                        Gérer
+                    </h2>
+                        </a>
+                </li>
+                {%endif%}
+                {%if admin == 1%}
+                <li class="main_view2_list_item">
+                    <a class="link" href="{% url 'demands' %}">
+                        <img src="{% static 'images/Group-4.svg'%}" alt="" srcset="" class="nav_btn">
+                    <h2 class="main_view2_list_item_text">
+                        Accorder
+                    </h2>
+                        </a>
+                </li>
+                {%endif%}
             </ul>
             </div>
         </div>
@@ -118,34 +143,66 @@
                 </h2>
             </div>
             <div class="center">
-            <ul class="main_view3_list">
-                {%for zone in zones %}
-                <li class="main_view3_list_item">
-                    <h2 class="main_view3_list_item_title">
-                        {{zone.nom}}
-                    </h2>
-                    <script>
-                        console.log({{zone.image}})
-                    </script>
-                    <img src="{% static zone.image %}" alt="" srcset="" class="main_view3_list_item_image">
-                    <p class="main_view3_list_item_text">
-                        {{zone.description}}
-                    </p>
-                    <ul class="main_view3_list_item_feautures">
-                        <li class="feauture_item">
-                            <img src="{% static 'images/crowd.png'%}" alt="" srcset="" class="feature_icon">
+                <div class="cards_zone" id="cards_zone">
+                    <ul class="main_view3_list">
+                        {%for zone in zones %}
+                        <li class="main_view3_list_item">
+                            <a href="{% url 'zone' %}?id={{zone.id}}" class="link">
+                                <h2 class="main_view3_list_item_title">
+                                    {{zone.nom}}
+                                </h2>
+                            </a>
+                            <script>
+                                console.log({{zone.image}})
+                            </script>
+                            <img src="{% static zone.image %}" alt="" srcset="" class="main_view3_list_item_image">
+                            <p class="main_view3_list_item_text">
+                                {{zone.description}}
+                            </p>
+                            <script>
+                                console.log("{{zone.picnic}}")
+                            </script>
+                            <ul class="main_view3_list_item_feautures">
+                                {% if zone.public == "Public" %}
+                                <li class="feauture_item">
+                                    <img src="{% static 'images/crowd.png'%}" alt="" srcset="" class="feature_icon">
+                                </li>
+                                {% endif %}
+                                {% if zone.public == "Private" %}
+                                <li class="feauture_item">
+                                    <img src="{% static 'images/user (1).png'%}" alt="" srcset="" class="feature_icon">
+                                </li>
+                                {% endif %}
+                                {% if zone.picnic == "Yes" %}
+                                <li class="feauture_item">
+                                    <img src="{% static 'images/picnic-basket.png'%}" alt="" srcset="" class="feature_icon">
+                                </li>
+                                {% endif %}
+                                {% if zone.manger == 'Yes' %}
+                                <li class="feauture_item">
+                                    <img src="{% static 'images/restaurant.png'%}" alt="" srcset="" class="feature_icon">
+                                </li>
+                                {% endif %}
+                                {% if zone.camping == 'Yes' %}
+                                <li class="feauture_item">
+                                    <img src="{% static 'images/tent.png'%}" alt="" srcset="" class="feature_icon">
+                                </li>
+                                {% endif %}
+                            </ul>
                         </li>
-                        <li class="feauture_item">
-                            <img src="{% static 'images/picnic-basket.png'%}" alt="" srcset="" class="feature_icon">
-                        </li>
-                        <li class="feauture_item">
-                            <img src="{% static 'images/restaurant.png'%}" alt="" srcset="" class="feature_icon">
-                        </li>
+                        {%endfor%}
                     </ul>
-                </li>
-                {%endfor%}
-            </ul>
-        </div>
+                </div>
+                <script>
+                    var elem = document.getElementById('cards_zone');
+                        if ({{l_zone}} == 0){
+                            elem.style.display = "None";
+                        }
+                        else{
+                            elem.style.display = "flex";
+                        }
+                </script>
+            </div>
         </div>
         <div class="main_view4">
             <div class="center">

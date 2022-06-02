@@ -17,6 +17,9 @@
 </head>
 
 <body>
+    <form method="GET" style="display: none">
+        <input type="text" name="id">
+    </form>
     <div class="header">
         <div class="logo_emp">
             <img src="{% static 'images/logo.png'%}" class="logo">
@@ -31,7 +34,7 @@
                     </a>
                 </li>
                 <li class="nav_list_item">
-                    <a class="link" href="#">
+                    <a class="link" href="{% url 'about' %}">
                         <h2 class="nav_text">
                             Presentation
                         </h2>
@@ -45,7 +48,7 @@
                     </a>
                 </li>
                 <li class="nav_list_item">
-                    <a class="link" href="#">
+                    <a class="link" href="{% url 'about' %}">
                         <h2 class="nav_text">
                             Qui sommes nous?
                         </h2>
@@ -58,53 +61,82 @@
                 <div class="nav_list_item login_btn">
                     <a class="link" href="{% url 'login' %}">
                         <h2 class="nav_text">
+                            {%if logged == None%}
                             Se connecter
+                            {%endif%}
+                            {%if logged != None%}
+                            {{mail}}
+                            {%endif%}
                         </h2>
                     </a>
                 </div>
         </div>
     </div>
     <div class="main_view2">
-        <h2 class="main_view_title" style="margin: 2rem 2rem 0 2rem;">
-            Les Plantes
-        </h2> 
+        <div class="center">
+        <div class="header_main">
+            <h2 class="main_view_title">
+                Les espaces verts
+            </h2> 
+            <a class="button-add" style="font: size 1.2em; margin-right: 2rem;" href="{% url "green_spaces_add" %}">Ajouter <img src="{% static 'images/add-svgrepo-com.svg'%}" style="width:1.2rem;height:auto;"></a>
+        </div>
+    </div>
         <div class="center">
             <table class="table fl-table">
                 <thead>
                     <tr class="table_header">
-                        <th style="width: .5%;"></th>
-                        <th style="width: 39.5%;"><h2 class="table_head_text">Nom</h2></th>
-                        <th style="width: 30%;"><h2 class="table_head_text">Derniere irrigation</h2></th>
-                        <th style="width: 30%;"><h2 class="table_head_text">Actions</h2></th>
+                        <th width="10%"><h2 class="table_head_text">Nom</h2>
+                            <th width="10%"><h2 class="table_head_text">Adresse</h2>
+                                    <th width="5%"><h2 class="table_head_text">Taille</h2>
+                                        <th width="5%"><h2 class="table_head_text">prix</h2>
+                                            <th width="5%"><h2 class="table_head_text">Public</h2>
+                                                <th width="5%"><h2 class="table_head_text">Picnic</h2>
+                                                    <th width="5%"><h2 class="table_head_text">Camping</h2>
+                                                        <th width="5%"><h2 class="table_head_text">Manger</h2>
+                                                            <th width="35%"><h2 class="table_head_text">Description</h2>
+                                                                    <th width="15%"><h2 class="table_head_text">Actions</h2>
                     </tr>
                 </thead>
                 <tbody>
-                    {%for zone in zones_list%}
+                    {%for zone in zones%}
                     <tr>
-                        <td id="status{{zone.id}}" style="background-color: #c3e628; width: .5%;"></td>
-                        <script>
-                            var elem = document.getElementById('status{{zone.id}}');
-                            if (({{zone.pr}}-{{zone.temps}})/{{zone.temps}} >= 0.7 ){
-                                elem.style.backgroundColor = "#008450";
-                            }
-                            if (({{zone.pr}}-{{zone.temps}})/{{zone.temps}} <0.7){
-                                elem.style.backgroundColor = "#EFB700";
-                            }
-                            if (({{zone.pr}}-{{zone.temps}})/{{zone.temps}} <= 0.1){
-                                elem.style.backgroundColor = "#B81D13";
-                            }
-                        </script>
-                        <td style="width: 39.5%;"><h2 class="table_row_text">{{zone.nom}}</h2></td>
-                        <td style="width: 30%;"><h2 class="table_row_text">{{zone.der}}</h2></td>
-                        <td style="width: 30%;"><h2 class="table_row_text"></h2>
-                            <div class="actions" style="width: 100%;display: flex;justify-content: center;align-items:center;">
-                            <a class="button-green modalwin" style="font-size: 1.2em;" href="#"><h2 class="table_row_text">Envoyer une mission</h2></a>
-                            </div>
+                        <td class="table_row_text" style="width: 10%;">
+                            <a href="{% url "zone" %}?id={{zone.id}}" class="link">
+                                {{zone.nom}}
+                            </a>
                         </td>
-                    </tr>
+                        <td class="table_row_text" style="width: 10%;">{{zone.adresse}}</td>
+                        <td class="table_row_text" style="width: 5%;">{{zone.superficie}} m²</td>
+                        <td class="table_row_text" style="width: 5%;">{{zone.prix}} MAD</td>
+                        <td class="table_row_text" style="width: 5%;">{{zone.public}}</td>
+                        <td class="table_row_text" style="width: 5%;">{{zone.picnic}}</td>
+                        <td class="table_row_text" style="width: 5%;">{{zone.camping}}</td>
+                        <td class="table_row_text" style="width: 5%;">{{zone.manger}}</td>
+                        <td class="table_row_text" style="width: 35%;">{{zone.description}}</td>
+                        <td class="table_row_text" style="width: 15%;">
+                            {%if admin == 1%}
+                            <a class="button-grey" style="font: size 1.2em;" href="{% url "green_spaces_edit" %}?id={{zone.id}}">Modifier</a>
+                            <a class="button-red" style="font: size 1.2em;"  href="{% url "green_spaces" %}?id={{zone.id}}">Supprimer</a>
+                            {%endif%}
+                        </td>
+                        </tr>
                     {%endfor%}
                 </tbody>
             </table>
+            <script>
+                let table_row_text = document.querySelectorAll('.table_row_text');
+                table_row_text.forEach((e) =>{
+                    if(e.textContent == "True"){
+                        e.innerHTML = "<div class='center'><img src=\"{% static 'images/yes-svgrepo-com (1).svg'%}\" style=\"height: 2rem; width:auto;\"></div>"
+                    }
+                    if(e.textContent == "False"){
+                        e.innerHTML = "<div class='center'><img src=\"{% static 'images/no-svgrepo-com (1).svg'%}\" style=\"height: 2rem; width:auto;\"></div>"
+                    }
+                    if(e.textContent == "0 MAD"){
+                        e.innerHTML = "<div class='center'>-</div>"
+                    }
+                })
+            </script>
         </div>
         </div>
 </body>

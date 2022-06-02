@@ -60,6 +60,7 @@ class Zone(models.Model):
     lat = models.FloatField(blank=True,null=True)
     lon = models.FloatField(blank=True,null=True)
     description = models.TextField(blank=True,null=True)
+    text = models.TextField(blank=True,null=True)
     image = models.ImageField(upload_to='prj_enc/main_app/static/Zone')
 
     class Meta:
@@ -68,7 +69,7 @@ class Zone(models.Model):
 class Plante(models.Model):
     nom = models.CharField(max_length=40)
     description = models.TextField()
-    image = models.ImageField()
+    image = models.ImageField(upload_to='prj_enc/main_app/static/Plante')
 
     class Meta:
         db_table = "Plante"
@@ -92,7 +93,7 @@ class TechnicienZone(models.Model):
 
 class Demande(models.Model):
     id_utilisateur = models.IntegerField()
-    id_admin = models.IntegerField()
+    id_admin = models.IntegerField(blank=True,null=True)
     type_demande = models.CharField(choices=choix_demande,max_length=50)
     description = models.TextField()
     jour = models.DateTimeField()

@@ -157,9 +157,9 @@
 }
 
 .nav_btn{
-    width: 4rem;
+    width: auto;
     margin-bottom: .5rem;
-    height: auto;
+    height: 4rem;
 }
 
 .main_view_title{
@@ -201,14 +201,13 @@
 
 .main_view3_list_item_title{
     font-weight: 500;
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     margin-bottom: 1rem;
 }
 
 .main_view3_list_item_text{
     font-weight: 400;
-    font-size: .8rem;
-    margin-bottom: 1rem;
+    font-size: .9rem;
 }
 
 .main_view3_list_item_feautures{
@@ -375,13 +374,11 @@ input{
     border-collapse: collapse;
     width: 98%;
     max-width: 100%;
-    white-space: nowrap;
     background-color: white;
     margin-top: 2rem;
 }
 
 .fl-table td, .fl-table th {
-    text-align: center;
     padding: 8px;
 }
 
@@ -414,6 +411,39 @@ input{
     margin-right: 1rem;
     text-decoration: none;
     color: #fff;
+}
+
+.button-grey{
+    background-color: #06113C;
+    padding: .5rem .7rem;
+    border-radius: 10px;
+    margin-right: .2rem;
+    text-decoration: none;
+    color: #fff;
+}
+
+.button-add{
+    background-color: #fdfefe;
+    width: 7rem;
+    opacity: 0.8;
+    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #fdfefe 10px ), repeating-linear-gradient( #f4fafd70, #f4fafd );
+    padding: .5rem .7rem;
+    border-radius: 10px;
+    margin-right: .2rem;
+    text-decoration: none;
+    color: #000;
+    font-weight: 700;
+    font-size:1rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.button-add:hover{
+    background-color: #85C88A;
+    opacity: 0.7;
+    background-image: radial-gradient(#b5deb8 0.30000000000000004px, #85C88A 0.30000000000000004px);
+    background-size: 6px 6px;
 }
 
 .button-red{
@@ -552,4 +582,116 @@ input{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.header_main{
+    margin: 1rem 0;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main_image_zone{
+    width: 70%;
+    height: auto;
+}
+
+.zone_feautures{
+    margin-top: .5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+}
+
+.feauture_item_zone{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+}
+
+.feature_icon_zone{
+    width: 2rem;
+    height: auto;
+}
+
+.feauture_text{
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin-left: .5rem;
+}
+
+.introduction{
+    font-weight: 300;
+    font-size: 1.4rem;
+    width: 55%;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.main_view_zone_text{
+    font-weight: 500;
+    font-size: 1.6rem;
+    width: 75%;
+    white-space: pre-line;
+    margin-bottom: 2rem;
+}
+
+.main_view_team{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    width: 100%;
+    flex-direction: column;
+}
+
+.row_team{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.team_member{
+    width: 48%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.team_member_left{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.team_member_right{
+    width: 70%;
+}
+
+.team_member_right_title{
+    font-weight: 700;
+    font-size: 2.1rem;
+}
+
+.team_member_right_text{
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.social_media{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.social_media_logo{
+    width: 2rem;
+    height: auto;
+    margin-right: .5rem;
 }

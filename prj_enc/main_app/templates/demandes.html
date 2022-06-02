@@ -21,33 +21,48 @@
         <div class="nav_list_emp">
             <ul class="nav_list">
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Accueil
-                    </h2>
+                    <a class="link" href="{% url 'home' %}">
+                        <h2 class="nav_text">
+                            Accueil
+                        </h2>
+                    </a>
                 </li>
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Presentation
-                    </h2>
+                    <a class="link" href="{% url 'about' %}">
+                        <h2 class="nav_text">
+                            Presentation
+                        </h2>
+                    </a>
                 </li>
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Carte
-                    </h2>
+                    <a class="link" href="{% url 'carte' %}">
+                        <h2 class="nav_text">
+                            Carte
+                        </h2>
+                    </a>
                 </li>
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Qui sommes nous?
-                    </h2>
+                    <a class="link" href="{% url 'about' %}">
+                        <h2 class="nav_text">
+                            Qui sommes nous?
+                        </h2>
+                    </a>
                 </li>
             </ul>
         </div>
         <div class="login_emp">
             
                 <div class="nav_list_item login_btn">
-                    <h2 class="nav_text">
-                        Se connecter
-                    </h2>
+                    <a class="link" href="{% url 'login' %}">
+                        <h2 class="nav_text">
+                            {%if logged == None%}
+                            Se connecter
+                            {%endif%}
+                            {%if logged != None%}
+                            {{mail}}
+                            {%endif%}
+                        </h2>
+                    </a>
                 </div>
         </div>
     </div>

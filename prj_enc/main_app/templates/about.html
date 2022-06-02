@@ -1,5 +1,185 @@
-<html>
+<!doctype html>
+<html lang="en">
 
-<h3>Not yet ready</h3>
+<head>
 
-</html>
+    <title>Green Spaces Irrigation System</title>
+
+    {% load static %}
+    <link href='{% static "/css/style.css" %}' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+    
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo_emp">
+            <img src="{% static 'images/logo.png'%}" class="logo">
+        </div>
+        <div class="nav_list_emp">
+            <ul class="nav_list">
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'home' %}">
+                        <h2 class="nav_text">
+                            Accueil
+                        </h2>
+                    </a>
+                </li>
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'about' %}">
+                        <h2 class="nav_text">
+                            Presentation
+                        </h2>
+                    </a>
+                </li>
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'carte' %}">
+                        <h2 class="nav_text">
+                            Carte
+                        </h2>
+                    </a>
+                </li>
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'about' %}">
+                        <h2 class="nav_text">
+                            Qui sommes nous?
+                        </h2>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="login_emp">
+            
+                <div class="nav_list_item login_btn">
+                    <a class="link" href="{% url 'login' %}">
+                        <h2 class="nav_text">
+                            {%if logged == None%}
+                            Se connecter
+                            {%endif%}
+                            {%if logged != None%}
+                            {{mail}}
+                            {%endif%}
+                        </h2>
+                    </a>
+                </div>
+        </div>
+    </div>
+    <div class="settings_pan hidden">
+        <div class="end" style="width:95%;">
+            <img src="{% static 'images/cancel.png'%}" alt="" class="close_img">
+        </div>
+        <div class="head_stg">
+            <div class="stg_icon">
+            <h2 class="stg-title">
+                Envoyer mission
+            </h2>
+            </div>
+        </div>
+        <form method="POST" class="form_modal">
+            {%csrf_token%}
+            <div class="row_form" style="width: 60%;">
+                <h2 class="label">Nom</h2>
+                <select name="techniciens" style="height: 2rem;border: 0;border-bottom:1px solid #3a4c5a;padding: 7px 0;width: 12rem;">
+                    {% for i in technicien%}
+                    <option value="{{i.id_utilisateur}}">{{i.mail}}</option>
+                    {% endfor %}
+                    </select>
+            </div>
+            <div class="row_form" style="width: 60%;">
+                <h2 class="label">Nom</h2>
+                <select name="plante" style="height: 2rem;border: 0;border-bottom:1px solid #3a4c5a;padding: 7px 0;width: 12rem;">
+                    {% for i in zones_list%}
+                    <option value="{{i.id}}">{{i.nom}}</option>
+                    {% endfor %}
+                    </select>
+            </div>            
+            <div class="center">
+                <button type="submit" class="btn-primary">Envoyer</button>
+            </div>
+        </form>
+    </div>
+    <div class="main_view_team">
+        <div class="row_team" style="margin-bottom:7rem;">
+            <div class="team_member">
+                <div class="team_member_left">
+                    <img src="{% static 'images/Group1.svg'%}" alt="" srcset="" class="avatar">
+                </div>
+                <div class="team_member_right">
+                    <h2 class="team_member_right_title">AL AMRANI Youssef</h2>
+                    <h2 class="team_member_right_text">Data & Software engineering student</h2>
+                    <div class="social_media">
+                        <a href="https://www.linkedin.com/in/youssef-al-amrani?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAADf5Tp4BY18aasCm-b62ktCMkE8dPSrxg7E&lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_all%3BsD7VIZ4hT5WH96vI4o7g4Q%3D%3D" class="link">
+                            <img src="{% static 'images/linkedin-svgrepo-com.svg'%}" alt="" srcset="" class="social_media_logo">
+                        </a>
+                        <a href="https://github.com/DijkstraFTW" class="link">
+                            <img src="{% static 'images/github-svgrepo-com.svg'%}" alt="" srcset="" class="social_media_logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="team_member">
+                <div class="team_member_left">
+                    <img src="{% static 'images/Group2.svg'%}" alt="" srcset="" class="avatar">
+                </div>
+                <div class="team_member_right">
+                    <h2 class="team_member_right_title">AKHERRAZ Hajar</h2>
+                    <h2 class="team_member_right_text">Data & Software engineering student</h2>
+                    <div class="social_media">
+                        <a href="https://www.linkedin.com/in/hajar-akherraz-269997209?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAADUBRbEBUcyk-E-_KuQX0ZsejfjWVsoeIUY&lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_all%3BfSIsmcI2S%2BKh1g%2BZluILdg%3D%3D" class="link">
+                            <img src="{% static 'images/linkedin-svgrepo-com.svg'%}" alt="" srcset="" class="social_media_logo">
+                        </a>
+                        <a href="https://github.com/HajarAkherraz" class="link">
+                            <img src="{% static 'images/github-svgrepo-com.svg'%}" alt="" srcset="" class="social_media_logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row_team">
+            <div class="team_member">
+                <div class="team_member_left">
+                    <img src="{% static 'images/Group4.svg'%}" alt="" srcset="" class="avatar">
+                </div>
+                <div class="team_member_right">
+                    <h2 class="team_member_right_title">AMAZIANE Oumaima</h2>
+                    <h2 class="team_member_right_text">Data & Software engineering student</h2>
+                    <div class="social_media">
+                        <a href="https://www.linkedin.com/in/oumaima-amaziane-5126b31ba?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAADMBOh4Br-15-hpkhAV-nhE_wSk70H9mDUY&lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_all%3BIydCsBIRTP6UDzIhDJ8GXA%3D%3D" class="link">
+                            <img src="{% static 'images/linkedin-svgrepo-com.svg'%}" alt="" srcset="" class="social_media_logo">
+                        </a>
+                        <a href="https://github.com/Oumaimamaz" class="link">
+                            <img src="{% static 'images/github-svgrepo-com.svg'%}" alt="" srcset="" class="social_media_logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="team_member">
+                <div class="team_member_left">
+                    <img src="{% static 'images/Group3.svg'%}" alt="" srcset="" class="avatar">
+                </div>
+                <div class="team_member_right">
+                    <h2 class="team_member_right_title">BENKHADDA Mohamed Yassine</h2>
+                    <h2 class="team_member_right_text">Data & Software engineering student</h2>
+                    <div class="social_media">
+                        <a href="https://www.linkedin.com/in/mybenkhadda/" class="link">
+                            <img src="{% static 'images/linkedin-svgrepo-com.svg'%}" alt="" srcset="" class="social_media_logo">
+                        </a>
+                        <a href="https://github.com/mohamed-yassine-benkhadda" class="link">
+                            <img src="{% static 'images/github-svgrepo-com.svg'%}" alt="" srcset="" class="social_media_logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

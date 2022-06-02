@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <title>{{zones_list.nom}}</title>
+
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+
+</head>
+
+<body>
+    <form method="GET" style="display: none">
+        <input type="text" name="id">
+    </form>
+    <div class="header">
+        <div class="logo_emp">
+            <img src="{% static 'images/logo.png'%}" class="logo">
+        </div>
+        <div class="nav_list_emp">
+            <ul class="nav_list">
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'home' %}">
+                        <h2 class="nav_text">
+                            Accueil
+                        </h2>
+                    </a>
+                </li>
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'about' %}">
+                        <h2 class="nav_text">
+                            Presentation
+                        </h2>
+                    </a>
+                </li>
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'carte' %}">
+                        <h2 class="nav_text">
+                            Carte
+                        </h2>
+                    </a>
+                </li>
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'about' %}">
+                        <h2 class="nav_text">
+                            Qui sommes nous?
+                        </h2>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="login_emp">
+            
+                <div class="nav_list_item login_btn">
+                    <a class="link" href="{% url 'login' %}">
+                        <h2 class="nav_text">
+                            {%if logged == None%}
+                            Se connecter
+                            {%endif%}
+                            {%if logged != None%}
+                            {{mail}}
+                            {%endif%}
+                        </h2>
+                    </a>
+                </div>
+        </div>
+    </div>
+    <div class="main_view2">
+        <div class="center">
+            <div class="header_main">
+                <h2 class="main_view_title">
+                    {{zones_list.nom}}
+                </h2> 
+                <a class="button-add" style="font: size 1.2em; margin-right: 2rem;" href="{% url "irrigation" %}?id={{zones_list.id}}">Irrigation <img src="{% static 'images/plant-pot-plant-svgrepo-com.svg'%}" style="width:1.2rem;height:auto;"></a>
+            </div>
+        </div>
+        <div class="center">
+            <img src="{% static zones_list.image %}" alt="" srcset="" class="main_image_zone">
+        </div>
+        <div class="center">
+            <ul class="zone_feautures">
+                {% if zones_list.public == "Public" %}
+                    <li class="feauture_item_zone">
+                        <img src="{% static 'images/crowd.png'%}" alt="" srcset="" class="feature_icon_zone">
+                        <h2 class="feauture_text">Public</h2>
+                    </li>
+                    {% endif %}
+                    {% if zones_list.public == "Private" %}
+                    <li class="feauture_item_zone">
+                        <img src="{% static 'images/user (1).png'%}" alt="" srcset="" class="feature_icon_zone">
+                        <h2 class="feauture_text">Privé</h2>
+                    </li>
+                    {% endif %}
+                    {% if zones_list.picnic == 1 %}
+                    <li class="feauture_item_zone">
+                        <img src="{% static 'images/picnic-basket.png'%}" alt="" srcset="" class="feature_icon_zone">
+                        <h2 class="feauture_text">Picnic</h2>
+                    </li>
+                    {% endif %}
+                    {% if zones_list.manger == 1 %}
+                    <li class="feauture_item_zone">
+                        <img src="{% static 'images/restaurant.png'%}" alt="" srcset="" class="feature_icon_zone">
+                        <h2 class="feauture_text">Manger</h2>
+                    </li>
+                    {% endif %}
+                    {% if zones_list.camping == 1 %}
+                    <li class="feauture_item_zone">
+                        <img src="{% static 'images/tent.png'%}" alt="" srcset="" class="feature_icon_zone">
+                        <h2 class="feauture_text">camping</h2>
+                    </li>
+                    {% endif %}
+            </ul>
+        </div>
+        <div class="center">
+            <p class="introduction">
+                {{zones_list.description}}
+            </p>
+        </div>
+        <div class="center">
+            <h2 class="main_view_zone_text">
+                {{zones_list.text}}
+            </h2>
+        </div>
+    </div>
+    <div class="main_view3">
+        <div class="center">
+            <h2 class="main_view_title">
+                Carte
+            </h2>
+        </div>
+        <div class="center">
+            <div id="map" class="map"
+    style=" width: 98%; height: 80vh; ">
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGZnZGZzZmdkaDc1NyIsImEiOiJjbDJ5c3dpNWgwMHBnM2xxdXJkeW11cGV1In0.4otSMnYmdyGSoH9-T-7m9A';
+        mapboxgl.setRTLTextPlugin(
+            'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+            null,
+            true // Lazy load the plugin
+        );
+        var data = [];
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/dfgdfsfgdh757/cl2nxfvd8004414qxer8hjign', // style URL 
+            center: [{{zones_list.lon}},{{zones_list.lat}}], // starting position [lng, lat]  NB : Removed because error when empty query
+            zoom: 13, // starting zoom
+            attributionControl: false
+        });
+        
+        map.on('load', () => {
+            // Add an image to use as a custom marker
+            map.loadImage(
+                "{% static 'images/park.png'%}",
+                (error, image) => {
+                    if (error) throw error;
+                    map.addImage('custom-marker', image);
+                    // Add a GeoJSON source with 2 points
+                    map.addSource('points', {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': [
+                            {
+                                'type': 'Feature',
+                                'geometry': {
+                                    'type': 'Point',
+                            'coordinates': [{{zones_list.lon}}, {{zones_list.lat}}]
+                                },
+                                'properties': {
+                                    'title': "{{zones_list.nom}}",
+                                }
+                            },
+                            ]
+                        }
+                    });
+
+        // Add a symbol layer
+        map.addLayer({
+            'id': 'points',
+            'type': 'symbol',
+            'source': 'points',
+            'layout': {
+                'icon-image': 'custom-marker',
+                'icon-size': 0.10,
+                // get the title name from the source's "title" property
+                'text-field': ['get', 'title'],
+                'text-font': [
+                    'Open Sans Semibold',
+                    'Arial Unicode MS Bold'
+                ],
+                'text-offset': [0, 1.7],
+                'text-anchor': 'top'
+            }
+        });
+
+                    // When a click event occurs on a feature in the places layer, open a popup at the
+                    // location of the feature, with description HTML from its properties.
+                    map.on('click', 'points', (e) => {
+                        // Copy coordinates array.
+                        const coordinates = e.features[0].geometry.coordinates.slice();
+                        const description = e.features[0].properties.description;
+
+                        // Ensure that if the map is zoomed out such that multiple
+                        // copies of the feature are visible, the popup appears
+                        // over the copy being pointed to.
+                        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                        }
+
+                        new mapboxgl.Popup({
+                                closeButton: false
+                            })
+                            .addClassName("mapboxgl-popup")
+                            .setMaxWidth('400')
+                            .setLngLat(coordinates)
+                            .setHTML(description)
+                            .addTo(map);
+                    });
+
+        // Change the cursor to a pointer when the mouse is over the places layer.
+        map.on('mouseenter', 'points', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on('mouseleave', 'points', () => {
+            map.getCanvas().style.cursor = '';
+        });
+                }
+            );
+        });
+
+        // Add zoom and rotation controls to the map.
+        map.addControl(new mapboxgl.NavigationControl());
+
+        // Add GPS
+        map.addControl( new mapboxgl.GeolocateControl({
+            positionOptions: {
+            enableHighAccuracy: true
+            },
+            // When active the map will receive updates to the device's location as it changes.
+            trackUserLocation: true,
+            // Draw an arrow next to the location dot to indicate which direction the device is heading.
+            showUserHeading: true
+        })
+        );
+
+
+        data.forEach(e => {
+            var marker = new mapboxgl.Marker()
+                .setLngLat(e)
+        })
+    </script>
+
+
+
+    
+    </div>
+        </div>
+    </div>
+    <div class="main_view3">
+        <div class="center">
+            <h2 class="main_view_title">
+                Plantes
+            </h2>
+        </div>
+        <div class="center">
+            <ul class="main_view3_list">
+                {%for zone in zones %}
+                <li class="main_view3_list_item">
+                    <h2 class="main_view3_list_item_title">
+                        {{zone.pnom}}
+                    </h2>
+                    <img src="{% static zone.image %}" alt="" srcset="" class="main_view3_list_item_image" style="margin-bottom: 1rem;">
+                    <p class="main_view3_list_item_text">
+                        {{zone.pdescription}}
+                    </p>
+                </li>
+                {%endfor%}
+            </ul>
+        </div>
+    </div>
+</body>

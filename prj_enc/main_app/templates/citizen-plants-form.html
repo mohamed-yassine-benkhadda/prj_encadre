@@ -3,79 +3,107 @@
 
 <head>
 
-    <title>Plants Form</title>
+    <title>Ajouter une demande</title>
 
     {% load static %}
-    <link href='{% static "/css/styles.css" %}' rel='stylesheet' />
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <a href="{% url 'home' %}"><img class="navbar-brand" src='{% static "/images/logo.png" %}' style="height: 70px;"></img>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'citizen_green_spaces' %}">Green Spaces<span class="sr-only">(current)</span></a>
+    
+</head>
+
+
+
+
+<body>
+    <div class="header">
+        <div class="logo_emp">
+            <img src="{% static 'images/logo.png'%}" class="logo">
+        </div>
+        <div class="nav_list_emp">
+            <ul class="nav_list">
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'home' %}">
+                        <h2 class="nav_text">
+                            Accueil
+                        </h2>
+                    </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'citizen_private_form' %}">Private Green Spaces Form<span class="sr-only"></span></a>
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'about' %}">
+                        <h2 class="nav_text">
+                            Presentation
+                        </h2>
+                    </a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'citizen_plants_form' %}">Planting Plants Form<span class="sr-only"></span></a>
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'carte' %}">
+                        <h2 class="nav_text">
+                            Carte
+                        </h2>
+                    </a>
                 </li>
-            </ul>
-
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="" class="nav-link"> Logout</a>
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'about' %}">
+                        <h2 class="nav_text">
+                            Qui sommes nous?
+                        </h2>
+                    </a>
                 </li>
             </ul>
         </div>
-    </nav>
-</head>
-
-<body>
-
-    <div class="container mt-4">
-        <h1>
-            Plant Your Plants :
-        </h1>
-
-
-        <form action="" method="GET" style="position: relative; top:50px; margin: auto;">
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Name</label>
-                <input name="name" type="text" class="form-control" id="name" placeholder="Plant">
+        <div class="login_emp">
+            
+                <div class="nav_list_item login_btn">
+                    <a class="link" href="{% url 'login' %}">
+                        <h2 class="nav_text">
+                            {%if logged == None%}
+                            Se connecter
+                            {%endif%}
+                            {%if logged != None%}
+                            {{mail}}
+                            {%endif%}
+                        </h2>
+                    </a>
+                </div>
+        </div>
+    </div>
+    <div class="main_view2">
+        <h2 class="main_view_title" style="margin: 2rem 2rem 1rem 2rem;">
+            Ajouter une demande
+        </h2>
+        <div class="center">
+        <form action="" method="POST" style="width: 60%;">
+            {%csrf_token%}
+            <div class="row_form">
+                <label for="exampleFormControlSelect1">Type</label>
+                <select name="type" class="form-control" id="public" style="width:20rem;border: 0;border-bottom:1px solid #3a4c5a;padding: 7px 0;height: 2rem;">
+                <option>Arroser</option>
+                <option>Planter</option>
+              </select>
             </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Water needs</label>
-                <input name="water" type="number" class="form-control" id="water" placeholder="0 L">
-            </div>
-            <div class="form-group">
+            <div class="row_form">
                 <label for="bazr">Description</label>
-                <textarea name="description" class="form-control" placeholder="Describe your plant" id="description" rows="3"></textarea>
+                <textarea style="width:20rem;" name="description" class="form-control" placeholder="Describe your green space" id="description" rows="3"></textarea>
             </div>
-
-            <label for="bazr">Image</label>
-            <div class="custom-file" style="margin-top: 10px;margin-bottom: 30px;">
-                <label class="custom-file-label" for="customFileLang">Choose an Image</label>
-                <input name="image" type="file" class="custom-file-input" id="image">
+            <div class="row_form">
+                <label for="exampleFormControlInput1">Adresse</label>
+                <input style="width:20rem;" name="address" type="text" class="form-control" id="address" placeholder="Address">
             </div>
-
-            <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+            <div class="row_form">
+                <label for="exampleFormControlInput1">Jour</label>
+                <input style="width:20rem;" name="date" type="datetime-local" class="form-control" id="date">
+            </div>
+            <div class="center">
+            <button style="margin-bottom: 40px;" type="submit" value="submit" class="btn btn-primary">Ajouter</button>
+        </div>
         </form>
+    </div>
+    </div>
 </body>

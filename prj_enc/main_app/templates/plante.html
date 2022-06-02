@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <title>Green Spaces Management</title>
+
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+    
+</head>
+
+
+
+
+<body>
+    <div class="header">
+        <div class="logo_emp">
+            <img src="{% static 'images/logo.png'%}" class="logo">
+        </div>
+        <div class="nav_list_emp">
+            <ul class="nav_list">
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'home' %}">
+                        <h2 class="nav_text">
+                            Accueil
+                        </h2>
+                    </a>
+                </li>
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'about' %}">
+                        <h2 class="nav_text">
+                            Presentation
+                        </h2>
+                    </a>
+                </li>
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'carte' %}">
+                        <h2 class="nav_text">
+                            Carte
+                        </h2>
+                    </a>
+                </li>
+                <li class="nav_list_item">
+                    <a class="link" href="{% url 'about' %}">
+                        <h2 class="nav_text">
+                            Qui sommes nous?
+                        </h2>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="login_emp">
+            
+                <div class="nav_list_item login_btn">
+                    <a class="link" href="{% url 'login' %}">
+                        <h2 class="nav_text">
+                            {%if logged == None%}
+                            Se connecter
+                            {%endif%}
+                            {%if logged != None%}
+                            {{mail}}
+                            {%endif%}
+                        </h2>
+                    </a>
+                </div>
+        </div>
+    </div>
+    <div class="main_view2">
+        <h2 class="main_view_title" style="margin: 2rem 2rem 1rem 2rem;">
+            Ajouter une plante
+        </h2>
+        <div class="center">
+        <form action="" method="POST" style="width: 60%;">
+            {%csrf_token%}
+            <div class="row_form">
+                <label for="exampleFormControlInput1">Nom</label>
+                <input style="width:20rem;" name="name" type="text" class="form-control" id="name" placeholder="Farm">
+            </div>
+            <div class="row_form">
+                <label for="bazr">Description</label>
+                <textarea style="width:20rem;" name="description" class="form-control" placeholder="Describe your green space" id="description" rows="3"></textarea>
+            </div>
+            <div class="row_form">
+            <label for="bazr">Image</label>
+            <div class="custom-file" style="margin-top: 10px;margin-bottom: 30px;">
+                <input style="width:20rem;" name="image" type="file" class="custom-file-input" id="image">
+            </div>
+            </div>
+            <div class="center">
+            <button style="margin-bottom: 40px;" type="submit" value="submit" class="btn btn-primary">Ajouter</button>
+        </div>
+        </form>
+    </div>
+    </div>
+</body>

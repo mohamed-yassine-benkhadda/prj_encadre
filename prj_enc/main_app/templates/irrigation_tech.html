@@ -22,33 +22,48 @@
         <div class="nav_list_emp">
             <ul class="nav_list">
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Accueil
-                    </h2>
+                    <a class="link" href="{% url 'home' %}">
+                        <h2 class="nav_text">
+                            Accueil
+                        </h2>
+                    </a>
                 </li>
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Presentation
-                    </h2>
+                    <a class="link" href="{% url 'about' %}">
+                        <h2 class="nav_text">
+                            Presentation
+                        </h2>
+                    </a>
                 </li>
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Carte
-                    </h2>
+                    <a class="link" href="{% url 'carte' %}">
+                        <h2 class="nav_text">
+                            Carte
+                        </h2>
+                    </a>
                 </li>
                 <li class="nav_list_item">
-                    <h2 class="nav_text">
-                        Qui sommes nous?
-                    </h2>
+                    <a class="link" href="{% url 'about' %}">
+                        <h2 class="nav_text">
+                            Qui sommes nous?
+                        </h2>
+                    </a>
                 </li>
             </ul>
         </div>
         <div class="login_emp">
             
                 <div class="nav_list_item login_btn">
-                    <h2 class="nav_text">
-                        Se connecter
-                    </h2>
+                    <a class="link" href="{% url 'login' %}">
+                        <h2 class="nav_text">
+                            {%if logged == None%}
+                            Se connecter
+                            {%endif%}
+                            {%if logged != None%}
+                            {{mail}}
+                            {%endif%}
+                        </h2>
+                    </a>
                 </div>
         </div>
     </div>
@@ -121,10 +136,9 @@
                                     elem.style.backgroundColor = "#B81D13";
                                 }
                             </script>
-                            <td style="width: 39.5%;"><h2 class="table_row_text">{{zone.pnom}}</h2></td>
-                            <td style="width: 30%;"><h2 class="table_row_text">{{zone.der}}</h2></td>
-                            <td style="width: 30%;"><h2 class="table_row_text"></h2>
-                                </div>
+                            <td style="width: 39.5%;padding-left:1rem;"><h2 class="table_row_text">{{zone.pnom}}</h2></td>
+                            <td style="width: 30%;"><h2 class="table_row_text"><div class="center">{{zone.der}}</div></h2></td>
+                            <td style="width: 30%;">
                                 <div class="actions" style="width: 100%;display: flex;justify-content: center;align-items:center;">
                                 <a class="button-green" style="font: size 1.2em;" href="{% url 'irrigation' %}?id={{zone.zid}}&pz={{zone.id}}"><h2 class="table_row_text">Valider</h2></a>
                                 </div>
